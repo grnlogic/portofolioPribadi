@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fajar Geran's Portfolio</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <canvas id="particles"></canvas>
+
+    <header>
+      <div class="container">
+        <div class="logo">F</div>
+        <div class="mobile-menu-btn">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <nav>
+          <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#tech-stack">Tech Stack</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#certifications">Certifications</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </nav>
+        <div class="overlay"></div>
+      </div>
+    </header>
+
+    <section id="home" class="hero">
+      <div class="container">
+        <div class="hero-content">
+          <h1 class="floating">Hello, I'm <span>Fajar Geran</span></h1>
+          <h2 class="floating">
+            Fullstack Developer & Cybersecurity Enthusiast
+          </h2>
+          <p class="floating">
+            From Indonesia — Exploring the intersection of web development and
+            ethical hacking. Passionate about turning ideas into digital
+            solutions.
+          </p>
+          <div class="hero-buttons">
+            <a href="#projects" class="btn primary floating">View My Work</a>
+            <a href="#contact" class="btn secondary floating">Contact Me</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="about reveal">
+      <div class="container">
+        <h2 class="section-title">About Me</h2>
+        <div class="about-content">
+          <div class="about-image reveal">
+            <div class="image-container">
+              <img
+                src="images/1000700327.jpg"
+                alt="Fajar Geran Profile Photo"
+              />
+            </div>
+          </div>
+          <div class="about-text reveal">
+            <h3>Who am I?</h3>
+            <p>
+              Studying at Siliwangi University<br />
+              Currently learning Fullstack Web Development (React + Spring
+              Boot)<br />
+              Into Cybersecurity, Ethical Hacking & Reverse Engineering<br />
+              Enjoy Video Editing and creative storytelling<br />
+              Always excited to learn new tech and improve myself
+            </p>
+
+            <h3>Currently Exploring</h3>
+            <p>
+              Advanced Spring Boot (JWT, Security)<br />
+              React Hooks & TailwindCSS<br />
+              Deployment via Railway & Docker<br />
+              Pentesting tools: Metasploit, Frida, Objection
+            </p>
+
+            <h3>My Skills</h3>
+            <div class="skills">
+              <div class="skill">
+                <span>Java/Spring Boot</span>
+                <div class="skill-bar">
+                  <div class="skill-level" style="width: 90%"></div>
+                </div>
+              </div>
+              <div class="skill">
+                <span>JavaScript/TypeScript</span>
+                <div class="skill-bar">
+                  <div class="skill-level" style="width: 85%"></div>
+                </div>
+              </div>
+              <div class="skill">
+                <span>React/Tailwind CSS</span>
+                <div class="skill-bar">
+                  <div class="skill-level" style="width: 80%"></div>
+                </div>
+              </div>
+              <div class="skill">
+                <span>Cybersecurity</span>
+                <div class="skill-bar">
+                  <div class="skill-level" style="width: 75%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tech-stack" class="tech-stack reveal">
+      <div class="container">
+        <h2 class="section-title">Tech Stack</h2>
+        <div class="tech-grid">
+          <div class="tech-card reveal">
+            <div class="tech-icon">
+              <i class="tech-symbol">&#60;/&#62;</i>
+            </div>
+            <h3>Languages & Frameworks</h3>
+            <ul class="tech-list">
+              <li>Java</li>
+              <li>TypeScript</li>
+              <li>JavaScript</li>
+              <li>React</li>
+              <li>Tailwind CSS</li>
+              <li>Spring Boot</li>
+            </ul>
+          </div>
+
+          <div class="tech-card reveal">
+            <div class="tech-icon">
+              <i class="tech-symbol">&#128202;</i>
+            </div>
+            <h3>Database & Backend</h3>
+            <ul class="tech-list">
+              <li>PostgreSQL</li>
+              <li>JWT Auth</li>
+              <li>REST API</li>
+              <li>Swagger</li>
+            </ul>
+          </div>
+
+          <div class="tech-card reveal">
+            <div class="tech-icon">
+              <i class="tech-symbol">&#128736;</i>
+            </div>
+            <h3>DevOps & Tools</h3>
+            <ul class="tech-list">
+              <li>Docker</li>
+              <li>Git</li>
+              <li>Ngrok</li>
+              <li>Apache</li>
+            </ul>
+          </div>
+
+          <div class="tech-card reveal">
+            <div class="tech-icon">
+              <i class="tech-symbol">&#128187;</i>
+            </div>
+            <h3>Operating Systems</h3>
+            <ul class="tech-list">
+              <li>Ubuntu</li>
+              <li>Kali Linux</li>
+            </ul>
+          </div>
+
+          <div class="tech-card reveal">
+            <div class="tech-icon">
+              <i class="tech-symbol">&#127916;</i>
+            </div>
+            <h3>Creative Tools</h3>
+            <ul class="tech-list">
+              <li>Adobe After Effects</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" class="projects">
+      <div class="container">
+        <h2 class="section-title">My Projects</h2>
+        <div class="project-grid">
+          <div class="project-card reveal">
+            <div class="project-image">
+              <img
+                src="/images/Screenshot from 2025-05-02 09-35-48.png"
+                alt="Kos-App Project"
+              />
+            </div>
+            <div class="project-info">
+              <h3>Kos-App (Manajemen Kost)</h3>
+              <p>
+                Aplikasi fullstack untuk mengelola penghuni, pembayaran, dan
+                tugas-tugas operasional kost.
+              </p>
+              <div class="project-tags">
+                <span>React</span>
+                <span>Spring Boot</span>
+                <span>PostgreSQL</span>
+                <span>JWT</span>
+                <span>Docker</span>
+              </div>
+              <div class="project-links">
+                <a href="#" class="btn small">View Project</a>
+                <a href="#" class="btn small secondary">Code</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-card reveal">
+            <div class="project-image">
+              <img
+                src="/images/Screenshot from 2025-05-02 09-47-57.png"
+                alt="Digital Signature Project"
+              />
+            </div>
+            <div class="project-info">
+              <h3>Digital Signature Backend</h3>
+              <p>
+                Backend untuk membuat dan memverifikasi tanda tangan digital
+                menggunakan algoritma RSA.
+              </p>
+              <div class="project-tags">
+                <span>Spring Boot</span>
+                <span>RSA</span>
+                <span>Swagger</span>
+                <span>REST API</span>
+              </div>
+              <div class="project-links">
+                <a href="#" class="btn small">View Project</a>
+                <a href="#" class="btn small secondary">Code</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-card reveal">
+            <div class="project-image">
+              <img
+                src="/images/Screenshot from 2025-05-01 23-35-28.png"
+                alt="Hack-Lab Project"
+              />
+            </div>
+            <div class="project-info">
+              <h3>Hack-Lab: Web Penetration Testing Simulator</h3>
+              <p>
+                An educational tool designed to help security enthusiasts and
+                developers understand common web vulnerabilities through a
+                practical, hands-on approach. This project simulates vulnerable
+                web applications with a controlled environment to practice
+                ethical hacking techniques.
+              </p>
+              <div class="project-tags">
+                <span>Python</span>
+                <span>Flask</span>
+                <span>Terminal GUI</span>
+                <span>OSINT Tools</span>
+              </div>
+              <div class="project-links">
+                <a href="#" class="btn small">View Project</a>
+                <a
+                  href="https://github.com/yourusername/Hack-lab"
+                  class="btn small secondary"
+                  >Code</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="certifications" class="certifications reveal">
+      <div class="container">
+        <h2 class="section-title">Certifications</h2>
+        <div class="cert-container">
+          <div class="cert-card reveal">
+            <div class="cert-logo">
+              <div class="cert-badge">D</div>
+            </div>
+            <div class="cert-details">
+              <h3>Belajar Backend dengan Spring Boot</h3>
+              <p class="cert-issuer">Dicoding</p>
+              <p class="cert-date">2024</p>
+            </div>
+          </div>
+
+          <div class="cert-card reveal">
+            <div class="cert-logo">
+              <div class="cert-badge">T</div>
+            </div>
+            <div class="cert-details">
+              <h3>Complete Beginner Path</h3>
+              <p class="cert-issuer">TryHackMe</p>
+              <p class="cert-date">2023</p>
+            </div>
+          </div>
+
+          <div class="cert-card reveal">
+            <div class="cert-logo">
+              <div class="cert-badge">H</div>
+            </div>
+            <div class="cert-details">
+              <h3>Linux Fundamentals</h3>
+              <p class="cert-issuer">HackTheBox</p>
+              <p class="cert-date">In Progress</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="contact reveal">
+      <div class="container">
+        <h2 class="section-title">Get In Touch</h2>
+        <div class="contact-container">
+          <div class="contact-info reveal">
+            <h3>Contact Information</h3>
+            <p>
+              Feel free to reach out for collaboration on open-source or fun
+              weekend projects!
+            </p>
+            <div class="info-item">
+              <span class="icon"></span>
+              <span>237006079@student.unsil.ac.id</span>
+            </div>
+            <div class="info-item">
+              <span class="icon"></span>
+              <span>Indonesia</span>
+            </div>
+            <div class="social-links">
+              <a href="#" class="social-icon">GitHub</a>
+              <a href="#" class="social-icon">LinkedIn</a>
+              <a href="#" class="social-icon">Twitter</a>
+            </div>
+          </div>
+          <div class="contact-form reveal">
+            <form>
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" required />
+              </div>
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" required />
+              </div>
+              <div class="form-group">
+                <label for="subject">Subject</label>
+                <input type="text" id="subject" required />
+              </div>
+              <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" rows="5" required></textarea>
+              </div>
+              <button type="submit" class="btn primary">Send Message</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="container">
+        <p>&copy; 2024 Fajar Geran's Portfolio. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script src="particles.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
