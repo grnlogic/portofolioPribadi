@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Auto-Reply Email</title>
+  </head>
+  <body
+    style="
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, sans-serif, Arial;
+      font-size: 16px;
+      line-height: 1.6;
+      color: #333;
+      background-color: #f9f9f9;
+    "
+  >
+    <div
+      style="
+        max-width: 600px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      "
+    >
+      <!-- Header with Avatar -->
+      <div style="text-align: left; margin-bottom: 20px">
+        <a
+          style="text-decoration: none; outline: none"
+          href="https://github.com/fajargeran"
+          target="_blank"
+        >
+          <img
+            src="https://avatars.githubusercontent.com/u/70023224?v=4"
+            style="height: 40px; border-radius: 50%; vertical-align: middle"
+            alt="Profile Avatar"
+          />
+        </a>
+      </div>
+
+      <!-- Main Content -->
+      <p
+        style="margin-top: 0; padding-top: 16px; border-top: 1px solid #eaeaea"
+      >
+        Hi {{from_name}},
+      </p>
+
+      <p style="margin-bottom: 16px">
+        Terima kasih telah menghubungi saya! Pesan kamu dengan judul
+        "<strong>{{subject}}</strong>" sudah saya terima.
+      </p>
+
+      <p style="margin-bottom: 16px">
+        Saya akan membalas atau menindaklanjuti secepatnya, biasanya dalam waktu
+        1–3 hari kerja.<br />
+        Jika ada informasi tambahan, silakan balas ke email ini.
+      </p>
+
+      <!-- Footer -->
+      <div
+        style="
+          margin-top: 30px;
+          padding-top: 16px;
+          border-top: 1px solid #eaeaea;
+          color: #666;
+        "
+      >
+        <p style="margin: 0">
+          Salam hangat,<br />
+          <strong>Fajar Geran Arifin</strong><br />
+          <a
+            href="mailto:237006079@student.unsil.ac.id"
+            style="color: #3b82f6; text-decoration: none"
+            >237006079@student.unsil.ac.id</a
+          >
+        </p>
+      </div>
+    </div>
+  </body>
+</html>

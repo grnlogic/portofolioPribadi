@@ -4,6 +4,36 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Fajar Geran's Portfolio</title>
+
+    <!-- SEO Meta Tags -->
+    <meta
+      name="description"
+      content="Fajar Geran - Fullstack Developer & Cybersecurity Enthusiast. Explore my projects, skills, and professional experience."
+    />
+    <meta
+      name="keywords"
+      content="web developer, fullstack, cybersecurity, react, spring boot, portfolio"
+    />
+    <meta name="author" content="Fajar Geran" />
+
+    <!-- Open Graph / Social Media -->
+    <meta
+      property="og:title"
+      content="Fajar Geran - Fullstack Developer & Security Enthusiast"
+    />
+    <meta
+      property="og:description"
+      content="Explore my projects and skills in web development and cybersecurity"
+    />
+    <meta
+      property="og:image"
+      content="https://avatars.githubusercontent.com/u/70023224?v=4"
+    />
+    <meta property="og:url" content="https://yourwebsite.com" />
+    <meta property="og:type" content="website" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="images/favicon.png" />
     <link rel="stylesheet" href="style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -13,11 +43,41 @@
     />
   </head>
   <body>
+    <!-- Preloader -->
+    <div id="preloader">
+      <div class="loader">
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+      </div>
+    </div>
+
     <canvas id="particles"></canvas>
 
     <header>
       <div class="container">
-        <div class="logo">F</div>
+        <div class="logo">
+          <img
+            src="https://avatars.githubusercontent.com/u/70023224?v=4"
+            alt="Fajar Geran"
+            class="logo-img"
+          />
+        </div>
+        <div class="right-controls">
+          <div class="lang-selector">
+            <select id="language-selector" aria-label="Select language">
+              <option value="en">EN</option>
+              <option value="id">ID</option>
+              <option value="ja">JP</option>
+            </select>
+          </div>
+          <div class="theme-toggle">
+            <button id="theme-toggle-btn" aria-label="Toggle dark mode">
+              <span class="sun-icon">☀️</span>
+              <span class="moon-icon">🌙</span>
+            </button>
+          </div>
+        </div>
         <div class="mobile-menu-btn">
           <span></span>
           <span></span>
@@ -25,12 +85,22 @@
         </div>
         <nav>
           <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#tech-stack">Tech Stack</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#certifications">Certifications</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="#home" data-i18n="nav_home">Home</a></li>
+            <li><a href="#about" data-i18n="nav_about">About</a></li>
+            <li><a href="#tech-stack" data-i18n="nav_tech">Tech Stack</a></li>
+            <li><a href="#projects" data-i18n="nav_projects">Projects</a></li>
+            <li><a href="#blog" data-i18n="nav_blog">Blog</a></li>
+            <li>
+              <a href="#testimonials" data-i18n="nav_testimonials"
+                >Testimonials</a
+              >
+            </li>
+            <li>
+              <a href="#certifications" data-i18n="nav_certifications"
+                >Certifications</a
+              >
+            </li>
+            <li><a href="#contact" data-i18n="nav_contact">Contact</a></li>
           </ul>
         </nav>
         <div class="overlay"></div>
@@ -40,18 +110,30 @@
     <section id="home" class="hero">
       <div class="container">
         <div class="hero-content">
-          <h1 class="floating">Hello, I'm <span>Fajar Geran</span></h1>
-          <h2 class="floating">
+          <h1 class="floating">
+            <span data-i18n="hello">Hello, I'm</span> <span>Fajar Geran</span>
+          </h1>
+          <h2 class="floating" data-i18n="profession">
             Fullstack Developer & Cybersecurity Enthusiast
           </h2>
-          <p class="floating">
+          <p class="floating" data-i18n="description">
             From Indonesia — Exploring the intersection of web development and
             ethical hacking. Passionate about turning ideas into digital
             solutions.
           </p>
           <div class="hero-buttons">
-            <a href="#projects" class="btn primary floating">View My Work</a>
-            <a href="#contact" class="btn secondary floating">Contact Me</a>
+            <a
+              href="#projects"
+              class="btn primary floating"
+              data-i18n="btn_view_work"
+              >View My Work</a
+            >
+            <a
+              href="#contact"
+              class="btn secondary floating"
+              data-i18n="btn_contact"
+              >Contact Me</a
+            >
           </div>
         </div>
       </div>
@@ -59,7 +141,7 @@
 
     <section id="about" class="about reveal">
       <div class="container">
-        <h2 class="section-title">About Me</h2>
+        <h2 class="section-title" data-i18n="about_me">About Me</h2>
         <div class="about-content">
           <div class="about-image reveal">
             <div class="image-container">
@@ -70,25 +152,58 @@
             </div>
           </div>
           <div class="about-text reveal">
-            <h3>Who am I?</h3>
+            <h3 data-i18n="who_am_i">Who am I?</h3>
             <p>
-              Studying at Siliwangi University<br />
-              Currently learning Fullstack Web Development (React + Spring
-              Boot)<br />
-              Into Cybersecurity, Ethical Hacking & Reverse Engineering<br />
-              Enjoy Video Editing and creative storytelling<br />
-              Always excited to learn new tech and improve myself
+              <span data-i18n="bio_line1">Studying at Siliwangi University</span
+              ><br />
+              <span data-i18n="bio_line2"
+                >Currently learning Fullstack Web Development (React + Spring
+                Boot)</span
+              ><br />
+              <span data-i18n="bio_line3"
+                >Into Cybersecurity, Ethical Hacking & Reverse Engineering</span
+              ><br />
+              <span data-i18n="bio_line4"
+                >Enjoy Video Editing and creative storytelling</span
+              ><br />
+              <span data-i18n="bio_line5"
+                >Always excited to learn new tech and improve myself</span
+              >
             </p>
 
-            <h3>Currently Exploring</h3>
+            <div class="about-buttons">
+              <a
+                href="files/Fajar_Geran_CV.pdf"
+                class="btn primary"
+                download
+                data-i18n="download_cv"
+              >
+                <i class="download-icon">📄</i> Download CV
+              </a>
+              <a
+                href="https://github.com/grnlogic"
+                class="btn secondary"
+                target="_blank"
+                data-i18n="view_github"
+              >
+                <i class="github-icon">&#128187;</i> GitHub Profile
+              </a>
+            </div>
+
+            <h3 data-i18n="exploring">Currently Exploring</h3>
             <p>
-              Advanced Spring Boot (JWT, Security)<br />
-              React Hooks & TailwindCSS<br />
-              Deployment via Railway & Docker<br />
-              Pentesting tools: Metasploit, Frida, Objection
+              <span data-i18n="exp_line1"
+                >Advanced Spring Boot (JWT, Security)</span
+              ><br />
+              <span data-i18n="exp_line2">React Hooks & TailwindCSS</span><br />
+              <span data-i18n="exp_line3">Deployment via Railway & Docker</span
+              ><br />
+              <span data-i18n="exp_line4"
+                >Pentesting tools: Metasploit, Frida, Objection</span
+              >
             </p>
 
-            <h3>My Skills</h3>
+            <h3 data-i18n="my_skills">My Skills</h3>
             <div class="skills">
               <div class="skill">
                 <span>Java/Spring Boot</span>
@@ -114,6 +229,74 @@
                   <div class="skill-level" style="width: 75%"></div>
                 </div>
               </div>
+
+              <!-- Detailed skills chart -->
+              <div class="skills-chart-container">
+                <h4 data-i18n="detailed_skills">Detailed Skills Breakdown</h4>
+                <div class="skills-chart">
+                  <div class="skills-category">
+                    <h5>Frontend</h5>
+                    <div class="chart-skills">
+                      <div class="chart-skill" style="--skill-level: 90%">
+                        <span class="skill-name">React</span>
+                        <span class="skill-percent">90%</span>
+                      </div>
+                      <div class="chart-skill" style="--skill-level: 85%">
+                        <span class="skill-name">JavaScript</span>
+                        <span class="skill-percent">85%</span>
+                      </div>
+                      <div class="chart-skill" style="--skill-level: 80%">
+                        <span class="skill-name">TypeScript</span>
+                        <span class="skill-percent">80%</span>
+                      </div>
+                      <div class="chart-skill" style="--skill-level: 75%">
+                        <span class="skill-name">CSS/SCSS</span>
+                        <span class="skill-percent">75%</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="skills-category">
+                    <h5>Backend</h5>
+                    <div class="chart-skills">
+                      <div class="chart-skill" style="--skill-level: 90%">
+                        <span class="skill-name">Spring Boot</span>
+                        <span class="skill-percent">90%</span>
+                      </div>
+                      <div class="chart-skill" style="--skill-level: 85%">
+                        <span class="skill-name">Java</span>
+                        <span class="skill-percent">85%</span>
+                      </div>
+                      <div class="chart-skill" style="--skill-level: 75%">
+                        <span class="skill-name">RESTful APIs</span>
+                        <span class="skill-percent">75%</span>
+                      </div>
+                      <div class="chart-skill" style="--skill-level: 70%">
+                        <span class="skill-name">PostgreSQL</span>
+                        <span class="skill-percent">70%</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="skills-category">
+                    <h5>Security</h5>
+                    <div class="chart-skills">
+                      <div class="chart-skill" style="--skill-level: 80%">
+                        <span class="skill-name">Penetration Testing</span>
+                        <span class="skill-percent">80%</span>
+                      </div>
+                      <div class="chart-skill" style="--skill-level: 75%">
+                        <span class="skill-name">Network Security</span>
+                        <span class="skill-percent">75%</span>
+                      </div>
+                      <div class="chart-skill" style="--skill-level: 70%">
+                        <span class="skill-name">Reverse Engineering</span>
+                        <span class="skill-percent">70%</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -122,13 +305,13 @@
 
     <section id="tech-stack" class="tech-stack reveal">
       <div class="container">
-        <h2 class="section-title">Tech Stack</h2>
+        <h2 class="section-title" data-i18n="tech_stack">Tech Stack</h2>
         <div class="tech-grid">
           <div class="tech-card reveal">
             <div class="tech-icon">
               <i class="tech-symbol">&#60;/&#62;</i>
             </div>
-            <h3>Languages & Frameworks</h3>
+            <h3 data-i18n="lang_frameworks">Languages & Frameworks</h3>
             <ul class="tech-list">
               <li>Java</li>
               <li>TypeScript</li>
@@ -143,7 +326,7 @@
             <div class="tech-icon">
               <i class="tech-symbol">&#128202;</i>
             </div>
-            <h3>Database & Backend</h3>
+            <h3 data-i18n="db_backend">Database & Backend</h3>
             <ul class="tech-list">
               <li>PostgreSQL</li>
               <li>JWT Auth</li>
@@ -156,7 +339,7 @@
             <div class="tech-icon">
               <i class="tech-symbol">&#128736;</i>
             </div>
-            <h3>DevOps & Tools</h3>
+            <h3 data-i18n="devops_tools">DevOps & Tools</h3>
             <ul class="tech-list">
               <li>Docker</li>
               <li>Git</li>
@@ -169,7 +352,7 @@
             <div class="tech-icon">
               <i class="tech-symbol">&#128187;</i>
             </div>
-            <h3>Operating Systems</h3>
+            <h3 data-i18n="os">Operating Systems</h3>
             <ul class="tech-list">
               <li>Ubuntu</li>
               <li>Kali Linux</li>
@@ -180,7 +363,7 @@
             <div class="tech-icon">
               <i class="tech-symbol">&#127916;</i>
             </div>
-            <h3>Creative Tools</h3>
+            <h3 data-i18n="creative_tools">Creative Tools</h3>
             <ul class="tech-list">
               <li>Adobe After Effects</li>
             </ul>
@@ -191,7 +374,7 @@
 
     <section id="projects" class="projects">
       <div class="container">
-        <h2 class="section-title">My Projects</h2>
+        <h2 class="section-title" data-i18n="my_projects">My Projects</h2>
         <div class="project-grid">
           <div class="project-card reveal">
             <div class="project-image">
@@ -201,8 +384,8 @@
               />
             </div>
             <div class="project-info">
-              <h3>Kos-App (Manajemen Kost)</h3>
-              <p>
+              <h3 data-i18n="kos_app_title">Kos-App (Manajemen Kost)</h3>
+              <p data-i18n="kos_app_desc">
                 Aplikasi fullstack untuk mengelola penghuni, pembayaran, dan
                 tugas-tugas operasional kost.
               </p>
@@ -214,8 +397,12 @@
                 <span>Docker</span>
               </div>
               <div class="project-links">
-                <a href="#" class="btn small">View Project</a>
-                <a href="#" class="btn small secondary">Code</a>
+                <a href="#" class="btn small" data-i18n="view_project"
+                  >View Project</a
+                >
+                <a href="#" class="btn small secondary" data-i18n="code"
+                  >Code</a
+                >
               </div>
             </div>
           </div>
@@ -228,8 +415,8 @@
               />
             </div>
             <div class="project-info">
-              <h3>Digital Signature Backend</h3>
-              <p>
+              <h3 data-i18n="digsig_title">Digital Signature Backend</h3>
+              <p data-i18n="digsig_desc">
                 Backend untuk membuat dan memverifikasi tanda tangan digital
                 menggunakan algoritma RSA.
               </p>
@@ -240,8 +427,12 @@
                 <span>REST API</span>
               </div>
               <div class="project-links">
-                <a href="#" class="btn small">View Project</a>
-                <a href="#" class="btn small secondary">Code</a>
+                <a href="#" class="btn small" data-i18n="view_project"
+                  >View Project</a
+                >
+                <a href="#" class="btn small secondary" data-i18n="code"
+                  >Code</a
+                >
               </div>
             </div>
           </div>
@@ -254,8 +445,10 @@
               />
             </div>
             <div class="project-info">
-              <h3>Hack-Lab: Web Penetration Testing Simulator</h3>
-              <p>
+              <h3 data-i18n="hacklab_title">
+                Hack-Lab: Web Penetration Testing Simulator
+              </h3>
+              <p data-i18n="hacklab_desc">
                 An educational tool designed to help security enthusiasts and
                 developers understand common web vulnerabilities through a
                 practical, hands-on approach. This project simulates vulnerable
@@ -269,10 +462,13 @@
                 <span>OSINT Tools</span>
               </div>
               <div class="project-links">
-                <a href="#" class="btn small">View Project</a>
+                <a href="#" class="btn small" data-i18n="view_project"
+                  >View Project</a
+                >
                 <a
-                  href="https://github.com/yourusername/Hack-lab"
+                  href="https://github.com/grnlogic/Hack-lab"
                   class="btn small secondary"
+                  data-i18n="code"
                   >Code</a
                 >
               </div>
@@ -282,9 +478,163 @@
       </div>
     </section>
 
+    <!-- Blog Section -->
+    <section id="blog" class="blog reveal">
+      <div class="container">
+        <h2 class="section-title" data-i18n="blog">Latest Articles</h2>
+        <div class="blog-grid">
+          <article class="blog-card reveal">
+            <div class="blog-image">
+              <img
+                src="images/blog1.jpg"
+                alt="Security article"
+                loading="lazy"
+              />
+              <div class="blog-date">
+                <span class="day">12</span>
+                <span class="month">Apr</span>
+              </div>
+            </div>
+            <div class="blog-content">
+              <h3>Securing Your Spring Boot Applications</h3>
+              <p>
+                Learn essential security practices to protect your Spring Boot
+                applications from common vulnerabilities...
+              </p>
+              <div class="blog-meta">
+                <span><i class="tag-icon">🏷️</i> Security</span>
+                <span><i class="time-icon">⏱️</i> 5 min read</span>
+              </div>
+              <a href="#" class="btn small" data-i18n="read_more">Read More</a>
+            </div>
+          </article>
+
+          <article class="blog-card reveal">
+            <div class="blog-image">
+              <img src="images/blog2.jpg" alt="React article" loading="lazy" />
+              <div class="blog-date">
+                <span class="day">28</span>
+                <span class="month">Mar</span>
+              </div>
+            </div>
+            <div class="blog-content">
+              <h3>React Performance Optimization Techniques</h3>
+              <p>
+                Discover advanced techniques to optimize React applications for
+                better user experience and faster load times...
+              </p>
+              <div class="blog-meta">
+                <span><i class="tag-icon">🏷️</i> Frontend</span>
+                <span><i class="time-icon">⏱️</i> 7 min read</span>
+              </div>
+              <a href="#" class="btn small" data-i18n="read_more">Read More</a>
+            </div>
+          </article>
+
+          <article class="blog-card reveal">
+            <div class="blog-image">
+              <img src="images/blog3.jpg" alt="Docker article" loading="lazy" />
+              <div class="blog-date">
+                <span class="day">15</span>
+                <span class="month">Mar</span>
+              </div>
+            </div>
+            <div class="blog-content">
+              <h3>Docker Deployment Best Practices</h3>
+              <p>
+                Explore best practices for containerizing your applications and
+                creating efficient Docker deployment pipelines...
+              </p>
+              <div class="blog-meta">
+                <span><i class="tag-icon">🏷️</i> DevOps</span>
+                <span><i class="time-icon">⏱️</i> 6 min read</span>
+              </div>
+              <a href="#" class="btn small" data-i18n="read_more">Read More</a>
+            </div>
+          </article>
+        </div>
+
+        <div class="blog-more">
+          <a href="#" class="btn primary" data-i18n="view_all_posts"
+            >View All Posts</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials reveal">
+      <div class="container">
+        <h2 class="section-title" data-i18n="testimonials">Testimonials</h2>
+
+        <div class="testimonial-slider">
+          <div class="testimonial-card">
+            <div class="testimonial-content">
+              <p>
+                "Fajar is an exceptional developer with a keen eye for security.
+                His ability to blend creative solutions with secure coding
+                practices makes him stand out in the field."
+              </p>
+            </div>
+            <div class="testimonial-author">
+              <img src="images/testimonial1.jpg" alt="Dr. Sarah Johnson" />
+              <div class="author-info">
+                <h4>Dr. Sarah Johnson</h4>
+                <p>Senior Lecturer, Siliwangi University</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-card">
+            <div class="testimonial-content">
+              <p>
+                "Working with Fajar on our boarding house management system was
+                a great experience. He delivered a solution that exceeded our
+                expectations and was delivered on time."
+              </p>
+            </div>
+            <div class="testimonial-author">
+              <img src="images/testimonial2.jpg" alt="Ahmad Rizki" />
+              <div class="author-info">
+                <h4>Ahmad Rizki</h4>
+                <p>Business Owner, Kost Permata</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-card">
+            <div class="testimonial-content">
+              <p>
+                "Fajar's ethical hacking workshop was both educational and
+                engaging. His ability to explain complex security concepts in
+                simple terms helped our team improve our security practices."
+              </p>
+            </div>
+            <div class="testimonial-author">
+              <img src="images/testimonial3.jpg" alt="Maya Putri" />
+              <div class="author-info">
+                <h4>Maya Putri</h4>
+                <p>IT Manager, TechSolutions Indonesia</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="slider-controls">
+          <button class="prev-btn" aria-label="Previous testimonial">❮</button>
+          <div class="slider-dots">
+            <span class="dot active" data-index="0"></span>
+            <span class="dot" data-index="1"></span>
+            <span class="dot" data-index="2"></span>
+          </div>
+          <button class="next-btn" aria-label="Next testimonial">❯</button>
+        </div>
+      </div>
+    </section>
+
     <section id="certifications" class="certifications reveal">
       <div class="container">
-        <h2 class="section-title">Certifications</h2>
+        <h2 class="section-title" data-i18n="certifications">Certifications</h2>
         <div class="cert-container">
           <div class="cert-card reveal">
             <div class="cert-logo">
@@ -315,7 +665,7 @@
             <div class="cert-details">
               <h3>Linux Fundamentals</h3>
               <p class="cert-issuer">HackTheBox</p>
-              <p class="cert-date">In Progress</p>
+              <p class="cert-date" data-i18n="cert_progress">In Progress</p>
             </div>
           </div>
         </div>
@@ -324,47 +674,51 @@
 
     <section id="contact" class="contact reveal">
       <div class="container">
-        <h2 class="section-title">Get In Touch</h2>
+        <h2 class="section-title" data-i18n="get_in_touch">Get In Touch</h2>
         <div class="contact-container">
           <div class="contact-info reveal">
-            <h3>Contact Information</h3>
-            <p>
+            <h3 data-i18n="contact_info">Contact Information</h3>
+            <p data-i18n="contact_desc">
               Feel free to reach out for collaboration on open-source or fun
               weekend projects!
             </p>
             <div class="info-item">
-              <span class="icon"></span>
+              <span class="icon">📧</span>
               <span>237006079@student.unsil.ac.id</span>
             </div>
             <div class="info-item">
-              <span class="icon"></span>
+              <span class="icon">📍</span>
               <span>Indonesia</span>
             </div>
             <div class="social-links">
-              <a href="#" class="social-icon">GitHub</a>
-              <a href="#" class="social-icon">LinkedIn</a>
-              <a href="#" class="social-icon">Twitter</a>
+              <a href="https://github.com/grnlogic" class="social-icon"
+                ><i>🐙</i> GitHub</a
+              >
+              <a href="#" class="social-icon"><i>🔗</i> LinkedIn</a>
+              <a href="#" class="social-icon"><i>🐦</i> Twitter</a>
             </div>
           </div>
           <div class="contact-form reveal">
             <form>
               <div class="form-group">
-                <label for="name">Name</label>
+                <label for="name" data-i18n="form_name">Name</label>
                 <input type="text" id="name" required />
               </div>
               <div class="form-group">
-                <label for="email">Email</label>
+                <label for="email" data-i18n="form_email">Email</label>
                 <input type="email" id="email" required />
               </div>
               <div class="form-group">
-                <label for="subject">Subject</label>
+                <label for="subject" data-i18n="form_subject">Subject</label>
                 <input type="text" id="subject" required />
               </div>
               <div class="form-group">
-                <label for="message">Message</label>
+                <label for="message" data-i18n="form_message">Message</label>
                 <textarea id="message" rows="5" required></textarea>
               </div>
-              <button type="submit" class="btn primary">Send Message</button>
+              <button type="submit" class="btn primary" data-i18n="form_send">
+                Send Message
+              </button>
             </form>
           </div>
         </div>
@@ -373,10 +727,15 @@
 
     <footer>
       <div class="container">
-        <p>&copy; 2024 Fajar Geran's Portfolio. All rights reserved.</p>
+        <p data-i18n="footer_text">
+          &copy; 2024 Fajar Geran's Portfolio. All rights reserved.
+        </p>
       </div>
     </footer>
 
+    <!-- SweetAlert2 for user-friendly alerts -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="translations.js"></script>
     <script src="particles.js"></script>
     <script src="script.js"></script>
   </body>

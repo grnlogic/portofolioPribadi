@@ -1,5 +1,18 @@
 // Scroll reveal effect
 document.addEventListener("DOMContentLoaded", function () {
+  // Hide preloader after page loads
+  const preloader = document.getElementById("preloader");
+
+  // Timeout to ensure animations have time to load
+  setTimeout(() => {
+    preloader.classList.add("preloader-hidden");
+
+    // Remove from DOM after transition completes
+    setTimeout(() => {
+      preloader.style.display = "none";
+    }, 500);
+  }, 1500);
+
   // Initialize animation for skill bars
   const skillLevels = document.querySelectorAll(".skill-level");
   skillLevels.forEach((level) => {
@@ -69,6 +82,75 @@ document.addEventListener("DOMContentLoaded", function () {
       document.body.classList.remove("no-scroll");
     });
   });
+
+  // Theme switching functionality
+  const themeToggleBtn = document.getElementById("theme-toggle-btn");
+
+  // Check for saved theme preference or use dark mode as default
+  const savedTheme = localStorage.getItem("theme") || "dark";
+
+  // Apply saved theme
+  document.documentElement.setAttribute("data-theme", savedTheme);
+
+  // Update button aria-label based on current theme
+  themeToggleBtn.setAttribute(
+    "aria-label",
+    savedTheme === "dark" ? "Switch to light mode" : "Switch to dark mode"
+  );
+
+  // Toggle theme when button is clicked
+  themeToggleBtn.addEventListener("click", function () {
+    const currentTheme = document.documentElement.getAttribute("data-theme");
+    const newTheme = currentTheme === "light" ? "dark" : "light";
+
+    // Apply new theme
+    document.documentElement.setAttribute("data-theme", newTheme);
+
+    // Update button aria-label
+    themeToggleBtn.setAttribute(
+      "aria-label",
+      newTheme === "dark" ? "Switch to light mode" : "Switch to dark mode"
+    );
+
+    // Save theme preference
+    localStorage.setItem("theme", newTheme);
+
+    // Update particle colors
+    updateParticleColors(newTheme);
+  });
+
+  // Initial particle color update based on the current theme
+  updateParticleColors(savedTheme);
+
+  // Language switching functionality
+  const languageSelector = document.getElementById("language-selector");
+
+  // Check for saved language preference or use browser language
+  const savedLanguage =
+    localStorage.getItem("language") ||
+    (navigator.language.startsWith("id")
+      ? "id"
+      : navigator.language.startsWith("ja")
+      ? "ja"
+      : "en");
+
+  // Set initial language
+  languageSelector.value = savedLanguage;
+
+  // Apply translations on page load
+  applyTranslations(savedLanguage);
+
+  // Listen for language changes
+  languageSelector.addEventListener("change", function () {
+    const selectedLanguage = this.value;
+    applyTranslations(selectedLanguage);
+    localStorage.setItem("language", selectedLanguage);
+  });
+
+  // Testimonial slider initialization
+  if (document.querySelector(".testimonial-slider")) {
+    initTestimonialSlider();
+  }
 });
 
 // Mobile menu toggle
@@ -97,19 +179,172 @@ if (form) {
   form.addEventListener("submit", function (e) {
     e.preventDefault();
 
-    // Here you would typically send the form data to a server
-    // For demonstration, we'll just show a success message
-    const formData = new FormData(form);
-    let formValues = {};
+    // Use translated maintenance message
+    Swal.fire({
+      title: window.maintenanceMsg?.title || "Under Development",
+      html: `
+        <div class="maintenance-message">
+          <p>${
+            window.maintenanceMsg?.msg1 ||
+            "Sorry, the email sending feature is currently under development."
+          }</p>
+          <p>${
+            window.maintenanceMsg?.msg2 ||
+            "For now, please send an email directly to:"
+          }</p>
+          <p><strong>237006079@student.unsil.ac.id</strong></p>
+        </div>
+      `,
+      icon: "info",
+      confirmButtonText: "OK",
+      confirmButtonColor: "#3B82F6",
+      footer: `<span class="note">${
+        window.maintenanceMsg?.thanks || "Thank you for your understanding."
+      }</span>`,
+    });
 
-    for (let [key, value] of formData.entries()) {
-      formValues[key] = value;
-    }
-
-    console.log("Form submitted:", formValues);
-
-    // Show success message
-    form.innerHTML =
-      '<div class="success-message"><h3>Thank you!</h3><p>Your message has been sent successfully. I\'ll get back to you soon.</p></div>';
+    // Don't reset the form so user can copy their message if needed
   });
+}
+
+// Function to copy text to clipboard
+function copyToClipboard(text) {
+  // Create temporary textarea element
+  const textarea = document.createElement("textarea");
+  textarea.value = text;
+  document.body.appendChild(textarea);
+  textarea.select();
+
+  try {
+    // Copy text
+    document.execCommand("copy");
+    Swal.fire({
+      icon: "success",
+      title: "Copied!",
+      text: "Message has been copied to clipboard. Please paste it in your email application.",
+      confirmButtonColor: "#3B82F6",
+    });
+  } catch (err) {
+    Swal.fire({
+      icon: "error",
+      title: "Copy failed",
+      text: "Could not copy the message. Please copy manually.",
+      confirmButtonColor: "#3B82F6",
+    });
+  }
+
+  document.body.removeChild(textarea);
+}
+
+// Function to apply translations
+function applyTranslations(language) {
+  if (!translations[language]) {
+    console.error(`Translations for "${language}" not found.`);
+    language = "en"; // Fallback to English
+  }
+
+  const translationObj = translations[language];
+
+  // Update all elements with data-i18n attribute
+  document.querySelectorAll("[data-i18n]").forEach((element) => {
+    const key = element.getAttribute("data-i18n");
+    if (translationObj[key]) {
+      if (element.tagName === "INPUT" || element.tagName === "TEXTAREA") {
+        element.placeholder = translationObj[key];
+      } else {
+        element.textContent = translationObj[key];
+      }
+    }
+  });
+
+  // Update document title
+  document.title = `Fajar Geran - ${
+    language === "en"
+      ? "Portfolio"
+      : language === "id"
+      ? "Portofolio"
+      : "ポートフォリオ"
+  }`;
+
+  // Update maintenance message for SweetAlert (used in the contact form)
+  window.maintenanceMsg = {
+    title: translationObj.maintenance_title,
+    msg1: translationObj.maintenance_msg1,
+    msg2: translationObj.maintenance_msg2,
+    thanks: translationObj.maintenance_thanks,
+  };
+}
+
+// Function to update particle colors based on theme
+function updateParticleColors(theme) {
+  if (typeof updateParticleTheme === "function") {
+    updateParticleTheme(theme);
+  }
+}
+
+// Testimonial slider functionality
+function initTestimonialSlider() {
+  const testimonials = document.querySelectorAll(".testimonial-card");
+  const dots = document.querySelectorAll(".dot");
+  const prevBtn = document.querySelector(".prev-btn");
+  const nextBtn = document.querySelector(".next-btn");
+  let currentIndex = 0;
+
+  // Hide all testimonials except the first one
+  for (let i = 1; i < testimonials.length; i++) {
+    testimonials[i].style.display = "none";
+  }
+
+  function showTestimonial(index) {
+    // Hide all testimonials
+    testimonials.forEach((testimonial) => {
+      testimonial.style.display = "none";
+    });
+
+    // Remove active class from all dots
+    dots.forEach((dot) => {
+      dot.classList.remove("active");
+    });
+
+    // Show the selected testimonial and activate its dot
+    testimonials[index].style.display = "block";
+    dots[index].classList.add("active");
+
+    // Add fade-in animation
+    testimonials[index].style.opacity = 0;
+    setTimeout(() => {
+      testimonials[index].style.opacity = 1;
+    }, 10);
+
+    // Update current index
+    currentIndex = index;
+  }
+
+  // Add click event to dots
+  dots.forEach((dot) => {
+    dot.addEventListener("click", function () {
+      const index = parseInt(this.getAttribute("data-index"));
+      showTestimonial(index);
+    });
+  });
+
+  // Add click events to prev and next buttons
+  prevBtn.addEventListener("click", () => {
+    let newIndex = currentIndex - 1;
+    if (newIndex < 0) newIndex = testimonials.length - 1;
+    showTestimonial(newIndex);
+  });
+
+  nextBtn.addEventListener("click", () => {
+    let newIndex = currentIndex + 1;
+    if (newIndex >= testimonials.length) newIndex = 0;
+    showTestimonial(newIndex);
+  });
+
+  // Auto-advance the slider every 5 seconds
+  setInterval(() => {
+    let newIndex = currentIndex + 1;
+    if (newIndex >= testimonials.length) newIndex = 0;
+    showTestimonial(newIndex);
+  }, 5000);
 }
