@@ -409,24 +409,67 @@ section {
   text-align: center;
 }
 
-.skills-chart {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 30px;
+/* Accordion Styles */
+.skills-accordion {
+  width: 100%;
 }
 
-.skills-category h5 {
+.accordion-item {
+  margin-bottom: 10px;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: var(--white);
+}
+
+.accordion-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  cursor: pointer;
+  position: relative;
+  background-color: var(--primary-color);
+  color: white;
+  transition: var(--transition);
+  border-radius: 5px;
+}
+
+.accordion-header h5 {
+  margin: 0;
   font-size: 1.1rem;
-  margin-bottom: 15px;
-  color: var(--primary-dark);
-  border-bottom: 2px solid var(--primary-light);
-  padding-bottom: 5px;
+  color: white;
+  font-weight: 600;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+.toggle-icon {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white;
+  transition: transform 0.3s ease;
+}
+
+.accordion-item.active .toggle-icon {
+  transform: rotate(45deg);
+}
+
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  background-color: var(--white);
+}
+
+.accordion-item.active .accordion-content {
+  max-height: 300px; /* Adjust height as needed */
 }
 
 .chart-skills {
   display: flex;
   flex-direction: column;
   gap: 15px;
+  padding: 15px;
 }
 
 .chart-skill {
@@ -435,6 +478,7 @@ section {
   background-color: var(--white);
   border-radius: 5px;
   overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .chart-skill::before {
@@ -472,6 +516,11 @@ section {
   right: 10px;
   font-weight: 600;
   color: var(--text-color);
+}
+
+/* Remove old chart styles that are no longer needed */
+.skills-chart {
+  display: none;
 }
 
 /* Projects Section */
@@ -654,20 +703,66 @@ section {
   padding: 100px 0;
 }
 
-.testimonial-slider {
-  max-width: 800px;
-  margin: 0 auto;
-  position: relative;
+/* Updated carousel styles */
+.testimonial-carousel-container {
+  width: 100%;
+  max-width: 100%;
   overflow: hidden;
+  position: relative;
+  margin: 40px 0;
+  padding: 20px 0;
+}
+
+.testimonial-carousel {
+  display: flex;
+  gap: 25px;
+  animation: scroll-left 35s linear infinite;
+  width: fit-content;
+  cursor: grab;
+}
+
+.testimonial-carousel:active {
+  cursor: grabbing;
+}
+
+.testimonial-carousel:hover {
+  animation-play-state: paused;
+}
+
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-100% / 2)); /* Will be set dynamically via JS */
+  }
 }
 
 .testimonial-card {
   background-color: var(--card-bg);
   border-radius: 10px;
   padding: 30px;
-  margin: 20px;
+  min-width: 320px;
+  max-width: 400px;
   box-shadow: var(--shadow);
   transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.testimonial-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 5px;
+  height: 100%;
+  background-color: var(--primary-color);
+}
+
+.testimonial-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
 }
 
 .testimonial-content {
@@ -704,6 +799,7 @@ section {
   border-radius: 50%;
   object-fit: cover;
   margin-right: 15px;
+  border: 3px solid var(--primary-light);
 }
 
 .author-info h4 {
@@ -718,51 +814,63 @@ section {
   color: var(--text-light);
 }
 
-.slider-controls {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 30px;
+/* Scroll indicator */
+.scroll-indicator {
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--text-light);
+  margin-top: 15px;
+  opacity: 0.7;
 }
 
+/* Remove old controls that are no longer needed */
+.testimonial-controls,
+.pause-btn,
+.play-btn,
+.slider-controls,
+.slider-dots,
 .prev-btn,
-.next-btn {
-  background: var(--primary-color);
-  color: white;
-  border: none;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  font-size: 1.2rem;
-  cursor: pointer;
-  transition: var(--transition);
-}
-
-.prev-btn:hover,
-.next-btn:hover {
-  background: var(--primary-dark);
-  transform: scale(1.1);
-}
-
-.slider-dots {
-  display: flex;
-  margin: 0 20px;
-}
-
+.next-btn,
 .dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background-color: var(--primary-light);
-  margin: 0 5px;
-  cursor: pointer;
-  opacity: 0.5;
-  transition: var(--transition);
+  display: none;
 }
 
-.dot.active {
-  opacity: 1;
-  background-color: var(--primary-color);
+/* Responsive adjustments for testimonials */
+@media (max-width: 768px) {
+  .testimonial-card {
+    min-width: 280px;
+    max-width: 350px;
+    padding: 25px;
+  }
+
+  .testimonial-content p {
+    font-size: 1rem;
+  }
+
+  @keyframes scroll-left {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-100%); /* Adjust for mobile */
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .testimonial-card {
+    min-width: 250px;
+    padding: 20px;
+  }
+
+  .testimonial-author img {
+    width: 50px;
+    height: 50px;
+  }
+
+  .scroll-indicator {
+    font-size: 0.8rem;
+  }
 }
 
 /* Tech Stack Section */
@@ -1339,9 +1447,25 @@ footer {
   .testimonial-author {
     flex-direction: row;
   }
+
+  .accordion-header {
+    padding: 12px;
+  }
+
+  .accordion-header h5 {
+    font-size: 1rem;
+  }
+
+  .chart-skill {
+    height: 25px;
+  }
+
+  .skill-name,
+  .skill-percent {
+    font-size: 0.8rem;
+  }
 }
 
-/* Additional mobile fixes */
 @media (max-width: 576px) {
   .hero-buttons {
     flex-direction: column;
@@ -1441,6 +1565,15 @@ footer {
 
   .blog-grid {
     grid-template-columns: 1fr;
+  }
+
+  .accordion-content {
+    padding: 5px;
+  }
+
+  .chart-skills {
+    padding: 10px;
+    gap: 10px;
   }
 }
 

@@ -233,65 +233,81 @@
               <!-- Detailed skills chart -->
               <div class="skills-chart-container">
                 <h4 data-i18n="detailed_skills">Detailed Skills Breakdown</h4>
-                <div class="skills-chart">
-                  <div class="skills-category">
-                    <h5>Frontend</h5>
-                    <div class="chart-skills">
-                      <div class="chart-skill" style="--skill-level: 90%">
-                        <span class="skill-name">React</span>
-                        <span class="skill-percent">90%</span>
-                      </div>
-                      <div class="chart-skill" style="--skill-level: 85%">
-                        <span class="skill-name">JavaScript</span>
-                        <span class="skill-percent">85%</span>
-                      </div>
-                      <div class="chart-skill" style="--skill-level: 80%">
-                        <span class="skill-name">TypeScript</span>
-                        <span class="skill-percent">80%</span>
-                      </div>
-                      <div class="chart-skill" style="--skill-level: 75%">
-                        <span class="skill-name">CSS/SCSS</span>
-                        <span class="skill-percent">75%</span>
+
+                <div class="skills-accordion">
+                  <div class="accordion-item">
+                    <div class="accordion-header">
+                      <h5>Frontend</h5>
+                      <span class="toggle-icon">+</span>
+                    </div>
+                    <div class="accordion-content">
+                      <div class="chart-skills">
+                        <div class="chart-skill" style="--skill-level: 90%">
+                          <span class="skill-name">React</span>
+                          <span class="skill-percent">90%</span>
+                        </div>
+                        <div class="chart-skill" style="--skill-level: 85%">
+                          <span class="skill-name">JavaScript</span>
+                          <span class="skill-percent">85%</span>
+                        </div>
+                        <div class="chart-skill" style="--skill-level: 80%">
+                          <span class="skill-name">TypeScript</span>
+                          <span class="skill-percent">80%</span>
+                        </div>
+                        <div class="chart-skill" style="--skill-level: 75%">
+                          <span class="skill-name">CSS/SCSS</span>
+                          <span class="skill-percent">75%</span>
+                        </div>
                       </div>
                     </div>
                   </div>
 
-                  <div class="skills-category">
-                    <h5>Backend</h5>
-                    <div class="chart-skills">
-                      <div class="chart-skill" style="--skill-level: 90%">
-                        <span class="skill-name">Spring Boot</span>
-                        <span class="skill-percent">90%</span>
-                      </div>
-                      <div class="chart-skill" style="--skill-level: 85%">
-                        <span class="skill-name">Java</span>
-                        <span class="skill-percent">85%</span>
-                      </div>
-                      <div class="chart-skill" style="--skill-level: 75%">
-                        <span class="skill-name">RESTful APIs</span>
-                        <span class="skill-percent">75%</span>
-                      </div>
-                      <div class="chart-skill" style="--skill-level: 70%">
-                        <span class="skill-name">PostgreSQL</span>
-                        <span class="skill-percent">70%</span>
+                  <div class="accordion-item">
+                    <div class="accordion-header">
+                      <h5>Backend</h5>
+                      <span class="toggle-icon">+</span>
+                    </div>
+                    <div class="accordion-content">
+                      <div class="chart-skills">
+                        <div class="chart-skill" style="--skill-level: 90%">
+                          <span class="skill-name">Spring Boot</span>
+                          <span class="skill-percent">90%</span>
+                        </div>
+                        <div class="chart-skill" style="--skill-level: 85%">
+                          <span class="skill-name">Java</span>
+                          <span class="skill-percent">85%</span>
+                        </div>
+                        <div class="chart-skill" style="--skill-level: 75%">
+                          <span class="skill-name">RESTful APIs</span>
+                          <span class="skill-percent">75%</span>
+                        </div>
+                        <div class="chart-skill" style="--skill-level: 70%">
+                          <span class="skill-name">PostgreSQL</span>
+                          <span class="skill-percent">70%</span>
+                        </div>
                       </div>
                     </div>
                   </div>
 
-                  <div class="skills-category">
-                    <h5>Security</h5>
-                    <div class="chart-skills">
-                      <div class="chart-skill" style="--skill-level: 80%">
-                        <span class="skill-name">Penetration Testing</span>
-                        <span class="skill-percent">80%</span>
-                      </div>
-                      <div class="chart-skill" style="--skill-level: 75%">
-                        <span class="skill-name">Network Security</span>
-                        <span class="skill-percent">75%</span>
-                      </div>
-                      <div class="chart-skill" style="--skill-level: 70%">
-                        <span class="skill-name">Reverse Engineering</span>
-                        <span class="skill-percent">70%</span>
+                  <div class="accordion-item">
+                    <div class="accordion-header">
+                      <h5>Security</h5>
+                      <span class="toggle-icon">+</span>
+                    </div>
+                    <div class="accordion-content">
+                      <div class="chart-skills">
+                        <div class="chart-skill" style="--skill-level: 80%">
+                          <span class="skill-name">Penetration Testing</span>
+                          <span class="skill-percent">80%</span>
+                        </div>
+                        <div class="chart-skill" style="--skill-level: 75%">
+                          <span class="skill-name">Network Security</span>
+                          <span class="skill-percent">75%</span>
+                        </div>
+                        <div class="chart-skill" style="--skill-level: 70%">
+                          <span class="skill-name">Reverse Engineering</span>
+                          <span class="skill-percent">70%</span>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -567,67 +583,66 @@
       <div class="container">
         <h2 class="section-title" data-i18n="testimonials">Testimonials</h2>
 
-        <div class="testimonial-slider">
-          <div class="testimonial-card">
-            <div class="testimonial-content">
-              <p>
-                "Fajar is an exceptional developer with a keen eye for security.
-                His ability to blend creative solutions with secure coding
-                practices makes him stand out in the field."
-              </p>
-            </div>
-            <div class="testimonial-author">
-              <img src="images/testimonial1.jpg" alt="Dr. Sarah Johnson" />
-              <div class="author-info">
-                <h4>Dr. Sarah Johnson</h4>
-                <p>Senior Lecturer, Siliwangi University</p>
+        <div class="testimonial-carousel-container">
+          <div class="testimonial-carousel">
+            <!-- Original testimonials -->
+            <div class="testimonial-card">
+              <div class="testimonial-content">
+                <p>
+                  "Fajar is an exceptional developer with a keen eye for
+                  security. His ability to blend creative solutions with secure
+                  coding practices makes him stand out in the field."
+                </p>
+              </div>
+              <div class="testimonial-author">
+                <img src="images/testimonial1.jpg" alt="Dr. Sarah Johnson" />
+                <div class="author-info">
+                  <h4>Dr. Sarah Johnson</h4>
+                  <p>Senior Lecturer, Siliwangi University</p>
+                </div>
               </div>
             </div>
-          </div>
 
-          <div class="testimonial-card">
-            <div class="testimonial-content">
-              <p>
-                "Working with Fajar on our boarding house management system was
-                a great experience. He delivered a solution that exceeded our
-                expectations and was delivered on time."
-              </p>
-            </div>
-            <div class="testimonial-author">
-              <img src="images/testimonial2.jpg" alt="Ahmad Rizki" />
-              <div class="author-info">
-                <h4>Ahmad Rizki</h4>
-                <p>Business Owner, Kost Permata</p>
+            <div class="testimonial-card">
+              <div class="testimonial-content">
+                <p>
+                  "Working with Fajar on our boarding house management system
+                  was a great experience. He delivered a solution that exceeded
+                  our expectations and was delivered on time."
+                </p>
+              </div>
+              <div class="testimonial-author">
+                <img src="images/testimonial2.jpg" alt="Ahmad Rizki" />
+                <div class="author-info">
+                  <h4>Ahmad Rizki</h4>
+                  <p>Business Owner, Kost Permata</p>
+                </div>
               </div>
             </div>
-          </div>
 
-          <div class="testimonial-card">
-            <div class="testimonial-content">
-              <p>
-                "Fajar's ethical hacking workshop was both educational and
-                engaging. His ability to explain complex security concepts in
-                simple terms helped our team improve our security practices."
-              </p>
-            </div>
-            <div class="testimonial-author">
-              <img src="images/testimonial3.jpg" alt="Maya Putri" />
-              <div class="author-info">
-                <h4>Maya Putri</h4>
-                <p>IT Manager, TechSolutions Indonesia</p>
+            <div class="testimonial-card">
+              <div class="testimonial-content">
+                <p>
+                  "Fajar's ethical hacking workshop was both educational and
+                  engaging. His ability to explain complex security concepts in
+                  simple terms helped our team improve our security practices."
+                </p>
+              </div>
+              <div class="testimonial-author">
+                <img src="images/testimonial3.jpg" alt="Maya Putri" />
+                <div class="author-info">
+                  <h4>Maya Putri</h4>
+                  <p>IT Manager, TechSolutions Indonesia</p>
+                </div>
               </div>
             </div>
+
+            <!-- Cloned testimonials for seamless scrolling (will be created by JS) -->
           </div>
         </div>
 
-        <div class="slider-controls">
-          <button class="prev-btn" aria-label="Previous testimonial">❮</button>
-          <div class="slider-dots">
-            <span class="dot active" data-index="0"></span>
-            <span class="dot" data-index="1"></span>
-            <span class="dot" data-index="2"></span>
-          </div>
-          <button class="next-btn" aria-label="Next testimonial">❯</button>
+        <div class="scroll-indicator">
+          <span>⟸ Drag to scroll ⟹</span>
         </div>
       </div>
     </section>

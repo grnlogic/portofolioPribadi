@@ -151,6 +151,48 @@ document.addEventListener("DOMContentLoaded", function () {
   if (document.querySelector(".testimonial-slider")) {
     initTestimonialSlider();
   }
+
+  // Accordion functionality for skills
+  const accordionHeaders = document.querySelectorAll(".accordion-header");
+
+  accordionHeaders.forEach((header) => {
+    header.addEventListener("click", function () {
+      const accordionItem = this.parentElement;
+      const isActive = accordionItem.classList.contains("active");
+
+      // Close all accordion items
+      document.querySelectorAll(".accordion-item").forEach((item) => {
+        item.classList.remove("active");
+      });
+
+      // Toggle current item if it wasn't already active
+      if (!isActive) {
+        accordionItem.classList.add("active");
+
+        // Animate skill bars inside the opened accordion
+        const skillBars = accordionItem.querySelectorAll(".chart-skill");
+        skillBars.forEach((bar) => {
+          const width = bar.style.getPropertyValue("--skill-level");
+          bar.style.setProperty("--skill-level", "0%");
+
+          setTimeout(() => {
+            bar.style.setProperty("--skill-level", width);
+          }, 50);
+        });
+      }
+    });
+  });
+
+  // Open the first accordion item by default
+  const firstAccordion = document.querySelector(".accordion-item");
+  if (firstAccordion) {
+    firstAccordion.classList.add("active");
+  }
+
+  // Initialize testimonial carousel instead of slider
+  if (document.querySelector(".testimonial-carousel")) {
+    initTestimonialCarousel();
+  }
 });
 
 // Mobile menu toggle
@@ -282,69 +324,91 @@ function updateParticleColors(theme) {
   }
 }
 
-// Testimonial slider functionality
-function initTestimonialSlider() {
-  const testimonials = document.querySelectorAll(".testimonial-card");
-  const dots = document.querySelectorAll(".dot");
-  const prevBtn = document.querySelector(".prev-btn");
-  const nextBtn = document.querySelector(".next-btn");
-  let currentIndex = 0;
+// Testimonial auto-scrolling carousel
+function initTestimonialCarousel() {
+  const carousel = document.querySelector(".testimonial-carousel");
 
-  // Hide all testimonials except the first one
-  for (let i = 1; i < testimonials.length; i++) {
-    testimonials[i].style.display = "none";
+  if (!carousel) return;
+
+  // Clone testimonials for infinite scrolling effect
+  const testimonials = carousel.querySelectorAll(".testimonial-card");
+  testimonials.forEach((testimonial) => {
+    const clone = testimonial.cloneNode(true);
+    carousel.appendChild(clone);
+  });
+
+  // Calculate the animation distance dynamically
+  const updateScrollDistance = () => {
+    const firstCard = testimonials[0];
+    const cardWidth = firstCard.offsetWidth;
+    const cardMargin =
+      parseInt(window.getComputedStyle(firstCard).marginRight) || 0;
+    const gap = 25; // Gap between cards as defined in CSS
+
+    const singleCardTotalWidth = cardWidth + gap + cardMargin;
+    const allCardsWidth = singleCardTotalWidth * testimonials.length;
+
+    // Update CSS variable for the animation
+    document.documentElement.style.setProperty(
+      "--scroll-distance",
+      `-${allCardsWidth}px`
+    );
+  };
+
+  // Call initially and on window resize
+  updateScrollDistance();
+  window.addEventListener("resize", updateScrollDistance);
+
+  // Drag to scroll functionality
+  let isDragging = false;
+  let startPosition = 0;
+  let startScrollLeft = 0;
+
+  carousel.addEventListener("mousedown", startDrag);
+  carousel.addEventListener("touchstart", startDrag, { passive: true });
+  carousel.addEventListener("mouseup", endDrag);
+  carousel.addEventListener("touchend", endDrag);
+  carousel.addEventListener("mouseleave", endDrag);
+  carousel.addEventListener("mousemove", dragMove);
+  carousel.addEventListener("touchmove", dragMove, { passive: true });
+
+  function startDrag(e) {
+    isDragging = true;
+    startPosition = getPositionX(e);
+    startScrollLeft = carousel.scrollLeft;
+
+    // Temporarily pause animation while dragging
+    carousel.style.animationPlayState = "paused";
   }
 
-  function showTestimonial(index) {
-    // Hide all testimonials
-    testimonials.forEach((testimonial) => {
-      testimonial.style.display = "none";
-    });
+  function dragMove(e) {
+    if (!isDragging) return;
 
-    // Remove active class from all dots
-    dots.forEach((dot) => {
-      dot.classList.remove("active");
-    });
+    const currentPosition = getPositionX(e);
+    const distance = currentPosition - startPosition;
+    carousel.scrollLeft = startScrollLeft - distance;
+  }
 
-    // Show the selected testimonial and activate its dot
-    testimonials[index].style.display = "block";
-    dots[index].classList.add("active");
+  function endDrag() {
+    if (!isDragging) return;
+    isDragging = false;
 
-    // Add fade-in animation
-    testimonials[index].style.opacity = 0;
+    // Resume animation after a short delay
     setTimeout(() => {
-      testimonials[index].style.opacity = 1;
-    }, 10);
+      carousel.style.animationPlayState = "";
 
-    // Update current index
-    currentIndex = index;
+      // Reset any manual transform we might have applied
+      carousel.style.transform = "";
+    }, 1000);
   }
 
-  // Add click event to dots
-  dots.forEach((dot) => {
-    dot.addEventListener("click", function () {
-      const index = parseInt(this.getAttribute("data-index"));
-      showTestimonial(index);
-    });
-  });
+  function getPositionX(e) {
+    return e.type.includes("mouse") ? e.pageX : e.touches[0].clientX;
+  }
+}
 
-  // Add click events to prev and next buttons
-  prevBtn.addEventListener("click", () => {
-    let newIndex = currentIndex - 1;
-    if (newIndex < 0) newIndex = testimonials.length - 1;
-    showTestimonial(newIndex);
-  });
-
-  nextBtn.addEventListener("click", () => {
-    let newIndex = currentIndex + 1;
-    if (newIndex >= testimonials.length) newIndex = 0;
-    showTestimonial(newIndex);
-  });
-
-  // Auto-advance the slider every 5 seconds
-  setInterval(() => {
-    let newIndex = currentIndex + 1;
-    if (newIndex >= testimonials.length) newIndex = 0;
-    showTestimonial(newIndex);
-  }, 5000);
+// Replace old testimonial slider function with the new carousel
+function initTestimonialSlider() {
+  // Call the new function instead
+  initTestimonialCarousel();
 }
