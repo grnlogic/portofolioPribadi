@@ -2,7 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=5.0, minimum-scale=1.0"
+    />
     <title>Fajar Geran's Portfolio</title>
 
     <!-- SEO Meta Tags -->
@@ -35,6 +38,9 @@
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/favicon.png" />
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="css/welcome-card.css" />
+    <link rel="stylesheet" href="css/particles.css" />
+    <link rel="stylesheet" href="css/parallax-bg.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -43,550 +49,364 @@
     />
   </head>
   <body>
-    <!-- Preloader -->
-    <div id="preloader">
-      <div class="loader">
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
+    <!-- Welcome Card Overlay -->
+    <div id="welcome-overlay">
+      <!-- Add parallax background layers -->
+      <div class="parallax-container" id="parallax-bg">
+        <div class="parallax-layer layer-stars"></div>
+        <div class="parallax-layer layer-mist"></div>
+        <div class="parallax-layer layer-grid"></div>
+        <div class="parallax-layer layer-spotlight"></div>
+        <div class="parallax-layer layer-scanlines"></div>
       </div>
-    </div>
 
-    <canvas id="particles"></canvas>
+      <!-- Add performance toggle button -->
+      <button class="performance-toggle" onclick="togglePerformance()">
+        🚀 Performance Mode
+      </button>
 
-    <header>
-      <div class="container">
-        <div class="logo">
-          <img
-            src="https://avatars.githubusercontent.com/u/70023224?v=4"
-            alt="Fajar Geran"
-            class="logo-img"
-          />
-        </div>
-        <div class="right-controls">
-          <div class="lang-selector">
-            <select id="language-selector" aria-label="Select language">
-              <option value="en">EN</option>
-              <option value="id">ID</option>
-              <option value="ja">JP</option>
-            </select>
+      <div class="welcome-card">
+        <div class="welcome-card-inner">
+          <!-- Front of the card -->
+          <div class="welcome-card-front">
+            <img
+              src="images/1000700327.jpg"
+              alt="Fajar Geran"
+              class="welcome-profile-img"
+            />
+            <h2>Welcome to My Portfolio</h2>
+            <p>
+              I'm Fajar Geran, a Fullstack Developer & Cybersecurity Enthusiast
+              from Indonesia
+            </p>
+
+            <div class="card-badges">
+              <span class="card-badge">Spring Boot</span>
+              <span class="card-badge">React.js</span>
+              <span class="card-badge">PostgreSQL</span>
+              <span class="card-badge">Cybersecurity</span>
+            </div>
+
+            <button id="continue-btn" aria-label="Continue to portfolio">
+              Continue
+            </button>
+            <div class="flip-card-hint">Click card to flip</div>
           </div>
-          <div class="theme-toggle">
-            <button id="theme-toggle-btn" aria-label="Toggle dark mode">
-              <span class="sun-icon">☀️</span>
-              <span class="moon-icon">🌙</span>
+
+          <!-- Back of the card -->
+          <div class="welcome-card-back">
+            <button class="back-btn">↩</button>
+            <h2>Experience</h2>
+
+            <div class="experience-item">
+              <div class="year">2023</div>
+              <div class="role">Fullstack Developer - University Project</div>
+            </div>
+
+            <div class="experience-item">
+              <div class="year">2022</div>
+              <div class="role">Backend Developer - Kost Management System</div>
+            </div>
+
+            <div class="experience-item">
+              <div class="year">2021</div>
+              <div class="role">Cybersecurity Workshop Facilitator</div>
+            </div>
+
+            <div class="experience-item">
+              <div class="year">2020</div>
+              <div class="role">Student at Siliwangi University</div>
+            </div>
+
+            <button id="continue-btn" aria-label="Continue to portfolio">
+              Continue
             </button>
           </div>
         </div>
-        <div class="mobile-menu-btn">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-        <nav>
-          <ul>
-            <li><a href="#home" data-i18n="nav_home">Home</a></li>
-            <li><a href="#about" data-i18n="nav_about">About</a></li>
-            <li><a href="#tech-stack" data-i18n="nav_tech">Tech Stack</a></li>
-            <li><a href="#projects" data-i18n="nav_projects">Projects</a></li>
-            <li><a href="#blog" data-i18n="nav_blog">Blog</a></li>
-            <li>
-              <a href="#testimonials" data-i18n="nav_testimonials"
-                >Testimonials</a
-              >
-            </li>
-            <li>
-              <a href="#certifications" data-i18n="nav_certifications"
-                >Certifications</a
-              >
-            </li>
-            <li><a href="#contact" data-i18n="nav_contact">Contact</a></li>
-          </ul>
-        </nav>
-        <div class="overlay"></div>
       </div>
-    </header>
 
-    <section id="home" class="hero">
-      <div class="container">
-        <div class="hero-content">
-          <h1 class="floating">
-            <span data-i18n="hello">Hello, I'm</span> <span>Fajar Geran</span>
-          </h1>
-          <h2 class="floating" data-i18n="profession">
-            Fullstack Developer & Cybersecurity Enthusiast
-          </h2>
-          <p class="floating" data-i18n="description">
+      <!-- Rotation controls moved outside the card -->
+      <div class="rotation-controls-container">
+        <div class="rotation-controls">
+          <button class="rotation-btn rotate-left">⟲</button>
+          <div class="rotation-sphere" id="rotation-sphere"></div>
+          <button class="rotation-btn rotate-right">⟳</button>
+          <div class="rotation-indicator">0°</div>
+        </div>
+      </div>
+
+      <!-- Rotation controls moved outside the card -->
+      <div class="rotation-controls-container">
+        <div class="rotation-controls">
+          <div class="rotation-indicator">X: 0° Y: 0° Z: 0°</div>
+          <div class="axis-indicator">
+            <div class="axis axis-x">X</div>
+            <div class="axis axis-y">Y</div>
+            <div class="axis axis-z">Z</div>
+          </div>
+          <button class="reset-view">Reset View</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content Wrapper -->
+    <div id="main-content">
+      <!-- Preloader -->
+      <div id="preloader">
+        <div class="loader">
+          <div class="circle"></div>
+          <div class="circle"></div>
+          <div class="circle"></div>
+        </div>
+      </div>
+
+      <header>
+        <div class="container">
+          <div class="logo">
+            <span>FG</span>
+            <h1>Fajar Geran</h1>
+          </div>
+          <nav>
+            <ul>
+              <li><a href="#home" data-i18n="nav_home">Home</a></li>
+              <li><a href="#services">Services</a></li>
+              <li><a href="#portfolio">Portfolio</a></li>
+              <li>
+                <a href="#about" class="active" data-i18n="nav_about">About</a>
+              </li>
+              <li><a href="#contact" data-i18n="nav_contact">Contact</a></li>
+              <li><a href="#pages">Pages</a></li>
+            </ul>
+          </nav>
+          <div class="header-cta">
+            <a href="#contact" class="btn primary" data-i18n="btn_contact"
+              >Let's Talk</a
+            >
+          </div>
+          <div class="mobile-menu-btn">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <div class="overlay"></div>
+        </div>
+      </header>
+
+      <section id="page-header" class="about-header">
+        <div class="container">
+          <h1 data-i18n="about_me">About Me</h1>
+          <div class="breadcrumb">
+            <a href="#home" data-i18n="nav_home">Home</a>
+            <span>></span>
+            <span data-i18n="nav_about">About Me</span>
+          </div>
+        </div>
+      </section>
+
+      <section id="about" class="about">
+        <div class="container">
+          <div class="about-card">
+            <div class="about-image">
+              <div class="profile-wrapper">
+                <!-- Use your actual photo instead of the placeholder -->
+                <img
+                  src="images/1000700327.jpg"
+                  alt="Fajar Geran Profile Photo"
+                />
+                <div class="profile-shape shape1"></div>
+                <div class="profile-shape shape2"></div>
+              </div>
+            </div>
+            <div class="about-content">
+              <div class="section-title-sm" data-i18n="who_am_i">Who am I?</div>
+              <h2 class="about-heading" data-i18n="profession">
+                Fullstack Developer & Cybersecurity Enthusiast
+              </h2>
+              <p class="about-text" data-i18n="description">
+                From Indonesia — Exploring the intersection of web development
+                and ethical hacking. Passionate about turning ideas into digital
+                solutions.
+              </p>
+              <div class="about-info">
+                <div class="info-group">
+                  <h3>Name:</h3>
+                  <p>Fajar Geran</p>
+                </div>
+                <div class="info-group">
+                  <h3>Phone:</h3>
+                  <p>+1234 567-890</p>
+                </div>
+                <div class="info-group">
+                  <h3>Email:</h3>
+                  <p>237006079@student.unsil.ac.id</p>
+                </div>
+                <div class="info-group">
+                  <h3>Twitter:</h3>
+                  <p>@grnlogic</p>
+                </div>
+              </div>
+              <div class="about-btns">
+                <a href="#contact" class="btn primary"> Contact me </a>
+                <a href="files/Fajar_Geran_CV.pdf" class="btn outline" download>
+                  Download my resume
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="skills" class="skills">
+        <div class="container">
+          <h2 class="section-title">My Work <span>Skills</span></h2>
+          <p class="section-desc">
             From Indonesia — Exploring the intersection of web development and
-            ethical hacking. Passionate about turning ideas into digital
-            solutions.
+            ethical hacking.
           </p>
-          <div class="hero-buttons">
-            <a
-              href="#projects"
-              class="btn primary floating"
-              data-i18n="btn_view_work"
-              >View My Work</a
-            >
-            <a
-              href="#contact"
-              class="btn secondary floating"
-              data-i18n="btn_contact"
-              >Contact Me</a
-            >
-          </div>
-        </div>
-      </div>
-    </section>
 
-    <section id="about" class="about reveal">
-      <div class="container">
-        <h2 class="section-title" data-i18n="about_me">About Me</h2>
-        <div class="about-content">
-          <div class="about-image reveal">
-            <div class="image-container">
-              <img
-                src="images/1000700327.jpg"
-                alt="Fajar Geran Profile Photo"
-              />
-            </div>
-          </div>
-          <div class="about-text reveal">
-            <h3 data-i18n="who_am_i">Who am I?</h3>
-            <p>
-              <span data-i18n="bio_line1">Studying at Siliwangi University</span
-              ><br />
-              <span data-i18n="bio_line2"
-                >Currently learning Fullstack Web Development (React + Spring
-                Boot)</span
-              ><br />
-              <span data-i18n="bio_line3"
-                >Into Cybersecurity, Ethical Hacking & Reverse Engineering</span
-              ><br />
-              <span data-i18n="bio_line4"
-                >Enjoy Video Editing and creative storytelling</span
-              ><br />
-              <span data-i18n="bio_line5"
-                >Always excited to learn new tech and improve myself</span
-              >
-            </p>
-
-            <div class="about-buttons">
-              <a
-                href="files/Fajar_Geran_CV.pdf"
-                class="btn primary"
-                download
-                data-i18n="download_cv"
-              >
-                <i class="download-icon">📄</i> Download CV
-              </a>
-              <a
-                href="https://github.com/grnlogic"
-                class="btn secondary"
-                target="_blank"
-                data-i18n="view_github"
-              >
-                <i class="github-icon">&#128187;</i> GitHub Profile
-              </a>
+          <div class="skills-grid">
+            <div class="skill-item">
+              <div class="skill-icon">
+                <i class="tech-symbol">&#60;/&#62;</i>
+              </div>
+              <h3>Java/Spring Boot</h3>
+              <div class="skill-progress">
+                <div class="progress-bar" style="width: 90%"></div>
+              </div>
             </div>
 
-            <h3 data-i18n="exploring">Currently Exploring</h3>
-            <p>
-              <span data-i18n="exp_line1"
-                >Advanced Spring Boot (JWT, Security)</span
-              ><br />
-              <span data-i18n="exp_line2">React Hooks & TailwindCSS</span><br />
-              <span data-i18n="exp_line3">Deployment via Railway & Docker</span
-              ><br />
-              <span data-i18n="exp_line4"
-                >Pentesting tools: Metasploit, Frida, Objection</span
-              >
-            </p>
-
-            <h3 data-i18n="my_skills">My Skills</h3>
-            <div class="skills">
-              <div class="skill">
-                <span>Java/Spring Boot</span>
-                <div class="skill-bar">
-                  <div class="skill-level" style="width: 90%"></div>
-                </div>
+            <div class="skill-item">
+              <div class="skill-icon">
+                <i class="tech-symbol">JS</i>
               </div>
-              <div class="skill">
-                <span>JavaScript/TypeScript</span>
-                <div class="skill-bar">
-                  <div class="skill-level" style="width: 85%"></div>
-                </div>
+              <h3>JavaScript/TypeScript</h3>
+              <div class="skill-progress">
+                <div class="progress-bar" style="width: 85%"></div>
               </div>
-              <div class="skill">
-                <span>React/Tailwind CSS</span>
-                <div class="skill-bar">
-                  <div class="skill-level" style="width: 80%"></div>
-                </div>
+            </div>
+
+            <div class="skill-item">
+              <div class="skill-icon">
+                <i class="tech-symbol">&#60;/&#62;</i>
               </div>
-              <div class="skill">
-                <span>Cybersecurity</span>
-                <div class="skill-bar">
-                  <div class="skill-level" style="width: 75%"></div>
-                </div>
+              <h3>React/Tailwind CSS</h3>
+              <div class="skill-progress">
+                <div class="progress-bar" style="width: 80%"></div>
               </div>
+            </div>
 
-              <!-- Detailed skills chart -->
-              <div class="skills-chart-container">
-                <h4 data-i18n="detailed_skills">Detailed Skills Breakdown</h4>
+            <div class="skill-item">
+              <div class="skill-icon">
+                <i class="tech-symbol">&#128202;</i>
+              </div>
+              <h3>Cybersecurity</h3>
+              <div class="skill-progress">
+                <div class="progress-bar" style="width: 75%"></div>
+              </div>
+            </div>
 
-                <div class="skills-accordion">
-                  <div class="accordion-item">
-                    <div class="accordion-header">
-                      <h5>Frontend</h5>
-                      <span class="toggle-icon">+</span>
-                    </div>
-                    <div class="accordion-content">
-                      <div class="chart-skills">
-                        <div class="chart-skill" style="--skill-level: 90%">
-                          <span class="skill-name">React</span>
-                          <span class="skill-percent">90%</span>
-                        </div>
-                        <div class="chart-skill" style="--skill-level: 85%">
-                          <span class="skill-name">JavaScript</span>
-                          <span class="skill-percent">85%</span>
-                        </div>
-                        <div class="chart-skill" style="--skill-level: 80%">
-                          <span class="skill-name">TypeScript</span>
-                          <span class="skill-percent">80%</span>
-                        </div>
-                        <div class="chart-skill" style="--skill-level: 75%">
-                          <span class="skill-name">CSS/SCSS</span>
-                          <span class="skill-percent">75%</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+            <div class="skill-item">
+              <div class="skill-icon">
+                <i class="tech-symbol">DB</i>
+              </div>
+              <h3>PostgreSQL</h3>
+              <div class="skill-progress">
+                <div class="progress-bar" style="width: 85%"></div>
+              </div>
+            </div>
 
-                  <div class="accordion-item">
-                    <div class="accordion-header">
-                      <h5>Backend</h5>
-                      <span class="toggle-icon">+</span>
-                    </div>
-                    <div class="accordion-content">
-                      <div class="chart-skills">
-                        <div class="chart-skill" style="--skill-level: 90%">
-                          <span class="skill-name">Spring Boot</span>
-                          <span class="skill-percent">90%</span>
-                        </div>
-                        <div class="chart-skill" style="--skill-level: 85%">
-                          <span class="skill-name">Java</span>
-                          <span class="skill-percent">85%</span>
-                        </div>
-                        <div class="chart-skill" style="--skill-level: 75%">
-                          <span class="skill-name">RESTful APIs</span>
-                          <span class="skill-percent">75%</span>
-                        </div>
-                        <div class="chart-skill" style="--skill-level: 70%">
-                          <span class="skill-name">PostgreSQL</span>
-                          <span class="skill-percent">70%</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+            <div class="skill-item">
+              <div class="skill-icon">
+                <i class="tech-symbol">&#128736;</i>
+              </div>
+              <h3>Docker & Railway</h3>
+              <div class="skill-progress">
+                <div class="progress-bar" style="width: 80%"></div>
+              </div>
+            </div>
 
-                  <div class="accordion-item">
-                    <div class="accordion-header">
-                      <h5>Security</h5>
-                      <span class="toggle-icon">+</span>
-                    </div>
-                    <div class="accordion-content">
-                      <div class="chart-skills">
-                        <div class="chart-skill" style="--skill-level: 80%">
-                          <span class="skill-name">Penetration Testing</span>
-                          <span class="skill-percent">80%</span>
-                        </div>
-                        <div class="chart-skill" style="--skill-level: 75%">
-                          <span class="skill-name">Network Security</span>
-                          <span class="skill-percent">75%</span>
-                        </div>
-                        <div class="chart-skill" style="--skill-level: 70%">
-                          <span class="skill-name">Reverse Engineering</span>
-                          <span class="skill-percent">70%</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+            <div class="skill-item">
+              <div class="skill-icon">
+                <i class="tech-symbol">&#127909;</i>
+              </div>
+              <h3>Video Editing</h3>
+              <div class="skill-progress">
+                <div class="progress-bar" style="width: 85%"></div>
+              </div>
+            </div>
+
+            <div class="skill-item">
+              <div class="skill-icon">
+                <i class="tech-symbol">&#128187;</i>
+              </div>
+              <h3>Pentesting Tools</h3>
+              <div class="skill-progress">
+                <div class="progress-bar" style="width: 75%"></div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section id="tech-stack" class="tech-stack reveal">
-      <div class="container">
-        <h2 class="section-title" data-i18n="tech_stack">Tech Stack</h2>
-        <div class="tech-grid">
-          <div class="tech-card reveal">
-            <div class="tech-icon">
-              <i class="tech-symbol">&#60;/&#62;</i>
+      <section id="services" class="services">
+        <div class="container">
+          <h2 class="section-title">My <span>Services</span></h2>
+          <p class="section-desc">Tools and technologies I work with</p>
+
+          <div class="services-grid">
+            <div class="service-card">
+              <div class="service-img">
+                <!-- Web Development service image -->
+                <img
+                  src="https://picsum.photos/id/251/800/450"
+                  alt="Web Development"
+                />
+                <a href="#" class="service-link">+</a>
+              </div>
+              <h3>Web Development</h3>
             </div>
-            <h3 data-i18n="lang_frameworks">Languages & Frameworks</h3>
-            <ul class="tech-list">
-              <li>Java</li>
-              <li>TypeScript</li>
-              <li>JavaScript</li>
-              <li>React</li>
-              <li>Tailwind CSS</li>
-              <li>Spring Boot</li>
-            </ul>
+
+            <div class="service-card">
+              <div class="service-img">
+                <!-- API Development service image -->
+                <img
+                  src="https://picsum.photos/id/4/800/450"
+                  alt="API Development"
+                />
+                <a href="#" class="service-link">+</a>
+              </div>
+              <h3>API Development</h3>
+            </div>
+
+            <div class="service-card">
+              <div class="service-img">
+                <!-- Security Consulting service image -->
+                <img
+                  src="https://picsum.photos/id/180/800/450"
+                  alt="Security Consulting"
+                />
+                <a href="#" class="service-link">+</a>
+              </div>
+              <h3>Security Consulting</h3>
+            </div>
           </div>
 
-          <div class="tech-card reveal">
-            <div class="tech-icon">
-              <i class="tech-symbol">&#128202;</i>
-            </div>
-            <h3 data-i18n="db_backend">Database & Backend</h3>
-            <ul class="tech-list">
-              <li>PostgreSQL</li>
-              <li>JWT Auth</li>
-              <li>REST API</li>
-              <li>Swagger</li>
-            </ul>
-          </div>
-
-          <div class="tech-card reveal">
-            <div class="tech-icon">
-              <i class="tech-symbol">&#128736;</i>
-            </div>
-            <h3 data-i18n="devops_tools">DevOps & Tools</h3>
-            <ul class="tech-list">
-              <li>Docker</li>
-              <li>Git</li>
-              <li>Ngrok</li>
-              <li>Apache</li>
-            </ul>
-          </div>
-
-          <div class="tech-card reveal">
-            <div class="tech-icon">
-              <i class="tech-symbol">&#128187;</i>
-            </div>
-            <h3 data-i18n="os">Operating Systems</h3>
-            <ul class="tech-list">
-              <li>Ubuntu</li>
-              <li>Kali Linux</li>
-            </ul>
-          </div>
-
-          <div class="tech-card reveal">
-            <div class="tech-icon">
-              <i class="tech-symbol">&#127916;</i>
-            </div>
-            <h3 data-i18n="creative_tools">Creative Tools</h3>
-            <ul class="tech-list">
-              <li>Adobe After Effects</li>
-            </ul>
+          <div class="services-cta">
+            <a href="#" class="btn primary">See All</a>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section id="projects" class="projects">
-      <div class="container">
-        <h2 class="section-title" data-i18n="my_projects">My Projects</h2>
-        <div class="project-grid">
-          <div class="project-card reveal">
-            <div class="project-image">
-              <img
-                src="/images/Screenshot from 2025-05-02 09-35-48.png"
-                alt="Kos-App Project"
-              />
-            </div>
-            <div class="project-info">
-              <h3 data-i18n="kos_app_title">Kos-App (Manajemen Kost)</h3>
-              <p data-i18n="kos_app_desc">
-                Aplikasi fullstack untuk mengelola penghuni, pembayaran, dan
-                tugas-tugas operasional kost.
-              </p>
-              <div class="project-tags">
-                <span>React</span>
-                <span>Spring Boot</span>
-                <span>PostgreSQL</span>
-                <span>JWT</span>
-                <span>Docker</span>
-              </div>
-              <div class="project-links">
-                <a href="#" class="btn small" data-i18n="view_project"
-                  >View Project</a
-                >
-                <a href="#" class="btn small secondary" data-i18n="code"
-                  >Code</a
-                >
-              </div>
-            </div>
-          </div>
+      <section id="testimonials" class="testimonials">
+        <div class="container">
+          <h2 class="section-title">
+            What My <span data-i18n="testimonials">Clients Say</span>
+          </h2>
+          <p class="section-desc">Testimonials from people I've worked with</p>
 
-          <div class="project-card reveal">
-            <div class="project-image">
-              <img
-                src="/images/Screenshot from 2025-05-02 09-47-57.png"
-                alt="Digital Signature Project"
-              />
-            </div>
-            <div class="project-info">
-              <h3 data-i18n="digsig_title">Digital Signature Backend</h3>
-              <p data-i18n="digsig_desc">
-                Backend untuk membuat dan memverifikasi tanda tangan digital
-                menggunakan algoritma RSA.
-              </p>
-              <div class="project-tags">
-                <span>Spring Boot</span>
-                <span>RSA</span>
-                <span>Swagger</span>
-                <span>REST API</span>
-              </div>
-              <div class="project-links">
-                <a href="#" class="btn small" data-i18n="view_project"
-                  >View Project</a
-                >
-                <a href="#" class="btn small secondary" data-i18n="code"
-                  >Code</a
-                >
-              </div>
-            </div>
-          </div>
-
-          <div class="project-card reveal">
-            <div class="project-image">
-              <img
-                src="/images/Screenshot from 2025-05-01 23-35-28.png"
-                alt="Hack-Lab Project"
-              />
-            </div>
-            <div class="project-info">
-              <h3 data-i18n="hacklab_title">
-                Hack-Lab: Web Penetration Testing Simulator
-              </h3>
-              <p data-i18n="hacklab_desc">
-                An educational tool designed to help security enthusiasts and
-                developers understand common web vulnerabilities through a
-                practical, hands-on approach. This project simulates vulnerable
-                web applications with a controlled environment to practice
-                ethical hacking techniques.
-              </p>
-              <div class="project-tags">
-                <span>Python</span>
-                <span>Flask</span>
-                <span>Terminal GUI</span>
-                <span>OSINT Tools</span>
-              </div>
-              <div class="project-links">
-                <a href="#" class="btn small" data-i18n="view_project"
-                  >View Project</a
-                >
-                <a
-                  href="https://github.com/grnlogic/Hack-lab"
-                  class="btn small secondary"
-                  data-i18n="code"
-                  >Code</a
-                >
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Blog Section -->
-    <section id="blog" class="blog reveal">
-      <div class="container">
-        <h2 class="section-title" data-i18n="blog">Latest Articles</h2>
-        <div class="blog-grid">
-          <article class="blog-card reveal">
-            <div class="blog-image">
-              <img
-                src="images/blog1.jpg"
-                alt="Security article"
-                loading="lazy"
-              />
-              <div class="blog-date">
-                <span class="day">12</span>
-                <span class="month">Apr</span>
-              </div>
-            </div>
-            <div class="blog-content">
-              <h3>Securing Your Spring Boot Applications</h3>
-              <p>
-                Learn essential security practices to protect your Spring Boot
-                applications from common vulnerabilities...
-              </p>
-              <div class="blog-meta">
-                <span><i class="tag-icon">🏷️</i> Security</span>
-                <span><i class="time-icon">⏱️</i> 5 min read</span>
-              </div>
-              <a href="#" class="btn small" data-i18n="read_more">Read More</a>
-            </div>
-          </article>
-
-          <article class="blog-card reveal">
-            <div class="blog-image">
-              <img src="images/blog2.jpg" alt="React article" loading="lazy" />
-              <div class="blog-date">
-                <span class="day">28</span>
-                <span class="month">Mar</span>
-              </div>
-            </div>
-            <div class="blog-content">
-              <h3>React Performance Optimization Techniques</h3>
-              <p>
-                Discover advanced techniques to optimize React applications for
-                better user experience and faster load times...
-              </p>
-              <div class="blog-meta">
-                <span><i class="tag-icon">🏷️</i> Frontend</span>
-                <span><i class="time-icon">⏱️</i> 7 min read</span>
-              </div>
-              <a href="#" class="btn small" data-i18n="read_more">Read More</a>
-            </div>
-          </article>
-
-          <article class="blog-card reveal">
-            <div class="blog-image">
-              <img src="images/blog3.jpg" alt="Docker article" loading="lazy" />
-              <div class="blog-date">
-                <span class="day">15</span>
-                <span class="month">Mar</span>
-              </div>
-            </div>
-            <div class="blog-content">
-              <h3>Docker Deployment Best Practices</h3>
-              <p>
-                Explore best practices for containerizing your applications and
-                creating efficient Docker deployment pipelines...
-              </p>
-              <div class="blog-meta">
-                <span><i class="tag-icon">🏷️</i> DevOps</span>
-                <span><i class="time-icon">⏱️</i> 6 min read</span>
-              </div>
-              <a href="#" class="btn small" data-i18n="read_more">Read More</a>
-            </div>
-          </article>
-        </div>
-
-        <div class="blog-more">
-          <a href="#" class="btn primary" data-i18n="view_all_posts"
-            >View All Posts</a
-          >
-        </div>
-      </div>
-    </section>
-
-    <!-- Testimonials Section -->
-    <section id="testimonials" class="testimonials reveal">
-      <div class="container">
-        <h2 class="section-title" data-i18n="testimonials">Testimonials</h2>
-
-        <div class="testimonial-carousel-container">
-          <div class="testimonial-carousel">
-            <!-- Original testimonials -->
+          <div class="testimonials-grid">
             <div class="testimonial-card">
+              <div class="rating">★★★★★</div>
               <div class="testimonial-content">
                 <p>
                   "Fajar is an exceptional developer with a keen eye for
@@ -595,15 +415,21 @@
                 </p>
               </div>
               <div class="testimonial-author">
-                <img src="images/testimonial1.jpg" alt="Dr. Sarah Johnson" />
+                <!-- Testimonial 1 image -->
+                <img
+                  src="https://randomuser.me/api/portraits/women/65.jpg"
+                  alt="Dr. Sarah Johnson"
+                />
                 <div class="author-info">
                   <h4>Dr. Sarah Johnson</h4>
                   <p>Senior Lecturer, Siliwangi University</p>
                 </div>
+                <div class="quote-icon">❝</div>
               </div>
             </div>
 
             <div class="testimonial-card">
+              <div class="rating">★★★★★</div>
               <div class="testimonial-content">
                 <p>
                   "Working with Fajar on our boarding house management system
@@ -612,15 +438,21 @@
                 </p>
               </div>
               <div class="testimonial-author">
-                <img src="images/testimonial2.jpg" alt="Ahmad Rizki" />
+                <!-- Testimonial 2 image -->
+                <img
+                  src="https://randomuser.me/api/portraits/men/32.jpg"
+                  alt="Ahmad Rizki"
+                />
                 <div class="author-info">
                   <h4>Ahmad Rizki</h4>
                   <p>Business Owner, Kost Permata</p>
                 </div>
+                <div class="quote-icon">❝</div>
               </div>
             </div>
 
             <div class="testimonial-card">
+              <div class="rating">★★★★★</div>
               <div class="testimonial-content">
                 <p>
                   "Fajar's ethical hacking workshop was both educational and
@@ -629,129 +461,125 @@
                 </p>
               </div>
               <div class="testimonial-author">
-                <img src="images/testimonial3.jpg" alt="Maya Putri" />
+                <!-- Testimonial 3 image -->
+                <img
+                  src="https://randomuser.me/api/portraits/women/33.jpg"
+                  alt="Maya Putri"
+                />
                 <div class="author-info">
                   <h4>Maya Putri</h4>
                   <p>IT Manager, TechSolutions Indonesia</p>
                 </div>
+                <div class="quote-icon">❝</div>
               </div>
-            </div>
-
-            <!-- Cloned testimonials for seamless scrolling (will be created by JS) -->
-          </div>
-        </div>
-
-        <div class="scroll-indicator">
-          <span>⟸ Drag to scroll ⟹</span>
-        </div>
-      </div>
-    </section>
-
-    <section id="certifications" class="certifications reveal">
-      <div class="container">
-        <h2 class="section-title" data-i18n="certifications">Certifications</h2>
-        <div class="cert-container">
-          <div class="cert-card reveal">
-            <div class="cert-logo">
-              <div class="cert-badge">D</div>
-            </div>
-            <div class="cert-details">
-              <h3>Belajar Backend dengan Spring Boot</h3>
-              <p class="cert-issuer">Dicoding</p>
-              <p class="cert-date">2024</p>
-            </div>
-          </div>
-
-          <div class="cert-card reveal">
-            <div class="cert-logo">
-              <div class="cert-badge">T</div>
-            </div>
-            <div class="cert-details">
-              <h3>Complete Beginner Path</h3>
-              <p class="cert-issuer">TryHackMe</p>
-              <p class="cert-date">2023</p>
-            </div>
-          </div>
-
-          <div class="cert-card reveal">
-            <div class="cert-logo">
-              <div class="cert-badge">H</div>
-            </div>
-            <div class="cert-details">
-              <h3>Linux Fundamentals</h3>
-              <p class="cert-issuer">HackTheBox</p>
-              <p class="cert-date" data-i18n="cert_progress">In Progress</p>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section id="contact" class="contact reveal">
-      <div class="container">
-        <h2 class="section-title" data-i18n="get_in_touch">Get In Touch</h2>
-        <div class="contact-container">
-          <div class="contact-info reveal">
-            <h3 data-i18n="contact_info">Contact Information</h3>
-            <p data-i18n="contact_desc">
-              Feel free to reach out for collaboration on open-source or fun
-              weekend projects!
-            </p>
-            <div class="info-item">
-              <span class="icon">📧</span>
-              <span>237006079@student.unsil.ac.id</span>
+      <footer>
+        <div class="container">
+          <div class="footer-content">
+            <div class="footer-logo">
+              <div class="logo">
+                <span>FG</span>
+                <h1>Fajar Geran</h1>
+              </div>
+              <p>
+                Fullstack Developer & Cybersecurity Enthusiast from Indonesia.
+                Passionate about turning ideas into digital solutions.
+              </p>
             </div>
-            <div class="info-item">
-              <span class="icon">📍</span>
-              <span>Indonesia</span>
+
+            <div class="footer-nav">
+              <h3>Navigation</h3>
+              <ul>
+                <li><a href="#home" data-i18n="nav_home">Home</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#about" data-i18n="nav_about">About</a></li>
+                <li><a href="#contact" data-i18n="nav_contact">Contact</a></li>
+              </ul>
             </div>
-            <div class="social-links">
-              <a href="https://github.com/grnlogic" class="social-icon"
-                ><i>🐙</i> GitHub</a
-              >
-              <a href="#" class="social-icon"><i>🔗</i> LinkedIn</a>
-              <a href="#" class="social-icon"><i>🐦</i> Twitter</a>
+
+            <div class="footer-contact">
+              <h3>Contact</h3>
+              <p><a href="tel:+1234567890">+62 895-3522-81010</a></p>
+              <p>
+                <a href="mailto:237006079@student.unsil.ac.id"
+                  >237006079@student.unsil.ac.id</a
+                >
+              </p>
+              <p>Indonesia</p>
+              <p>Mon - Fri | 9am - 5pm</p>
+            </div>
+
+            <div class="footer-newsletter">
+              <h3>Get the latest information</h3>
+              <p>
+                Feel free to reach out for collaboration on open-source or fun
+                weekend projects!
+              </p>
+              <form class="newsletter-form">
+                <input type="email" placeholder="Your email" required />
+                <button type="submit"><span>→</span></button>
+              </form>
+              <div class="social-icons">
+                <a href="https://github.com/grnlogic"><i>f</i></a>
+                <a href="#"><i>t</i></a>
+                <a href="#"><i>in</i></a>
+              </div>
             </div>
           </div>
-          <div class="contact-form reveal">
-            <form>
-              <div class="form-group">
-                <label for="name" data-i18n="form_name">Name</label>
-                <input type="text" id="name" required />
-              </div>
-              <div class="form-group">
-                <label for="email" data-i18n="form_email">Email</label>
-                <input type="email" id="email" required />
-              </div>
-              <div class="form-group">
-                <label for="subject" data-i18n="form_subject">Subject</label>
-                <input type="text" id="subject" required />
-              </div>
-              <div class="form-group">
-                <label for="message" data-i18n="form_message">Message</label>
-                <textarea id="message" rows="5" required></textarea>
-              </div>
-              <button type="submit" class="btn primary" data-i18n="form_send">
-                Send Message
-              </button>
-            </form>
+
+          <div class="footer-bottom">
+            <p>&copy; 2024 Fajar Geran's Portfolio. All rights reserved.</p>
+            <div class="footer-links">
+              <a href="#">Terms & Service</a>
+              <span>|</span>
+              <a href="#">Privacy Policy</a>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </footer>
 
-    <footer>
-      <div class="container">
-        <p data-i18n="footer_text">
-          &copy; 2024 Fajar Geran's Portfolio. All rights reserved.
-        </p>
-      </div>
-    </footer>
+      <!-- SweetAlert2 for user-friendly alerts -->
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+      <script src="translations.js"></script>
+      <script src="script.js"></script>
+    </div>
 
-    <!-- SweetAlert2 for user-friendly alerts -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="translations.js"></script>
-    <script src="particles.js"></script>
-    <script src="script.js"></script>
+    <!-- Welcome Card Script -->
+    <script src="js/welcome-card.js"></script>
+    <script src="js/anime-particles.js"></script>
+    <script src="js/parallax-bg.js"></script>
+
+    <!-- Just before the closing body tag -->
+    <script>
+      // Performance mode toggle
+      function togglePerformance() {
+        const btn = document.querySelector(".performance-toggle");
+        const newMode = window.togglePerformanceMode
+          ? window.togglePerformanceMode()
+          : "low";
+
+        if (newMode === "low") {
+          btn.textContent = "✨ Quality Mode";
+          btn.style.backgroundColor = "rgba(15, 23, 42, 0.7)";
+        } else {
+          btn.textContent = "🚀 Performance Mode";
+          btn.style.backgroundColor = "rgba(15, 23, 42, 0.85)";
+        }
+      }
+
+      // Auto-enable performance mode on mobile
+      if (
+        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+          navigator.userAgent
+        ) ||
+        window.matchMedia("(max-width: 768px)").matches
+      ) {
+        setTimeout(() => togglePerformance(), 100);
+      }
+    </script>
   </body>
 </html>

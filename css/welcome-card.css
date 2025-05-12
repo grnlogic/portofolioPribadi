@@ -1,0 +1,753 @@
+/* 3D Interactive Welcome Card Styles */
+#welcome-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(ellipse at center, #1a202c 0%, #0f1624 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  perspective: 1500px;
+  overflow: hidden; /* Ensure parallax layers don't cause scrollbars */
+}
+
+/* Enhanced 3D transformation support */
+.welcome-card {
+  width: 90%;
+  max-width: 500px;
+  height: 400px;
+  position: relative;
+  transform-style: preserve-3d;
+  cursor: grab;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  z-index: 1; /* Ensure card is above parallax layers */
+  /* Remove perspective from here as it interferes with rotation */
+}
+
+/* New entrance animation container - separate from transform */
+.entrance-animation-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  animation: cardEntrance 1.2s cubic-bezier(0.17, 0.84, 0.44, 1) forwards;
+  pointer-events: none;
+}
+
+.welcome-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 20px;
+  box-shadow: 0 0 15px rgba(255, 106, 70, 0.5);
+  animation: glowPulse 3s 1.5s infinite;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.welcome-card:active {
+  cursor: grabbing;
+}
+
+.welcome-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.6s ease;
+}
+
+.welcome-card-front,
+.welcome-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  background: linear-gradient(135deg, var(--card-bg), var(--secondary-bg));
+  border-radius: 20px;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  pointer-events: auto;
+}
+
+.welcome-card-back {
+  transform: rotateY(180deg);
+  justify-content: center;
+}
+
+.welcome-profile-img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--primary-color);
+  margin-bottom: 15px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  pointer-events: auto;
+  opacity: 0;
+  animation: contentFadeIn 0.8s 0.6s ease forwards;
+}
+
+.welcome-card-logo {
+  width: 60px;
+  height: 60px;
+  background-color: var(--primary-color);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15px;
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+}
+
+.welcome-card h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  background: linear-gradient(
+    to right,
+    var(--primary-color),
+    var(--primary-light)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  pointer-events: auto;
+  opacity: 0;
+  animation: contentFadeIn 0.8s 0.8s ease forwards;
+}
+
+.welcome-card p {
+  margin-bottom: 20px;
+  color: var(--text-light);
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  pointer-events: auto;
+  opacity: 0;
+  animation: contentFadeIn 0.8s 1s ease forwards;
+}
+
+.card-badges {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  pointer-events: auto;
+  opacity: 0;
+  animation: contentFadeIn 0.8s 1.2s ease forwards;
+}
+
+.card-badge {
+  background-color: rgba(255, 106, 70, 0.1);
+  padding: 5px 12px;
+  border-radius: 15px;
+  font-size: 12px;
+  color: var(--primary-light);
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  pointer-events: auto;
+}
+
+.experience-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  width: 100%;
+  text-align: left;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  pointer-events: auto;
+}
+
+.experience-item .year {
+  color: var(--primary-color);
+  font-weight: 500;
+  margin-right: 10px;
+  white-space: nowrap;
+}
+
+.experience-item .role {
+  color: var(--text-light);
+  font-size: 14px;
+}
+
+.flip-card-hint {
+  position: absolute;
+  bottom: 15px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-dark);
+  pointer-events: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  pointer-events: auto;
+}
+
+.back-btn {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: transparent;
+  border: none;
+  color: var(--primary-color);
+  cursor: pointer;
+  font-size: 20px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  pointer-events: auto;
+}
+
+.back-btn:hover {
+  background-color: rgba(255, 106, 70, 0.1);
+}
+
+#continue-btn {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  margin-top: 15px;
+  z-index: 5;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  pointer-events: auto;
+  opacity: 0;
+  animation: contentFadeIn 0.8s 1.4s ease forwards;
+  position: relative;
+  overflow: hidden;
+}
+
+#continue-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: 0.5s;
+}
+
+#continue-btn:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 7px 20px rgba(255, 106, 70, 0.4);
+  letter-spacing: 0.5px;
+}
+
+#continue-btn:hover::before {
+  left: 100%;
+}
+
+#continue-btn:active {
+  transform: translateY(0) scale(0.98);
+  box-shadow: 0 3px 10px rgba(255, 106, 70, 0.4);
+}
+
+/* Glowing borders effect */
+.welcome-card::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(
+    45deg,
+    var(--primary-color),
+    transparent,
+    var(--primary-color)
+  );
+  z-index: -1;
+  border-radius: 22px;
+  animation: glowingBorder 3s linear infinite;
+  opacity: 0.5;
+}
+
+@keyframes glowingBorder {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 400% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+
+/* Animation Classes */
+.card-exit {
+  animation: cardExit 1.5s forwards cubic-bezier(0.36, 0.07, 0.19, 0.97);
+  transform-origin: center center;
+}
+
+@keyframes cardExit {
+  0% {
+    transform: translateZ(0) rotateY(0deg) scale(1);
+    opacity: 1;
+    filter: blur(0);
+  }
+  20% {
+    transform: translateZ(100px) rotateY(72deg) scale(1.1);
+    opacity: 0.9;
+    filter: blur(0);
+  }
+  40% {
+    transform: translateZ(200px) rotateY(144deg) scale(1.05);
+    opacity: 0.8;
+    filter: blur(1px);
+  }
+  60% {
+    transform: translateZ(300px) rotateY(216deg) scale(0.95);
+    opacity: 0.6;
+    filter: blur(2px);
+  }
+  80% {
+    transform: translateZ(400px) rotateY(288deg) scale(0.8);
+    opacity: 0.3;
+    filter: blur(4px);
+  }
+  100% {
+    transform: translateZ(600px) rotateY(360deg) scale(0);
+    opacity: 0;
+    filter: blur(8px);
+  }
+}
+
+@keyframes cardEntrance {
+  0% {
+    opacity: 0;
+    transform: scale(0.6) translate3d(0, 30px, -100px)
+      rotate3d(1, 0.5, 0, 15deg);
+    filter: blur(20px);
+  }
+  20% {
+    opacity: 0.8;
+    transform: scale(1.1) translate3d(0, -10px, 50px) rotate3d(1, 0.5, 0, -5deg);
+    filter: blur(0);
+  }
+  35% {
+    transform: scale(0.95) translate3d(0, 5px, 20px) rotate3d(1, 0.5, 0, 3deg);
+  }
+  50% {
+    transform: scale(1.02) translate3d(0, -3px, 10px) rotate3d(1, 0.5, 0, -1deg);
+  }
+  65% {
+    transform: scale(0.99) translate3d(0, 0, 5px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translate3d(0, 0, 0);
+  }
+}
+
+/* Main card content animations - keep these */
+@keyframes contentFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Rotation states for 360-degree view */
+.rotate-0 {
+  transform: rotateY(0deg);
+}
+
+.rotate-90 {
+  transform: rotateY(90deg);
+}
+
+.rotate-180 {
+  transform: rotateY(180deg);
+}
+
+.rotate-270 {
+  transform: rotateY(270deg);
+}
+
+.rotate-360 {
+  transform: rotateY(360deg);
+}
+
+/* Hide main content initially */
+body.welcome-active {
+  overflow: hidden;
+}
+
+#main-content {
+  opacity: 0;
+  visibility: hidden;
+}
+
+#main-content.visible {
+  animation: pageEnter 1.5s forwards;
+}
+
+@keyframes pageEnter {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+    filter: blur(10px);
+  }
+  25% {
+    opacity: 0.5;
+    filter: blur(5px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+    visibility: visible;
+  }
+}
+
+/* Mobile optimizations */
+@media (max-width: 600px) {
+  .welcome-card {
+    max-width: 90%;
+    height: 420px;
+  }
+
+  .welcome-card-front,
+  .welcome-card-back {
+    padding: 30px 20px;
+  }
+
+  .welcome-card h2 {
+    font-size: 20px;
+  }
+
+  .welcome-card p {
+    font-size: 14px;
+  }
+
+  .welcome-profile-img {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+/* Add these styles to prevent text selection */
+.welcome-card,
+.welcome-card-front,
+.welcome-card-back,
+.welcome-card h2,
+.welcome-card p,
+.welcome-profile-img,
+.card-badges,
+.card-badge,
+.experience-item,
+.flip-card-hint {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  pointer-events: auto;
+}
+
+/* Rotation controls container - outside the card */
+.rotation-controls-container {
+  position: absolute;
+  bottom: 30px;
+  left: 0;
+  width: 100%;
+  z-index: 10001;
+  padding: 0;
+  pointer-events: none;
+}
+
+/* Improved Rotation controls */
+.rotation-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin: 0 auto;
+  padding: 12px 20px;
+  background-color: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(8px);
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  width: fit-content;
+  pointer-events: auto;
+  border: 1px solid rgba(255, 106, 70, 0.3);
+  z-index: 10010;
+}
+
+/* 3D axis visualization */
+.axis-indicator {
+  display: flex;
+  gap: 10px;
+  margin-left: 15px;
+  padding-left: 15px;
+  border-left: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.axis {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.axis-x {
+  background-color: rgba(255, 0, 0, 0.3);
+  color: #ff8080;
+  border: 1px solid rgba(255, 0, 0, 0.5);
+}
+
+.axis-y {
+  background-color: rgba(0, 255, 0, 0.3);
+  color: #80ff80;
+  border: 1px solid rgba(0, 255, 0, 0.5);
+}
+
+.axis-z {
+  background-color: rgba(0, 0, 255, 0.3);
+  color: #8080ff;
+  border: 1px solid rgba(0, 0, 255, 0.5);
+}
+
+.axis:hover {
+  transform: scale(1.1);
+}
+
+/* Reset button */
+.reset-view {
+  background-color: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.reset-view:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+/* Remove the previous rotation controls inside the card */
+.welcome-card-front .rotation-controls,
+.welcome-card-back .rotation-controls {
+  display: none;
+}
+
+/* Ensure controls and card content don't interfere with each other */
+.welcome-card-front > *:not(.rotation-controls),
+.welcome-card-back > *:not(.rotation-controls) {
+  pointer-events: none;
+}
+
+.rotation-controls * {
+  pointer-events: auto !important;
+}
+
+/* Add lens flare effect container */
+.lens-flare {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    circle at center,
+    rgba(255, 255, 255, 0),
+    rgba(255, 255, 255, 0)
+  );
+  pointer-events: none;
+  opacity: 0;
+  z-index: 10005;
+  mix-blend-mode: screen;
+  transition: all 0.5s ease;
+}
+
+.lens-flare.active {
+  opacity: 1;
+  background: radial-gradient(
+    circle at center,
+    rgba(255, 255, 255, 0.9),
+    rgba(255, 255, 255, 0)
+  );
+  animation: lensFlareEffect 1.5s ease-out forwards;
+}
+
+/* Particles for anime magic effect */
+.card-particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.particle {
+  position: absolute;
+  background-color: rgba(255, 106, 70, 0.6);
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  animation: particleFloat 3s ease-in-out infinite;
+}
+
+@keyframes particleFloat {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.8;
+  }
+  80% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(-20px) translateX(10px);
+    opacity: 0;
+  }
+}
+
+/* Lens flare animation */
+@keyframes lensFlareEffect {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  40% {
+    opacity: 0.8;
+    transform: scale(1.2);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(2);
+  }
+}
+
+/* Staggered element animations for main content */
+.staggered-item {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.staggered-item.active {
+  animation: staggeredEntrance 0.8s cubic-bezier(0.17, 0.84, 0.44, 1) forwards;
+}
+
+@keyframes staggeredEntrance {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Enhance the parallax effect on hover */
+.welcome-card:hover .welcome-card-inner {
+  transition: transform 0.1s ease;
+}
+
+#continue-btn:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 10px 25px rgba(255, 106, 70, 0.5);
+  animation: buttonPulse 1.5s infinite alternate;
+}
+
+@keyframes buttonPulse {
+  0% {
+    box-shadow: 0 5px 15px rgba(255, 106, 70, 0.4);
+  }
+  100% {
+    box-shadow: 0 10px 30px rgba(255, 106, 70, 0.7);
+  }
+}
+
+/* For motion blur effect during animations */
+.motion-blur {
+  transition: filter 0.5s ease;
+}
+
+.motion-blur.active {
+  filter: blur(8px);
+}

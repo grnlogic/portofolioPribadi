@@ -1,0 +1,141 @@
+/* Optimized Parallax Layered Background - Anime Style */
+.parallax-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Base layer styles - optimized with will-change only where needed */
+.parallax-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.15s ease-out;
+}
+
+/* Layer 1: Distant stars (slowest movement) - simplified */
+.layer-stars {
+  background-image: radial-gradient(
+      circle at center,
+      rgba(255, 255, 255, 0.03) 1px,
+      transparent 1px
+    ),
+    radial-gradient(
+      circle at 20% 80%,
+      rgba(255, 255, 255, 0.05) 1px,
+      transparent 1px
+    );
+  background-size: 100px 100px, 150px 150px;
+  opacity: 0.8;
+  z-index: 1;
+}
+
+/* Layer 2: Misty clouds (medium movement) - simplified */
+.layer-mist {
+  background: radial-gradient(
+      ellipse at 20% 20%,
+      rgba(255, 106, 70, 0.05) 0%,
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse at 60% 70%,
+      rgba(255, 106, 70, 0.03) 0%,
+      transparent 70%
+    );
+  filter: blur(5px); /* Less blur for better performance */
+  opacity: 0.4;
+  z-index: 2;
+}
+
+/* Layer 3: Tech grid pattern (fastest movement) - simplified */
+.layer-grid {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 106, 70, 0.03) 1px,
+    transparent 1px
+  );
+  background-size: 40px 40px; /* Larger size for better performance */
+  opacity: 0.3;
+  z-index: 3;
+}
+
+/* Hide heavy layers for performance mode */
+.parallax-layer.hidden {
+  display: none;
+}
+
+/* Optimized layer styles */
+.layer-spotlight {
+  background: radial-gradient(
+    circle at 30% 40%,
+    rgba(255, 106, 70, 0.05) 0%,
+    transparent 50%
+  );
+  opacity: 0;
+  z-index: 4;
+  animation: spotlightPulse 10s infinite alternate; /* Slower animation */
+}
+
+/* Digital scan line effect - simplified */
+.layer-scanlines {
+  background-size: 100% 8px; /* Larger scanlines for better performance */
+  z-index: 5;
+  opacity: 0.3;
+}
+
+/* Simpler animations */
+@keyframes spotlightPulse {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0.2;
+  }
+}
+
+/* For vibrant stars that twinkle occasionally - simplified */
+.twinkling-star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background-color: white;
+  border-radius: 50%;
+  animation: twinkle 6s infinite; /* Slower animation */
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.3);
+  }
+}
+
+/* Performance mode toggle button */
+.performance-toggle {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  background-color: rgba(15, 23, 42, 0.85);
+  color: white;
+  border: 1px solid rgba(255, 106, 70, 0.3);
+  border-radius: 5px;
+  padding: 5px 10px;
+  font-size: 12px;
+  cursor: pointer;
+  z-index: 10002;
+  font-family: "Poppins", sans-serif;
+}

@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }, 1500);
 
   // Initialize animation for skill bars
-  const skillLevels = document.querySelectorAll(".skill-level");
+  const skillLevels = document.querySelectorAll(".progress-bar");
   skillLevels.forEach((level) => {
     const width = level.style.width;
     level.style.width = "0";
@@ -45,12 +45,6 @@ document.addEventListener("DOMContentLoaded", function () {
   // Check on scroll
   window.addEventListener("scroll", checkReveal);
 
-  // Add floating animations with different delays
-  const floatingElements = document.querySelectorAll(".floating");
-  floatingElements.forEach((element, index) => {
-    element.style.animationDelay = `${index * 0.2}s`;
-  });
-
   // Mobile menu functionality
   const mobileMenuBtn = document.querySelector(".mobile-menu-btn");
   const nav = document.querySelector("nav");
@@ -62,7 +56,7 @@ document.addEventListener("DOMContentLoaded", function () {
     mobileMenuBtn.classList.toggle("active");
     nav.classList.toggle("active");
     overlay.classList.toggle("active");
-    document.body.classList.toggle("no-scroll");
+    document.body.classList.toggle("no-scroll"); // Prevent background scroll
   });
 
   // Close menu when overlay is clicked
@@ -83,206 +77,106 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // Theme switching functionality
-  const themeToggleBtn = document.getElementById("theme-toggle-btn");
+  // Add active class to the current menu item based on scroll position
+  function updateActiveMenuItem() {
+    const scrollPosition = window.scrollY;
 
-  // Check for saved theme preference or use dark mode as default
-  const savedTheme = localStorage.getItem("theme") || "dark";
+    // Get all sections with IDs that match navigation links
+    const sections = document.querySelectorAll("section[id]");
 
-  // Apply saved theme
-  document.documentElement.setAttribute("data-theme", savedTheme);
+    sections.forEach((section) => {
+      const sectionTop = section.offsetTop - 100;
+      const sectionHeight = section.offsetHeight;
+      const sectionId = section.getAttribute("id");
 
-  // Update button aria-label based on current theme
-  themeToggleBtn.setAttribute(
-    "aria-label",
-    savedTheme === "dark" ? "Switch to light mode" : "Switch to dark mode"
-  );
+      if (
+        scrollPosition >= sectionTop &&
+        scrollPosition < sectionTop + sectionHeight
+      ) {
+        // Remove active class from all nav links
+        navLinks.forEach((link) => link.classList.remove("active"));
 
-  // Toggle theme when button is clicked
-  themeToggleBtn.addEventListener("click", function () {
-    const currentTheme = document.documentElement.getAttribute("data-theme");
-    const newTheme = currentTheme === "light" ? "dark" : "light";
+        // Add active class to current section nav link
+        const activeLink = document.querySelector(
+          `nav ul li a[href="#${sectionId}"]`
+        );
+        if (activeLink) {
+          activeLink.classList.add("active");
+        }
+      }
+    });
+  }
 
-    // Apply new theme
-    document.documentElement.setAttribute("data-theme", newTheme);
+  // Update active menu item on scroll
+  window.addEventListener("scroll", updateActiveMenuItem);
 
-    // Update button aria-label
-    themeToggleBtn.setAttribute(
-      "aria-label",
-      newTheme === "dark" ? "Switch to light mode" : "Switch to dark mode"
-    );
-
-    // Save theme preference
-    localStorage.setItem("theme", newTheme);
-
-    // Update particle colors
-    updateParticleColors(newTheme);
-  });
-
-  // Initial particle color update based on the current theme
-  updateParticleColors(savedTheme);
+  // Call once on page load
+  updateActiveMenuItem();
 
   // Language switching functionality
   const languageSelector = document.getElementById("language-selector");
+  if (languageSelector) {
+    // Check for saved language preference or use browser language
+    const savedLanguage =
+      localStorage.getItem("language") ||
+      (navigator.language.startsWith("id")
+        ? "id"
+        : navigator.language.startsWith("ja")
+        ? "ja"
+        : "en");
 
-  // Check for saved language preference or use browser language
-  const savedLanguage =
-    localStorage.getItem("language") ||
-    (navigator.language.startsWith("id")
-      ? "id"
-      : navigator.language.startsWith("ja")
-      ? "ja"
-      : "en");
+    // Set initial language
+    if (languageSelector) {
+      languageSelector.value = savedLanguage;
+    }
 
-  // Set initial language
-  languageSelector.value = savedLanguage;
+    // Apply translations on page load
+    if (typeof applyTranslations === "function") {
+      applyTranslations(savedLanguage);
+    }
 
-  // Apply translations on page load
-  applyTranslations(savedLanguage);
-
-  // Listen for language changes
-  languageSelector.addEventListener("change", function () {
-    const selectedLanguage = this.value;
-    applyTranslations(selectedLanguage);
-    localStorage.setItem("language", selectedLanguage);
-  });
-
-  // Testimonial slider initialization
-  if (document.querySelector(".testimonial-slider")) {
-    initTestimonialSlider();
+    // Listen for language changes
+    languageSelector.addEventListener("change", function () {
+      const selectedLanguage = this.value;
+      if (typeof applyTranslations === "function") {
+        applyTranslations(selectedLanguage);
+      }
+      localStorage.setItem("language", selectedLanguage);
+    });
   }
 
-  // Accordion functionality for skills
-  const accordionHeaders = document.querySelectorAll(".accordion-header");
+  // Form submission handler
+  const form = document.querySelector(".newsletter-form");
+  if (form) {
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
 
-  accordionHeaders.forEach((header) => {
-    header.addEventListener("click", function () {
-      const accordionItem = this.parentElement;
-      const isActive = accordionItem.classList.contains("active");
-
-      // Close all accordion items
-      document.querySelectorAll(".accordion-item").forEach((item) => {
-        item.classList.remove("active");
+      // Use translated maintenance message
+      Swal.fire({
+        title: "Thank you!",
+        html: `
+          <div class="maintenance-message">
+            <p>Thank you for subscribing to our newsletter.</p>
+            <p>We'll keep you updated with the latest information.</p>
+          </div>
+        `,
+        icon: "success",
+        confirmButtonText: "OK",
+        confirmButtonColor: "#FF6A46",
       });
 
-      // Toggle current item if it wasn't already active
-      if (!isActive) {
-        accordionItem.classList.add("active");
-
-        // Animate skill bars inside the opened accordion
-        const skillBars = accordionItem.querySelectorAll(".chart-skill");
-        skillBars.forEach((bar) => {
-          const width = bar.style.getPropertyValue("--skill-level");
-          bar.style.setProperty("--skill-level", "0%");
-
-          setTimeout(() => {
-            bar.style.setProperty("--skill-level", width);
-          }, 50);
-        });
-      }
+      // Reset the form
+      form.reset();
     });
-  });
-
-  // Open the first accordion item by default
-  const firstAccordion = document.querySelector(".accordion-item");
-  if (firstAccordion) {
-    firstAccordion.classList.add("active");
-  }
-
-  // Initialize testimonial carousel instead of slider
-  if (document.querySelector(".testimonial-carousel")) {
-    initTestimonialCarousel();
   }
 });
 
-// Mobile menu toggle
-const createMobileMenu = () => {
-  const nav = document.querySelector("nav");
-  const menuBtn = document.createElement("div");
-  menuBtn.className = "menu-btn";
-  menuBtn.innerHTML = "<span></span><span></span><span></span>";
-
-  document.querySelector("header .container").appendChild(menuBtn);
-
-  menuBtn.addEventListener("click", () => {
-    menuBtn.classList.toggle("active");
-    nav.classList.toggle("active");
-  });
-};
-
-// Call mobile menu creation for smaller screens
-if (window.innerWidth < 768) {
-  createMobileMenu();
-}
-
-// Form submission handler
-const form = document.querySelector(".contact-form form");
-if (form) {
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
-
-    // Use translated maintenance message
-    Swal.fire({
-      title: window.maintenanceMsg?.title || "Under Development",
-      html: `
-        <div class="maintenance-message">
-          <p>${
-            window.maintenanceMsg?.msg1 ||
-            "Sorry, the email sending feature is currently under development."
-          }</p>
-          <p>${
-            window.maintenanceMsg?.msg2 ||
-            "For now, please send an email directly to:"
-          }</p>
-          <p><strong>237006079@student.unsil.ac.id</strong></p>
-        </div>
-      `,
-      icon: "info",
-      confirmButtonText: "OK",
-      confirmButtonColor: "#3B82F6",
-      footer: `<span class="note">${
-        window.maintenanceMsg?.thanks || "Thank you for your understanding."
-      }</span>`,
-    });
-
-    // Don't reset the form so user can copy their message if needed
-  });
-}
-
-// Function to copy text to clipboard
-function copyToClipboard(text) {
-  // Create temporary textarea element
-  const textarea = document.createElement("textarea");
-  textarea.value = text;
-  document.body.appendChild(textarea);
-  textarea.select();
-
-  try {
-    // Copy text
-    document.execCommand("copy");
-    Swal.fire({
-      icon: "success",
-      title: "Copied!",
-      text: "Message has been copied to clipboard. Please paste it in your email application.",
-      confirmButtonColor: "#3B82F6",
-    });
-  } catch (err) {
-    Swal.fire({
-      icon: "error",
-      title: "Copy failed",
-      text: "Could not copy the message. Please copy manually.",
-      confirmButtonColor: "#3B82F6",
-    });
-  }
-
-  document.body.removeChild(textarea);
-}
-
 // Function to apply translations
 function applyTranslations(language) {
-  if (!translations[language]) {
+  if (!translations || !translations[language]) {
     console.error(`Translations for "${language}" not found.`);
     language = "en"; // Fallback to English
+    if (!translations) return;
   }
 
   const translationObj = translations[language];
@@ -315,100 +209,4 @@ function applyTranslations(language) {
     msg2: translationObj.maintenance_msg2,
     thanks: translationObj.maintenance_thanks,
   };
-}
-
-// Function to update particle colors based on theme
-function updateParticleColors(theme) {
-  if (typeof updateParticleTheme === "function") {
-    updateParticleTheme(theme);
-  }
-}
-
-// Testimonial auto-scrolling carousel
-function initTestimonialCarousel() {
-  const carousel = document.querySelector(".testimonial-carousel");
-
-  if (!carousel) return;
-
-  // Clone testimonials for infinite scrolling effect
-  const testimonials = carousel.querySelectorAll(".testimonial-card");
-  testimonials.forEach((testimonial) => {
-    const clone = testimonial.cloneNode(true);
-    carousel.appendChild(clone);
-  });
-
-  // Calculate the animation distance dynamically
-  const updateScrollDistance = () => {
-    const firstCard = testimonials[0];
-    const cardWidth = firstCard.offsetWidth;
-    const cardMargin =
-      parseInt(window.getComputedStyle(firstCard).marginRight) || 0;
-    const gap = 25; // Gap between cards as defined in CSS
-
-    const singleCardTotalWidth = cardWidth + gap + cardMargin;
-    const allCardsWidth = singleCardTotalWidth * testimonials.length;
-
-    // Update CSS variable for the animation
-    document.documentElement.style.setProperty(
-      "--scroll-distance",
-      `-${allCardsWidth}px`
-    );
-  };
-
-  // Call initially and on window resize
-  updateScrollDistance();
-  window.addEventListener("resize", updateScrollDistance);
-
-  // Drag to scroll functionality
-  let isDragging = false;
-  let startPosition = 0;
-  let startScrollLeft = 0;
-
-  carousel.addEventListener("mousedown", startDrag);
-  carousel.addEventListener("touchstart", startDrag, { passive: true });
-  carousel.addEventListener("mouseup", endDrag);
-  carousel.addEventListener("touchend", endDrag);
-  carousel.addEventListener("mouseleave", endDrag);
-  carousel.addEventListener("mousemove", dragMove);
-  carousel.addEventListener("touchmove", dragMove, { passive: true });
-
-  function startDrag(e) {
-    isDragging = true;
-    startPosition = getPositionX(e);
-    startScrollLeft = carousel.scrollLeft;
-
-    // Temporarily pause animation while dragging
-    carousel.style.animationPlayState = "paused";
-  }
-
-  function dragMove(e) {
-    if (!isDragging) return;
-
-    const currentPosition = getPositionX(e);
-    const distance = currentPosition - startPosition;
-    carousel.scrollLeft = startScrollLeft - distance;
-  }
-
-  function endDrag() {
-    if (!isDragging) return;
-    isDragging = false;
-
-    // Resume animation after a short delay
-    setTimeout(() => {
-      carousel.style.animationPlayState = "";
-
-      // Reset any manual transform we might have applied
-      carousel.style.transform = "";
-    }, 1000);
-  }
-
-  function getPositionX(e) {
-    return e.type.includes("mouse") ? e.pageX : e.touches[0].clientX;
-  }
-}
-
-// Replace old testimonial slider function with the new carousel
-function initTestimonialSlider() {
-  // Call the new function instead
-  initTestimonialCarousel();
 }
