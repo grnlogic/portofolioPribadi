@@ -41,12 +41,14 @@
     <link rel="stylesheet" href="css/welcome-card.css" />
     <link rel="stylesheet" href="css/particles.css" />
     <link rel="stylesheet" href="css/parallax-bg.css" />
+    <link rel="stylesheet" href="css/anime-icons.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="css/anime-projects.css" />
   </head>
   <body>
     <!-- Welcome Card Overlay -->
@@ -256,7 +258,7 @@
         </div>
       </section>
 
-      <section id="skills" class="skills">
+      <section id="skills" class="skills techy-grid-bg">
         <div class="container">
           <h2 class="section-title">My Work <span>Skills</span></h2>
           <p class="section-desc">
@@ -266,8 +268,13 @@
 
           <div class="skills-grid">
             <div class="skill-item">
-              <div class="skill-icon">
-                <i class="tech-symbol">&#60;/&#62;</i>
+              <div class="anime-icon">
+                <span class="glow-point"></span>
+                <span class="glow-point"></span>
+                <span class="glow-point"></span>
+                <div class="anime-icon-inner">
+                  <i class="tech-symbol">&#60;/&#62;</i>
+                </div>
               </div>
               <h3>Java/Spring Boot</h3>
               <div class="skill-progress">
@@ -276,8 +283,13 @@
             </div>
 
             <div class="skill-item">
-              <div class="skill-icon">
-                <i class="tech-symbol">JS</i>
+              <div class="anime-icon frontend">
+                <span class="glow-point"></span>
+                <span class="glow-point"></span>
+                <span class="glow-point"></span>
+                <div class="anime-icon-inner">
+                  <i class="tech-symbol">JS</i>
+                </div>
               </div>
               <h3>JavaScript/TypeScript</h3>
               <div class="skill-progress">
@@ -286,8 +298,13 @@
             </div>
 
             <div class="skill-item">
-              <div class="skill-icon">
-                <i class="tech-symbol">&#60;/&#62;</i>
+              <div class="anime-icon frontend">
+                <span class="glow-point"></span>
+                <span class="glow-point"></span>
+                <span class="glow-point"></span>
+                <div class="anime-icon-inner">
+                  <i class="tech-symbol">&#60;/&#62;</i>
+                </div>
               </div>
               <h3>React/Tailwind CSS</h3>
               <div class="skill-progress">
@@ -296,8 +313,13 @@
             </div>
 
             <div class="skill-item">
-              <div class="skill-icon">
-                <i class="tech-symbol">&#128202;</i>
+              <div class="anime-icon security">
+                <span class="glow-point"></span>
+                <span class="glow-point"></span>
+                <span class="glow-point"></span>
+                <div class="anime-icon-inner">
+                  <i class="tech-symbol">&#128202;</i>
+                </div>
               </div>
               <h3>Cybersecurity</h3>
               <div class="skill-progress">
@@ -306,8 +328,13 @@
             </div>
 
             <div class="skill-item">
-              <div class="skill-icon">
-                <i class="tech-symbol">DB</i>
+              <div class="anime-icon database">
+                <span class="glow-point"></span>
+                <span class="glow-point"></span>
+                <span class="glow-point"></span>
+                <div class="anime-icon-inner">
+                  <i class="tech-symbol">DB</i>
+                </div>
               </div>
               <h3>PostgreSQL</h3>
               <div class="skill-progress">
@@ -316,8 +343,13 @@
             </div>
 
             <div class="skill-item">
-              <div class="skill-icon">
-                <i class="tech-symbol">&#128736;</i>
+              <div class="anime-icon">
+                <span class="glow-point"></span>
+                <span class="glow-point"></span>
+                <span class="glow-point"></span>
+                <div class="anime-icon-inner">
+                  <i class="tech-symbol">&#128736;</i>
+                </div>
               </div>
               <h3>Docker & Railway</h3>
               <div class="skill-progress">
@@ -326,8 +358,13 @@
             </div>
 
             <div class="skill-item">
-              <div class="skill-icon">
-                <i class="tech-symbol">&#127909;</i>
+              <div class="anime-icon">
+                <span class="glow-point"></span>
+                <span class="glow-point"></span>
+                <span class="glow-point"></span>
+                <div class="anime-icon-inner">
+                  <i class="tech-symbol">&#127909;</i>
+                </div>
               </div>
               <h3>Video Editing</h3>
               <div class="skill-progress">
@@ -336,8 +373,13 @@
             </div>
 
             <div class="skill-item">
-              <div class="skill-icon">
-                <i class="tech-symbol">&#128187;</i>
+              <div class="anime-icon security">
+                <span class="glow-point"></span>
+                <span class="glow-point"></span>
+                <span class="glow-point"></span>
+                <div class="anime-icon-inner">
+                  <i class="tech-symbol">&#128187;</i>
+                </div>
               </div>
               <h3>Pentesting Tools</h3>
               <div class="skill-progress">
@@ -393,6 +435,159 @@
 
           <div class="services-cta">
             <a href="#" class="btn primary">See All</a>
+          </div>
+        </div>
+      </section>
+
+      <section id="projects" class="anime-projects">
+        <div class="container">
+          <h2 class="section-title">My <span>Projects</span></h2>
+          <p class="section-desc" data-i18n="projects_desc">
+            Projects I've worked on recently
+          </p>
+
+          <div class="projects-grid">
+            <!-- Project 1 -->
+            <div class="project-card" data-project-id="kos-app">
+              <div class="project-status ongoing">
+                <span class="status-icon">🔁</span>
+                <span class="status-tooltip">Ongoing Project</span>
+              </div>
+              <div class="project-thumbnail">
+                <div class="thumbnail-overlay"></div>
+                <img src="images/projects/kos-app.jpg" alt="Kos-App" />
+                <div class="data-stream"></div>
+              </div>
+              <div class="project-info">
+                <div class="project-id">#PRJ-001</div>
+                <h3 class="project-title" data-i18n="kos_app_title">
+                  Kos-App (Boarding House Management)
+                </h3>
+                <p class="project-desc" data-i18n="kos_app_desc">
+                  Fullstack application to manage residents, payments, and
+                  operational tasks of boarding houses.
+                </p>
+                <div class="project-tech">
+                  <span class="tech-tag">Spring Boot</span>
+                  <span class="tech-tag">React</span>
+                  <span class="tech-tag">PostgreSQL</span>
+                </div>
+                <div class="project-actions">
+                  <button
+                    class="project-button view-btn"
+                    data-project="kos-app"
+                  >
+                    <span class="btn-text" data-i18n="view_project"
+                      >View Project</span
+                    >
+                    <span class="btn-shine"></span>
+                  </button>
+                  <button class="project-button code-btn">
+                    <span class="btn-text" data-i18n="code">Code</span>
+                  </button>
+                </div>
+              </div>
+              <div class="scan-line"></div>
+            </div>
+
+            <!-- Project 2 -->
+            <div class="project-card" data-project-id="digsig">
+              <div class="project-status completed">
+                <span class="status-icon">✓</span>
+                <span class="status-tooltip">Completed Project</span>
+              </div>
+              <div class="project-thumbnail">
+                <div class="thumbnail-overlay"></div>
+                <img src="images/projects/digsig.jpg" alt="Digital Signature" />
+                <div class="data-stream"></div>
+              </div>
+              <div class="project-info">
+                <div class="project-id">#PRJ-002</div>
+                <h3 class="project-title" data-i18n="digsig_title">
+                  Digital Signature Backend
+                </h3>
+                <p class="project-desc" data-i18n="digsig_desc">
+                  Backend for creating and verifying digital signatures using
+                  RSA algorithm.
+                </p>
+                <div class="project-tech">
+                  <span class="tech-tag">Java</span>
+                  <span class="tech-tag">Spring Boot</span>
+                  <span class="tech-tag">Security</span>
+                </div>
+                <div class="project-actions">
+                  <button class="project-button view-btn" data-project="digsig">
+                    <span class="btn-text" data-i18n="view_project"
+                      >View Project</span
+                    >
+                    <span class="btn-shine"></span>
+                  </button>
+                  <button class="project-button code-btn">
+                    <span class="btn-text" data-i18n="code">Code</span>
+                  </button>
+                </div>
+              </div>
+              <div class="scan-line"></div>
+            </div>
+
+            <!-- Project 3 -->
+            <div class="project-card" data-project-id="hacklab">
+              <div class="project-status locked">
+                <span class="status-icon">🔒</span>
+                <span class="status-tooltip">Private Project</span>
+              </div>
+              <div class="project-thumbnail">
+                <div class="thumbnail-overlay"></div>
+                <img src="images/projects/hacklab.jpg" alt="Hack-Lab" />
+                <div class="data-stream"></div>
+              </div>
+              <div class="project-info">
+                <div class="project-id">#PRJ-003</div>
+                <h3 class="project-title" data-i18n="hacklab_title">
+                  Hack-Lab: Web Penetration Testing Simulator
+                </h3>
+                <p class="project-desc" data-i18n="hacklab_desc">
+                  An educational tool for security enthusiasts to understand
+                  common web vulnerabilities through hands-on practice.
+                </p>
+                <div class="project-tech">
+                  <span class="tech-tag">Docker</span>
+                  <span class="tech-tag">Node.js</span>
+                  <span class="tech-tag">Security</span>
+                </div>
+                <div class="project-actions">
+                  <button
+                    class="project-button view-btn"
+                    data-project="hacklab"
+                  >
+                    <span class="btn-text" data-i18n="view_project"
+                      >View Project</span
+                    >
+                    <span class="btn-shine"></span>
+                  </button>
+                  <button class="project-button code-btn">
+                    <span class="btn-text" data-i18n="code">Code</span>
+                  </button>
+                </div>
+              </div>
+              <div class="scan-line"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project Detail Modal -->
+        <div id="project-modal" class="project-modal">
+          <div class="modal-overlay"></div>
+          <div class="modal-container">
+            <div class="modal-header">
+              <div class="modal-id"></div>
+              <h3 class="modal-title"></h3>
+              <button class="modal-close">×</button>
+            </div>
+            <div class="modal-content">
+              <!-- Content will be loaded dynamically -->
+            </div>
+            <div class="modal-scanner-effect"></div>
           </div>
         </div>
       </section>
@@ -552,8 +747,10 @@
     <script src="js/welcome-card.js"></script>
     <script src="js/anime-particles.js"></script>
     <script src="js/parallax-bg.js"></script>
+    <script src="js/anime-projects.js"></script>
 
     <!-- Just before the closing body tag -->
+    <script src="particles.js"></script>
     <script>
       // Performance mode toggle
       function togglePerformance() {
@@ -581,5 +778,6 @@
         setTimeout(() => togglePerformance(), 100);
       }
     </script>
-  </body>
-</html>
+
+
+</html>  </body></html>

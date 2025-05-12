@@ -1,0 +1,253 @@
+/**
+ * Anime-style UI Icons
+ * Inspired by futuristic interfaces in anime like Ghost in the Shell,
+ * Psycho-Pass, and Sword Art Online
+ */
+
+/* Base styles for anime-style icons */
+.anime-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 70px;
+  height: 70px;
+  margin: 0 auto 15px;
+  border-radius: 50%;
+  background-color: rgba(31, 41, 55, 0.6);
+  transition: all 0.4s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+  border: 1px solid rgba(255, 106, 70, 0.2);
+  box-shadow: inset 0 0 15px rgba(255, 106, 70, 0.1);
+}
+
+/* Icon inner element */
+.anime-icon-inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background-color: rgba(255, 106, 70, 0.1);
+  z-index: 2;
+  transition: all 0.3s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+}
+
+/* SVG icon styles */
+.anime-icon svg {
+  width: 24px;
+  height: 24px;
+  fill: none;
+  stroke: var(--primary-color);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 2px rgba(255, 106, 70, 0.5));
+  transition: all 0.3s ease;
+}
+
+/* Symbol icon styles (for text-based icons) */
+.anime-icon .tech-symbol {
+  color: var(--primary-color);
+  font-size: 22px;
+  font-weight: 600;
+  filter: drop-shadow(0 0 2px rgba(255, 106, 70, 0.5));
+  transition: all 0.3s ease;
+}
+
+/* Animated ring effect */
+.anime-icon::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border-radius: 50%;
+  background: conic-gradient(
+    rgba(255, 106, 70, 0.2) 0%, 
+    rgba(255, 106, 70, 0.1) 25%, 
+    rgba(255, 106, 70, 0) 50%, 
+    rgba(255, 106, 70, 0.1) 75%, 
+    rgba(255, 106, 70, 0.2) 100%
+  );
+  animation: rotate 8s linear infinite;
+  z-index: 1;
+}
+
+/* Scanning line effect */
+.anime-icon::after {
+  content: '';
+  position: absolute;
+  left: 5px;
+  right: 5px;
+  height: 2px;
+  background: linear-gradient(90deg, 
+    rgba(255, 106, 70, 0), 
+    rgba(255, 106, 70, 0.5), 
+    rgba(255, 106, 70, 0)
+  );
+  z-index: 1;
+  opacity: 0.7;
+  animation: scanLine 3s ease-in-out infinite;
+  filter: blur(1px);
+}
+
+/* Glow point animation */
+.glow-point {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background-color: var(--primary-color);
+  border-radius: 50%;
+  z-index: 1;
+  opacity: 0;
+}
+
+.glow-point:nth-child(1) {
+  top: 10%;
+  right: 20%;
+  animation: glowPulse 2s ease-in-out 0.2s infinite;
+}
+
+.glow-point:nth-child(2) {
+  top: 70%;
+  left: 15%;
+  animation: glowPulse 2s ease-in-out 1.2s infinite;
+}
+
+.glow-point:nth-child(3) {
+  bottom: 10%;
+  right: 30%;
+  animation: glowPulse 2s ease-in-out 0.7s infinite;
+}
+
+/* Variants for different icon types */
+.anime-icon.frontend {
+  border-color: rgba(130, 201, 255, 0.3);
+}
+
+.anime-icon.frontend .anime-icon-inner {
+  background-color: rgba(130, 201, 255, 0.1);
+}
+
+.anime-icon.frontend svg,
+.anime-icon.frontend .tech-symbol {
+  color: #82c9ff;
+  stroke: #82c9ff;
+  filter: drop-shadow(0 0 2px rgba(130, 201, 255, 0.5));
+}
+
+.anime-icon.security {
+  border-color: rgba(255, 92, 92, 0.3);
+}
+
+.anime-icon.security .anime-icon-inner {
+  background-color: rgba(255, 92, 92, 0.1);
+}
+
+.anime-icon.security svg,
+.anime-icon.security .tech-symbol {
+  color: #ff5c5c;
+  stroke: #ff5c5c;
+  filter: drop-shadow(0 0 2px rgba(255, 92, 92, 0.5));
+}
+
+.anime-icon.database {
+  border-color: rgba(128, 237, 153, 0.3);
+}
+
+.anime-icon.database .anime-icon-inner {
+  background-color: rgba(128, 237, 153, 0.1);
+}
+
+.anime-icon.database svg,
+.anime-icon.database .tech-symbol {
+  color: #80ed99;
+  stroke: #80ed99;
+  filter: drop-shadow(0 0 2px rgba(128, 237, 153, 0.5));
+}
+
+/* Hover effects */
+.anime-icon:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2),
+    inset 0 0 20px rgba(255, 106, 70, 0.3);
+}
+
+.anime-icon:hover .anime-icon-inner {
+  transform: scale(1.1);
+}
+
+.anime-icon:hover svg,
+.anime-icon:hover .tech-symbol {
+  filter: drop-shadow(0 0 8px rgba(255, 106, 70, 0.8));
+  transform: scale(1.1);
+}
+
+.anime-icon.frontend:hover svg,
+.anime-icon.frontend:hover .tech-symbol {
+  filter: drop-shadow(0 0 8px rgba(130, 201, 255, 0.8));
+}
+
+.anime-icon.security:hover svg,
+.anime-icon.security:hover .tech-symbol {
+  filter: drop-shadow(0 0 8px rgba(255, 92, 92, 0.8));
+}
+
+.anime-icon.database:hover svg,
+.anime-icon.database:hover .tech-symbol {
+  filter: drop-shadow(0 0 8px rgba(128, 237, 153, 0.8));
+}
+
+/* Animations */
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes scanLine {
+  0% { top: 0%; opacity: 0; }
+  25% { opacity: 0.8; }
+  50% { top: 95%; opacity: 0; }
+  100% { top: 0%; opacity: 0; }
+}
+
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.2; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.5); }
+}
+
+/* Stroke animation for SVG paths */
+.anime-icon .line-draw path {
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  animation: drawLine 1.5s ease-out forwards;
+}
+
+@keyframes drawLine {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Media queries for responsive design */
+@media (max-width: 768px) {
+  .anime-icon {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .anime-icon-inner {
+    width: 38px;
+    height: 38px;
+  }
+  
+  .anime-icon svg,
+  .anime-icon .tech-symbol {
+    width: 20px;
+    height: 20px;
+    font-size: 18px;
+  }
+}
