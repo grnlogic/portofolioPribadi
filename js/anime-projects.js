@@ -1,6 +1,6 @@
 /**
  * Anime-inspired Project Showcase
- * Creates interactive cinematic effects for project cards
+ * Simplified version with reduced animations
  */
 document.addEventListener("DOMContentLoaded", function () {
   // Project elements
@@ -138,19 +138,9 @@ document.addEventListener("DOMContentLoaded", function () {
   const clickSound = new Audio("sounds/tech-click.mp3");
   clickSound.volume = 0.3;
 
-  // Apply enhanced interaction to project cards
+  // Apply functionality to project cards without excessive animations
   projectCards.forEach((card) => {
-    // Add anime-style hover effect
-    card.addEventListener("mouseenter", function () {
-      // This subtle animation can make the card feel "alive"
-      this.style.transition =
-        "transform 0.5s cubic-bezier(0.17, 0.67, 0.83, 0.67)";
-
-      // Play subtle ambient sound on hover if needed
-      // hoverSound.play();
-    });
-
-    // Handle card click to open project detail with animation
+    // Handle card click to open project detail
     card.querySelector(".view-btn").addEventListener("click", function (e) {
       e.preventDefault();
 
@@ -162,31 +152,13 @@ document.addEventListener("DOMContentLoaded", function () {
       const project = projectData[projectId];
 
       if (project) {
-        // Add opening animation class to the card
-        card.classList.add("card-opening");
-
         // Set modal content
         modalTitle.textContent = project.title;
         modalId.textContent = project.id;
         modalContent.innerHTML = project.fullDescription;
 
-        // Create scanner effect for modal open
-        const scannerEffect = document.createElement("div");
-        scannerEffect.className = "modal-scanner";
-        modalContainer.appendChild(scannerEffect);
-
-        // Add artificial delay for cinematic effect
-        setTimeout(() => {
-          // Open modal with animation
-          projectModal.classList.add("active");
-
-          // Remove scanner after animation completes
-          setTimeout(() => {
-            if (scannerEffect.parentNode) {
-              scannerEffect.parentNode.removeChild(scannerEffect);
-            }
-          }, 1000);
-        }, 300);
+        // Open modal with simplified animation
+        projectModal.classList.add("active");
       }
     });
   });
@@ -199,13 +171,8 @@ document.addEventListener("DOMContentLoaded", function () {
     // Play click sound
     clickSound.play();
 
-    // Add closing animation
-    projectModal.classList.add("closing");
-
-    // After animation completes, hide modal
-    setTimeout(() => {
-      projectModal.classList.remove("active", "closing");
-    }, 500);
+    // Close modal with simplified animation
+    projectModal.classList.remove("active");
   }
 
   // Interactive elements inside the modal should stop propagation

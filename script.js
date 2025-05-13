@@ -77,15 +77,57 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // Add active class to the current menu item based on scroll position
+  // Add smooth scrolling for navigation links
+  navLinks.forEach((link) => {
+    link.addEventListener("click", function (e) {
+      e.preventDefault();
+
+      // Get the target section from the href attribute
+      const targetId = this.getAttribute("href");
+      const targetSection = document.querySelector(targetId);
+
+      if (targetSection) {
+        // Get height of header for offset
+        const headerHeight = document.querySelector("header").offsetHeight;
+
+        // Calculate the position to scroll to (with offset for the fixed header)
+        const targetPosition =
+          targetSection.getBoundingClientRect().top +
+          window.scrollY -
+          headerHeight;
+
+        // Smooth scroll to the target
+        window.scrollTo({
+          top: targetPosition,
+          behavior: "smooth",
+        });
+
+        // Update active class on nav links
+        navLinks.forEach((navLink) => navLink.classList.remove("active"));
+        this.classList.add("active");
+
+        // If on mobile, close the menu after clicking
+        mobileMenuBtn.classList.remove("active");
+        nav.classList.remove("active");
+        overlay.classList.remove("active");
+        document.body.classList.remove("no-scroll");
+      }
+    });
+  });
+
+  // Enhanced function to update active menu item based on scroll position
   function updateActiveMenuItem() {
     const scrollPosition = window.scrollY;
 
-    // Get all sections with IDs that match navigation links
+    // Get all sections that have an ID that matches navigation data-section attributes
     const sections = document.querySelectorAll("section[id]");
 
+    // Add header height for offset calculation
+    const headerHeight = document.querySelector("header").offsetHeight;
+
+    // Find the current section in view
     sections.forEach((section) => {
-      const sectionTop = section.offsetTop - 100;
+      const sectionTop = section.offsetTop - headerHeight - 100; // Extra offset for better UX
       const sectionHeight = section.offsetHeight;
       const sectionId = section.getAttribute("id");
 
@@ -96,7 +138,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // Remove active class from all nav links
         navLinks.forEach((link) => link.classList.remove("active"));
 
-        // Add active class to current section nav link
+        // Find the corresponding nav link and add active class
         const activeLink = document.querySelector(
           `nav ul li a[href="#${sectionId}"]`
         );
@@ -105,6 +147,17 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       }
     });
+
+    // Special case for home section (when at top of page)
+    if (scrollPosition < 100) {
+      navLinks.forEach((link) => link.classList.remove("active"));
+      const homeLink = document.querySelector(
+        'nav ul li a[href="#main-content"]'
+      );
+      if (homeLink) {
+        homeLink.classList.add("active");
+      }
+    }
   }
 
   // Update active menu item on scroll

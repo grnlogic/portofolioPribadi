@@ -64,9 +64,6 @@ document.addEventListener("DOMContentLoaded", function () {
       entranceContainer.parentNode.removeChild(entranceContainer);
     }
 
-    // Initialize the card particles
-    createParticles();
-
     // Add subtle floating animation to the card
     addFloatingAnimation();
 
@@ -206,58 +203,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Start the floating animation
     requestAnimationFrame(floatingAnimation);
-  }
-
-  // Create particle container for anime effect - with reduced particle count
-  function createParticles() {
-    const particleContainer = document.createElement("div");
-    particleContainer.className = "card-particles";
-    welcomeCard.appendChild(particleContainer);
-
-    // Clear any existing particles
-    particleContainer.innerHTML = "";
-
-    // Check for low-end devices and reduce particles
-    const isLowPerfDevice =
-      window.matchMedia("(max-width: 768px)").matches ||
-      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-        navigator.userAgent
-      );
-
-    // Create fewer particles on low-end devices
-    const particleCount = isLowPerfDevice ? 8 : 15;
-
-    // Create new particles with optimized settings
-    for (let i = 0; i < particleCount; i++) {
-      const particle = document.createElement("div");
-      particle.className = "particle";
-
-      // Random positions around the card
-      const randomTop = Math.random() * 100;
-      const randomLeft = Math.random() * 100;
-      const randomSize = 3 + Math.random() * 4;
-      const randomDelay = Math.random() * 3;
-      const randomDuration = 2 + Math.random() * 2;
-
-      // Apply random styles
-      particle.style.top = `${randomTop}%`;
-      particle.style.left = `${randomLeft}%`;
-      particle.style.width = `${randomSize}px`;
-      particle.style.height = `${randomSize}px`;
-      particle.style.animationDelay = `${randomDelay}s`;
-      particle.style.animationDuration = `${randomDuration}s`;
-
-      particleContainer.appendChild(particle);
-    }
-
-    // Refresh particles less frequently on lower-end devices
-    clearInterval(window.particleInterval);
-    window.particleInterval = setInterval(
-      () => {
-        createParticles();
-      },
-      isLowPerfDevice ? 5000 : 3000
-    );
   }
 
   // Simplified anime-style exit animation for better performance

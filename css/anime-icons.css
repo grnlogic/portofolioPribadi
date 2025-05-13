@@ -58,7 +58,7 @@
 
 /* Animated ring effect */
 .anime-icon::before {
-  content: '';
+  content: "";
   position: absolute;
   top: -2px;
   left: -2px;
@@ -66,10 +66,10 @@
   bottom: -2px;
   border-radius: 50%;
   background: conic-gradient(
-    rgba(255, 106, 70, 0.2) 0%, 
-    rgba(255, 106, 70, 0.1) 25%, 
-    rgba(255, 106, 70, 0) 50%, 
-    rgba(255, 106, 70, 0.1) 75%, 
+    rgba(255, 106, 70, 0.2) 0%,
+    rgba(255, 106, 70, 0.1) 25%,
+    rgba(255, 106, 70, 0) 50%,
+    rgba(255, 106, 70, 0.1) 75%,
     rgba(255, 106, 70, 0.2) 100%
   );
   animation: rotate 8s linear infinite;
@@ -78,14 +78,15 @@
 
 /* Scanning line effect */
 .anime-icon::after {
-  content: '';
+  content: "";
   position: absolute;
   left: 5px;
   right: 5px;
   height: 2px;
-  background: linear-gradient(90deg, 
-    rgba(255, 106, 70, 0), 
-    rgba(255, 106, 70, 0.5), 
+  background: linear-gradient(
+    90deg,
+    rgba(255, 106, 70, 0),
+    rgba(255, 106, 70, 0.5),
     rgba(255, 106, 70, 0)
   );
   z-index: 1;
@@ -203,20 +204,42 @@
 
 /* Animations */
 @keyframes rotate {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes scanLine {
-  0% { top: 0%; opacity: 0; }
-  25% { opacity: 0.8; }
-  50% { top: 95%; opacity: 0; }
-  100% { top: 0%; opacity: 0; }
+  0% {
+    top: 0%;
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.8;
+  }
+  50% {
+    top: 95%;
+    opacity: 0;
+  }
+  100% {
+    top: 0%;
+    opacity: 0;
+  }
 }
 
 @keyframes glowPulse {
-  0%, 100% { opacity: 0.2; transform: scale(1); }
-  50% { opacity: 0.7; transform: scale(1.5); }
+  0%,
+  100% {
+    opacity: 0.2;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.5);
+  }
 }
 
 /* Stroke animation for SVG paths */
@@ -238,12 +261,12 @@
     width: 60px;
     height: 60px;
   }
-  
+
   .anime-icon-inner {
     width: 38px;
     height: 38px;
   }
-  
+
   .anime-icon svg,
   .anime-icon .tech-symbol {
     width: 20px;
