@@ -377,14 +377,11 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
         // When exit animation is 60% complete, activate lens flare
-        // MODIFY THIS SECTION TO IMPROVE LENS FLARE ON MOBILE
-        if (!isLowPerfDevice || window.forceLensFlare) {
-          setTimeout(
-            () => {
-              lensFlare.classList.add("active");
-            },
-            isLowPerfDevice ? 400 : 800
-          );
+        // Remove the forceLensFlare check and simplify
+        if (!isLowPerfDevice) {
+          setTimeout(() => {
+            lensFlare.classList.add("active");
+          }, isLowPerfDevice ? 400 : 800);
         }
 
         // After animation finishes, move to main content

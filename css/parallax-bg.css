@@ -124,18 +124,7 @@
   }
 }
 
-/* Performance mode toggle button */
+/* Remove performance mode toggle button styles */
 .performance-toggle {
-  position: absolute;
-  bottom: 20px;
-  right: 20px;
-  background-color: rgba(15, 23, 42, 0.85);
-  color: white;
-  border: 1px solid rgba(255, 106, 70, 0.3);
-  border-radius: 5px;
-  padding: 5px 10px;
-  font-size: 12px;
-  cursor: pointer;
-  z-index: 10002;
-  font-family: "Poppins", sans-serif;
+  display: none;
 }

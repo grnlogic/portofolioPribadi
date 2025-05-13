@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta
       name="viewport"
-      content="width=device-width, initial-scale=5.0, minimum-scale=1.0"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0"
     />
     <title>Fajar Geran's Portfolio</title>
 
@@ -62,10 +62,7 @@
         <div class="parallax-layer layer-scanlines"></div>
       </div>
 
-      <!-- Add performance toggle button -->
-      <button class="performance-toggle" onclick="togglePerformance()">
-        🚀 Performance Mode
-      </button>
+      <!-- Remove performance toggle button -->
 
       <!-- Add rotate instruction above the card -->
       <div class="rotate-instruction">
@@ -755,33 +752,5 @@
 
     <!-- Just before the closing body tag -->
     <script src="particles.js"></script>
-    <script>
-      // Performance mode toggle
-      function togglePerformance() {
-        const btn = document.querySelector(".performance-toggle");
-        const newMode = window.togglePerformanceMode
-          ? window.togglePerformanceMode()
-          : "low";
-
-        if (newMode === "low") {
-          btn.textContent = "✨ Quality Mode";
-          btn.style.backgroundColor = "rgba(15, 23, 42, 0.7)";
-        } else {
-          btn.textContent = "🚀 Performance Mode";
-          btn.style.backgroundColor = "rgba(15, 23, 42, 0.85)";
-        }
-      }
-
-      // Auto-enable performance mode on mobile
-      if (
-        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-          navigator.userAgent
-        ) ||
-        window.matchMedia("(max-width: 768px)").matches
-      ) {
-        setTimeout(() => togglePerformance(), 100);
-      }
-    </script>
-
-
-</html>  </body></html>
+  </body>
+</html>

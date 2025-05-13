@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
       navigator.userAgent
     );
 
-  // Set performance mode automatically
+  // Set performance mode automatically based on device
   let performanceMode = isLowPerfDevice ? "low" : "normal";
 
   // Simplified movement settings for better performance
@@ -142,31 +142,8 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // Toggle performance mode
-  window.togglePerformanceMode = function () {
-    performanceMode = performanceMode === "normal" ? "low" : "normal";
-
-    // Apply visual changes based on mode
-    if (performanceMode === "low") {
-      // Hide more resource-intensive layers
-      document.querySelector(".layer-spotlight")?.classList.add("hidden");
-      document.querySelector(".layer-scanlines")?.classList.add("hidden");
-
-      // Reset positions to improve performance
-      layers.forEach((layer) => {
-        layer.style.transform = "none";
-      });
-    } else {
-      // Show all layers
-      document.querySelector(".layer-spotlight")?.classList.remove("hidden");
-      document.querySelector(".layer-scanlines")?.classList.remove("hidden");
-
-      // Recreate stars with normal count
-      createTwinklingStars();
-    }
-
-    return performanceMode;
-  };
+  // Remove the togglePerformanceMode function
+  // window.togglePerformanceMode = function () {...}
 
   // Initialize parallax with performance considerations
   function initParallax() {
