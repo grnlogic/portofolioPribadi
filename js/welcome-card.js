@@ -118,8 +118,12 @@ document.addEventListener("DOMContentLoaded", function () {
     welcomeCard.addEventListener(
       "touchstart",
       function (e) {
-        // Don't start drag on buttons
-        if (e.target.tagName === "BUTTON" || e.target.closest("button")) {
+        // Don't start drag on buttons or badge elements
+        if (
+          e.target.tagName === "BUTTON" || 
+          e.target.closest("button") || 
+          e.target.classList.contains("card-badge")
+        ) {
           return;
         }
 
@@ -144,9 +148,12 @@ document.addEventListener("DOMContentLoaded", function () {
         const deltaX = e.touches[0].clientX - previousMousePosition.x;
         const deltaY = e.touches[0].clientY - previousMousePosition.y;
 
+        // Reduce sensitivity on mobile for more controlled rotation
+        const mobileSensitivity = sensitivity * 0.7;
+
         // Update rotation based on touch movement (inverted Y for natural feeling)
-        rotation.y += deltaX * sensitivity;
-        rotation.x -= deltaY * sensitivity; // Invert for natural tilt
+        rotation.y += deltaX * mobileSensitivity;
+        rotation.x -= deltaY * mobileSensitivity; // Invert for natural tilt
 
         // Apply new rotation
         applyRotation();

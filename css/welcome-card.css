@@ -858,64 +858,107 @@ body.welcome-active {
 /* Improve mobile welcome card */
 @media (max-width: 480px) {
   .welcome-card {
-    max-width: 95%;
+    max-width: 85%;  /* Slightly narrower to provide more margin */
+    min-height: 400px;
     height: auto;
-    min-height: 380px;
   }
 
   .welcome-card-front,
   .welcome-card-back {
-    padding: 25px 15px;
+    padding: 25px 15px 40px;  /* More bottom padding for the button */
   }
 
-  /* Adjust content for better spacing */
+  /* Make text more legible */
   .welcome-card h2 {
-    font-size: 18px;
-    margin-bottom: 8px;
+    font-size: 20px;
+    margin-bottom: 12px;
   }
 
   .welcome-card p {
-    font-size: 13px;
+    font-size: 14px;
     margin-bottom: 15px;
+    line-height: 1.5;
   }
 
-  /* Improve badge display */
+  /* Optimize badge display */
   .card-badges {
-    gap: 6px;
-    margin-bottom: 15px;
+    gap: 8px;
+    margin-bottom: 20px;
   }
-
+  
   .card-badge {
-    padding: 4px 8px;
-    font-size: 11px;
-  }
-
-  /* Rotation controls for touch devices */
-  .rotation-controls {
-    padding: 8px 15px;
-    gap: 10px;
-  }
-
-  .axis {
-    width: 20px;
-    height: 20px;
+    padding: 6px 10px;
     font-size: 12px;
   }
+  
+  /* Make buttons more tappable */
+  #continue-btn {
+    padding: 14px 30px;
+    margin-top: 20px;
+    font-size: 16px;
+    width: 80%;
+  }
 
-  /* Better position for controls */
+  /* Make rotation controls more visible and tappable */
   .rotation-controls-container {
     bottom: 15px;
   }
-
-  /* Adjust flip hint text */
+  
+  .rotation-controls {
+    padding: 10px;
+    gap: 12px;
+  }
+  
+  .axis {
+    width: 30px;
+    height: 30px;
+    font-size: 14px;
+  }
+  
+  .reset-view {
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+  
+  /* Position rotate instructions better */
+  .rotate-instruction {
+    top: 80px;
+  }
+  
+  .rotate-text {
+    font-size: 20px;
+  }
+  
+  .rotate-arrow {
+    font-size: 24px;
+  }
+  
+  /* Make flip card hint more visible */
   .flip-card-hint {
-    font-size: 11px;
-    bottom: 10px;
+    font-size: 13px;
+    bottom: 12px;
+  }
+}
+
+/* Extra small devices */
+@media (max-width: 360px) {
+  .welcome-card {
+    min-height: 380px;
+  }
+  
+  .welcome-card-front,
+  .welcome-card-back {
+    padding: 20px 12px 35px;
   }
 
-  /* Adjust rotate instruction position */
-  .rotate-instruction {
-    top: calc(50% - 200px);
+  .welcome-profile-img {
+    width: 70px;
+    height: 70px;
+    margin-bottom: 12px;
+  }
+  
+  #continue-btn {
+    width: 90%;
   }
 }
 
