@@ -2,7 +2,8 @@
 
 A modern, responsive personal portfolio website with anime-inspired interactive elements. This project showcases professional skills and projects through an immersive user experience.
 
-![Portfolio Preview](/images/Screenshot%20from%202025-05-04%2001-51-12.png)
+![Portfolio Preview](/images/Screenshot%20from%202025-05-14%2000-29-21.png)
+![Portfolio Preview](/images/Screenshot%20from%202025-05-14%2000-29-29.png)
 
 ## ✨ Features
 
