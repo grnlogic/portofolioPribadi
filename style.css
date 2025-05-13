@@ -1334,18 +1334,23 @@ footer {
   nav {
     position: fixed;
     top: 0;
-    right: -100%;
-    width: 250px;
+    right: -110%; /* Move it completely off-screen */
+    width: 80%; /* Limit width to prevent overflow */
+    max-width: 300px; /* Prevent overly wide menu */
     height: 100vh;
     background-color: var(--card-bg);
     box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
     transition: right 0.3s ease;
-    z-index: 100;
+    z-index: 1000; /* Increase z-index to be above other elements */
     padding: 80px 0 30px;
+    overflow-y: auto; /* Allow scrolling if menu is tall */
+    overflow-x: hidden; /* Prevent horizontal scroll */
+    visibility: hidden; /* Hide it completely until activated */
   }
 
   nav.active {
     right: 0;
+    visibility: visible;
   }
 
   nav ul {
@@ -1484,36 +1489,38 @@ footer {
     box-sizing: border-box;
     justify-content: space-between;
   }
-  
+
   /* Ensure mobile menu button stays in place */
   .mobile-menu-btn {
     position: relative;
     z-index: 210;
     margin-left: auto; /* Push button to right side */
   }
-  
+
   /* Fix mobile navigation positioning */
   nav {
     position: fixed;
     top: 0;
-    right: -100%; /* Start off-screen */
+    right: -110%; /* Move it completely off-screen */
     width: 80%; /* Limit width to prevent overflow */
     max-width: 300px; /* Prevent overly wide menu */
     height: 100vh;
     background-color: var(--card-bg);
     box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
     transition: right 0.3s ease;
-    z-index: 200;
+    z-index: 1000; /* Increase z-index to be above other elements */
     padding: 80px 0 30px;
     overflow-y: auto; /* Allow scrolling if menu is tall */
     overflow-x: hidden; /* Prevent horizontal scroll */
+    visibility: hidden; /* Hide it completely until activated */
   }
-  
+
   /* Active state positioning */
   nav.active {
     right: 0;
+    visibility: visible;
   }
-  
+
   /* Ensure overlay covers entire screen */
   .overlay {
     position: fixed;
@@ -1527,7 +1534,7 @@ footer {
     visibility: hidden;
     transition: all 0.3s ease;
   }
-  
+
   /* Better body control when menu is open */
   body.no-scroll {
     overflow: hidden;
@@ -1535,14 +1542,15 @@ footer {
     height: 100%;
     position: fixed; /* Prevent background scroll on iOS */
   }
-  
+
   /* Fix right padding issue on mobile */
-  html, body {
+  html,
+  body {
     overflow-x: hidden; /* Prevent horizontal scroll at all times */
     width: 100%;
     box-sizing: border-box;
   }
-  
+
   /* Fix main content to stay within viewport */
   #main-content {
     width: 100%;

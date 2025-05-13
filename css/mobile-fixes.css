@@ -1,0 +1,192 @@
+/* 
+ * Emergency Mobile Fixes
+ * These styles override other styles to ensure proper mobile display
+ */
+
+/* Fix for welcome card on mobile */
+@media (max-width: 767px) {
+  /* Force proper sizing for welcome card */
+  .welcome-card {
+    width: 85% !important; /* Reduced from 90% to 85% */
+    max-width: 380px !important; /* Add a max-width constraint */
+    min-height: 450px !important;
+    height: auto !important;
+    margin: 15px auto !important;
+    /* Keep 3D transformations enabled */
+    transform-style: preserve-3d !important;
+    /* Remove the forced transform which was preventing rotation */
+  }
+
+  /* Fix inner card */
+  .welcome-card-inner {
+    width: 100% !important;
+    height: 100% !important;
+    transform-style: preserve-3d !important;
+  }
+
+  /* Fix front and back cards */
+  .welcome-card-front,
+  .welcome-card-back {
+    width: 100% !important;
+    height: auto !important;
+    min-height: 450px !important;
+    padding: 30px 20px 50px !important;
+    box-sizing: border-box !important;
+    backface-visibility: hidden !important;
+  }
+
+  /* Fix profile image */
+  .welcome-profile-img {
+    width: 100px !important;
+    height: 100px !important;
+    margin-bottom: 20px !important;
+  }
+
+  /* Fix headings */
+  .welcome-card h2 {
+    font-size: 24px !important;
+    margin-bottom: 15px !important;
+    width: 100% !important;
+  }
+
+  /* Fix paragraphs */
+  .welcome-card p {
+    font-size: 16px !important;
+    line-height: 1.5 !important;
+    margin-bottom: 20px !important;
+  }
+
+  /* Fix badges */
+  .card-badges {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    margin-bottom: 25px !important;
+  }
+
+  .card-badge {
+    padding: 6px 12px !important;
+    font-size: 14px !important;
+  }
+
+  /* Fix continue button */
+  .continue-btn {
+    width: auto !important;
+    min-width: 200px !important;
+    padding: 12px 25px !important;
+    font-size: 16px !important;
+    margin-top: 20px !important;
+  }
+
+  /* Don't disable 3D effects - only adjust them */
+  .welcome-card {
+    transform-style: preserve-3d !important;
+  }
+
+  .welcome-card-inner {
+    transform-style: preserve-3d !important;
+  }
+
+  /* Fix welcome overlay */
+  #welcome-overlay {
+    perspective: 1200px !important; /* Maintain perspective for 3D effect */
+    transform-style: preserve-3d !important;
+    width: 100% !important;
+    height: 100% !important;
+    overflow: hidden !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  /* Fix rotation controls for mobile */
+  .rotation-controls-container {
+    bottom: 15px !important;
+  }
+
+  .rotation-controls {
+    padding: 10px !important;
+    gap: 10px !important;
+  }
+
+  /* Adjust the rotation message size */
+  .welcome-card::after {
+    font-size: 11px !important;
+    bottom: -25px !important;
+  }
+
+  /* Enable 3D transformations */
+  .welcome-card,
+  .welcome-card-inner {
+    transform-style: preserve-3d !important;
+  }
+
+  /* Style the new flip button on mobile */
+  .flip-btn {
+    padding: 10px 20px !important;
+    font-size: 14px !important;
+    width: 80% !important;
+    max-width: 200px !important;
+  }
+}
+
+/* Fix for smallest screens */
+@media (max-width: 380px) {
+  .welcome-card {
+    width: 82% !important; /* Reduced from 95% to 82% */
+    margin: 0 auto !important;
+    min-height: 400px !important; /* Slightly reduce height */
+  }
+
+  .welcome-card-front,
+  .welcome-card-back {
+    padding: 20px 15px 40px !important;
+  }
+
+  .continue-btn {
+    width: 80% !important;
+    min-width: 0 !important;
+  }
+}
+
+/* Extra small devices */
+@media (max-width: 320px) {
+  .welcome-card {
+    width: 80% !important;
+    min-height: 380px !important;
+  }
+
+  .welcome-card-front,
+  .welcome-card-back {
+    padding: 15px 12px 35px !important;
+  }
+
+  .welcome-profile-img {
+    width: 65px !important;
+    height: 65px !important;
+    margin-bottom: 12px !important;
+  }
+
+  .card-badge {
+    padding: 4px 8px !important;
+    font-size: 11px !important;
+  }
+
+  .continue-btn {
+    padding: 10px 20px !important;
+    font-size: 14px !important;
+  }
+
+  /* Reduce size of rotation controls for very small screens */
+  .rotation-controls {
+    padding: 8px 12px !important;
+    gap: 8px !important;
+  }
+
+  .axis {
+    width: 20px !important;
+    height: 20px !important;
+    font-size: 12px !important;
+  }
+}

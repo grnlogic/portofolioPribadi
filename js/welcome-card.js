@@ -2,10 +2,11 @@ document.addEventListener("DOMContentLoaded", function () {
   // Welcome card elements
   const welcomeOverlay = document.getElementById("welcome-overlay");
   const welcomeCard = document.querySelector(".welcome-card");
-  const continueBtn = document.querySelectorAll("#continue-btn");
+  const welcomeCardInner = document.querySelector(".welcome-card-inner");
   const mainContent = document.getElementById("main-content");
   const backBtn = document.querySelector(".back-btn");
-  const rotationIndicator = document.querySelector(".rotation-indicator");
+  const flipBtn = document.querySelector(".flip-btn");
+  const continueBtns = document.querySelectorAll(".continue-btn");
 
   // Create entrance animation container
   const entranceContainer = document.createElement("div");
@@ -30,6 +31,9 @@ document.addEventListener("DOMContentLoaded", function () {
   // Track if we're in entrance animation
   let entranceAnimationComplete = false;
 
+  // Track if card is flipped
+  let isCardFlipped = false;
+
   // Track mouse/touch state
   let isDragging = false;
   let previousMousePosition = {
@@ -44,18 +48,19 @@ document.addEventListener("DOMContentLoaded", function () {
   function applyRotation() {
     // Only apply rotations after entrance animation
     if (entranceAnimationComplete) {
+      // Apply rotation to the whole card
       welcomeCard.style.transform = `rotateX(${rotation.x}deg) rotateY(${rotation.y}deg) rotateZ(${rotation.z}deg)`;
 
-      // Update rotation indicator
-      if (rotationIndicator) {
-        rotationIndicator.textContent = `X: ${Math.round(
-          rotation.x
-        )}° Y: ${Math.round(rotation.y)}° Z: ${Math.round(rotation.z)}°`;
+      // Apply separate flip transform to inner card if needed
+      if (isCardFlipped) {
+        welcomeCardInner.style.transform = "rotateY(180deg)";
+      } else {
+        welcomeCardInner.style.transform = "rotateY(0deg)";
       }
     }
   }
 
-  // After entrance animation completes, enable rotation
+  // After entrance animation completes
   setTimeout(() => {
     entranceAnimationComplete = true;
 
@@ -64,13 +69,37 @@ document.addEventListener("DOMContentLoaded", function () {
       entranceContainer.parentNode.removeChild(entranceContainer);
     }
 
-    // Add subtle floating animation to the card
+    // Setup mouse/touch 3D rotation
+    setupRotationControls();
+
+    // Add floating animation (simplified)
     addFloatingAnimation();
 
-    // Now we can allow rotations
-    setupRotationControls();
+    // Prepare flip functionality (separate from 3D rotation)
+    setupFlipControls();
   }, 1500); // Slightly longer than entrance animation
 
+  // Setup flip controls
+  function setupFlipControls() {
+    // Flip button on front of card
+    if (flipBtn) {
+      flipBtn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        flipCard();
+      });
+    }
+
+    // Back button on back of card
+    if (backBtn) {
+      backBtn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        isCardFlipped = false;
+        applyRotation();
+      });
+    }
+  }
+
+  // Function to setup rotation controls
   function setupRotationControls() {
     // Mouse events for 3D trackball rotation
     welcomeCard.addEventListener("mousedown", function (e) {
@@ -114,7 +143,7 @@ document.addEventListener("DOMContentLoaded", function () {
       welcomeCard.style.cursor = "grab";
     });
 
-    // ADD TOUCH EVENT HANDLERS FOR MOBILE DEVICES
+    // Touch event handlers for mobile devices
     welcomeCard.addEventListener(
       "touchstart",
       function (e) {
@@ -148,12 +177,12 @@ document.addEventListener("DOMContentLoaded", function () {
         const deltaX = e.touches[0].clientX - previousMousePosition.x;
         const deltaY = e.touches[0].clientY - previousMousePosition.y;
 
-        // Reduce sensitivity on mobile for more controlled rotation
+        // Adjusted sensitivity for mobile
         const mobileSensitivity = sensitivity * 0.7;
 
-        // Update rotation based on touch movement (inverted Y for natural feeling)
+        // Update rotation based on touch movement
         rotation.y += deltaX * mobileSensitivity;
-        rotation.x -= deltaY * mobileSensitivity; // Invert for natural tilt
+        rotation.x -= deltaY * mobileSensitivity;
 
         // Apply new rotation
         applyRotation();
@@ -171,44 +200,54 @@ document.addEventListener("DOMContentLoaded", function () {
       isDragging = false;
     });
 
-    // Handle rotation axis buttons
-    const xAxisBtn = document.querySelector(".axis-x");
-    const yAxisBtn = document.querySelector(".axis-y");
-    const zAxisBtn = document.querySelector(".axis-z");
-    const resetBtn = document.querySelector(".reset-view");
+    // Add keyboard rotation controls for accessibility
+    document.addEventListener("keydown", function (e) {
+      if (!entranceAnimationComplete) return;
 
-    if (xAxisBtn) {
-      xAxisBtn.addEventListener("click", function () {
-        rotation.x += 90;
-        applyRotation();
-      });
-    }
+      // Only process if welcome card is visible
+      if (welcomeOverlay.style.display === "none") return;
 
-    if (yAxisBtn) {
-      yAxisBtn.addEventListener("click", function () {
-        rotation.y += 90;
-        applyRotation();
-      });
-    }
+      const rotationStep = 15; // degrees per keypress
 
-    if (zAxisBtn) {
-      zAxisBtn.addEventListener("click", function () {
-        rotation.z += 90;
-        applyRotation();
-      });
-    }
+      switch (e.key) {
+        case "ArrowUp":
+          rotation.x -= rotationStep;
+          break;
+        case "ArrowDown":
+          rotation.x += rotationStep;
+          break;
+        case "ArrowLeft":
+          rotation.y -= rotationStep;
+          break;
+        case "ArrowRight":
+          rotation.y += rotationStep;
+          break;
+        case "PageUp":
+          rotation.z += rotationStep;
+          break;
+        case "PageDown":
+          rotation.z -= rotationStep;
+          break;
+        case "Home":
+          rotation = { x: 0, y: 0, z: 0 };
+          break;
+        case " ": // Space bar to flip
+          flipCard();
+          break;
+      }
 
-    if (resetBtn) {
-      resetBtn.addEventListener("click", function () {
-        rotation = { x: 0, y: 0, z: 0 };
-        applyRotation();
-      });
-    }
+      applyRotation();
+    });
   }
 
-  // Add subtle floating animation
+  // Function to flip card
+  function flipCard() {
+    isCardFlipped = !isCardFlipped;
+    applyRotation();
+  }
+
+  // Add subtle floating animation (simplified)
   function addFloatingAnimation() {
-    // Check for low-end devices
     const isLowPerfDevice =
       window.matchMedia("(max-width: 768px)").matches ||
       /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
@@ -216,53 +255,47 @@ document.addEventListener("DOMContentLoaded", function () {
       );
 
     let floatingStartTime = null;
-    const floatingDuration = 4000; // 4 seconds per cycle
-    const floatingAmplitude = isLowPerfDevice ? 6 : 10; // Lower amplitude for low-end devices
-
-    // Use a time-step that updates less frequently on low-end devices
-    let lastFrameTime = 0;
-    const frameInterval = isLowPerfDevice ? 50 : 0; // ms between updates (0 = every frame)
+    const floatingDuration = 4000;
+    const floatingAmplitude = isLowPerfDevice ? 4 : 6;
 
     function floatingAnimation(timestamp) {
-      // First time initialization
       if (!floatingStartTime) floatingStartTime = timestamp;
-
-      // Check if we should skip this frame on low-end devices
-      if (isLowPerfDevice && timestamp - lastFrameTime < frameInterval) {
-        requestAnimationFrame(floatingAnimation);
-        return;
-      }
-
-      lastFrameTime = timestamp;
 
       const elapsed = timestamp - floatingStartTime;
       const normalizedTime = (elapsed % floatingDuration) / floatingDuration;
 
-      // Only apply floating if not being dragged
-      if (!isDragging) {
-        // Simplified calculation for better performance
-        const yOffset =
-          Math.sin(normalizedTime * Math.PI * 2) * floatingAmplitude;
-        const xOffset =
-          Math.sin(normalizedTime * Math.PI * 2 + Math.PI / 2) *
-          (floatingAmplitude * 0.3);
+      const yOffset =
+        Math.sin(normalizedTime * Math.PI * 2) * floatingAmplitude;
 
-        // Apply floating transformation in addition to rotation
-        // Use translateX/Y instead of translate for better performance
-        welcomeCard.style.transform = `rotateX(${rotation.x}deg) rotateY(${rotation.y}deg) rotateZ(${rotation.z}deg) translateX(${xOffset}px) translateY(${yOffset}px)`;
-      }
+      // Combine floating effect with rotation
+      const currentRotateX = rotation.x;
+      const currentRotateY = rotation.y;
+      const currentRotateZ = rotation.z;
 
-      // Continue animation if welcome overlay is still visible
+      welcomeCard.style.transform = `translateY(${yOffset}px) rotateX(${currentRotateX}deg) rotateY(${currentRotateY}deg) rotateZ(${currentRotateZ}deg)`;
+
       if (welcomeOverlay.style.display !== "none") {
         requestAnimationFrame(floatingAnimation);
       }
     }
 
-    // Start the floating animation
     requestAnimationFrame(floatingAnimation);
   }
 
-  // Simplified anime-style exit animation for better performance
+  // Continue button click handler with anime-style exit
+  continueBtns.forEach((btn) => {
+    btn.addEventListener("click", function (e) {
+      e.stopPropagation();
+      animeExitAnimation();
+
+      // Clean up parallax effect event listeners when leaving
+      if (typeof window.cleanupParallax === "function") {
+        window.cleanupParallax();
+      }
+    });
+  });
+
+  // Keep the existing exit animation function but adjust to use real rotation values
   function animeExitAnimation() {
     // Add motion blur class
     welcomeCard.classList.add("motion-blur");
@@ -298,12 +331,12 @@ document.addEventListener("DOMContentLoaded", function () {
         // Use fewer animation keyframes on low-end devices
         const keyframes = isLowPerfDevice
           ? [
-              // Start with current rotation - simplified for low-end devices
+              // Start with current rotation
               {
                 transform: `rotateX(${rotation.x}deg) rotateY(${rotation.y}deg) rotateZ(${rotation.z}deg) translateZ(0) scale(1)`,
                 opacity: 1,
               },
-              // Middle keyframe
+              // Middle keyframe - extra rotation
               {
                 transform: `rotateX(${rotation.x + 10}deg) rotateY(${
                   rotation.y + 180
@@ -312,7 +345,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 }deg) translateZ(300px) translateY(-100px) scale(0.5)`,
                 opacity: 0.5,
               },
-              // End keyframe
+              // End keyframe - full 360 rotation
               {
                 transform: `rotateX(${rotation.x + 25}deg) rotateY(${
                   rotation.y + 360
@@ -384,7 +417,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
         // When exit animation is 60% complete, activate lens flare
-        // Remove the forceLensFlare check and simplify
         if (!isLowPerfDevice) {
           setTimeout(
             () => {
@@ -413,7 +445,7 @@ document.addEventListener("DOMContentLoaded", function () {
     );
   }
 
-  // Function to add staggered entrance with performance optimization
+  // Keep the existing staggered entrance function
   function addStaggeredEntrance(isLowPerformance = false) {
     // Target fewer elements on low-end devices
     const staggerTargets = isLowPerformance
@@ -447,53 +479,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }, delay);
         delay += delayIncrement;
       });
-    });
-  }
-
-  // Continue button click handler with anime-style exit
-  continueBtn.forEach((btn) => {
-    btn.addEventListener("click", function (e) {
-      e.stopPropagation();
-      animeExitAnimation();
-
-      // Clean up parallax effect event listeners when leaving
-      if (typeof window.cleanupParallax === "function") {
-        window.cleanupParallax();
-      }
-    });
-  });
-
-  // Back button functionality
-  if (backBtn) {
-    backBtn.addEventListener("click", function (e) {
-      e.stopPropagation();
-
-      // Reset rotation with animated transition
-      const originalX = rotation.x;
-      const originalY = rotation.y;
-      const originalZ = rotation.z;
-
-      // Animate the rotation reset
-      const resetDuration = 600; // ms
-      const startTime = performance.now();
-
-      function animateReset(currentTime) {
-        const elapsed = currentTime - startTime;
-        const progress = Math.min(elapsed / resetDuration, 1);
-        const easeProgress = 1 - Math.pow(1 - progress, 3); // Cubic ease out
-
-        rotation.x = originalX * (1 - easeProgress);
-        rotation.y = originalY * (1 - easeProgress);
-        rotation.z = originalZ * (1 - easeProgress);
-
-        applyRotation();
-
-        if (progress < 1) {
-          requestAnimationFrame(animateReset);
-        }
-      }
-
-      requestAnimationFrame(animateReset);
     });
   }
 });

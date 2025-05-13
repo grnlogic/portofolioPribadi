@@ -53,22 +53,29 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Toggle menu when hamburger icon is clicked
   mobileMenuBtn.addEventListener("click", function () {
+    // Toggle active classes
     mobileMenuBtn.classList.toggle("active");
     nav.classList.toggle("active");
     overlay.classList.toggle("active");
-    
-    // Better body scroll locking
+
+    // Forcibly hide/show nav using inline styles as a fallback
     if (nav.classList.contains("active")) {
+      nav.style.right = "0";
+      nav.style.visibility = "visible";
+
       // Save current scroll position
       const scrollY = window.scrollY;
       document.body.classList.add("no-scroll");
       // Maintain scroll position to prevent content jump
       document.body.style.top = `-${scrollY}px`;
     } else {
+      nav.style.right = "-110%";
+      nav.style.visibility = "hidden";
+
       // Restore scroll position
-      const scrollY = parseInt(document.body.style.top || '0', 10) * -1;
+      const scrollY = parseInt(document.body.style.top || "0", 10) * -1;
       document.body.classList.remove("no-scroll");
-      document.body.style.top = '';
+      document.body.style.top = "";
       window.scrollTo(0, scrollY);
     }
   });
@@ -76,12 +83,12 @@ document.addEventListener("DOMContentLoaded", function () {
   // Ensure when clicking overlay, we properly restore scroll
   overlay.addEventListener("click", function () {
     if (nav.classList.contains("active")) {
-      const scrollY = parseInt(document.body.style.top || '0', 10) * -1;
+      const scrollY = parseInt(document.body.style.top || "0", 10) * -1;
       mobileMenuBtn.classList.remove("active");
       nav.classList.remove("active");
       overlay.classList.remove("active");
       document.body.classList.remove("no-scroll");
-      document.body.style.top = '';
+      document.body.style.top = "";
       window.scrollTo(0, scrollY);
     }
   });

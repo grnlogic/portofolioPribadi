@@ -12,6 +12,7 @@
   z-index: 10000;
   perspective: 1500px;
   overflow: hidden; /* Ensure parallax layers don't cause scrollbars */
+  transform-style: preserve-3d; /* Ensure 3D space is preserved */
 }
 
 /* Enhanced 3D transformation support */
@@ -27,7 +28,12 @@
   -ms-user-select: none;
   user-select: none;
   z-index: 1; /* Ensure card is above parallax layers */
-  /* Remove perspective from here as it interferes with rotation */
+  perspective: 1000px; /* Add perspective for proper 3D effect */
+  /* Remove the transform: none !important that was disabling 3D rotation */
+}
+
+.welcome-card:active {
+  cursor: grabbing;
 }
 
 /* New entrance animation container - separate from transform */
@@ -42,21 +48,28 @@
 }
 
 .welcome-card::after {
-  content: "";
+  content: "← Drag to rotate →";
   position: absolute;
-  top: 0;
+  bottom: -30px;
   left: 0;
-  right: 0;
-  bottom: 0;
-  border-radius: 20px;
-  box-shadow: 0 0 15px rgba(255, 106, 70, 0.5);
-  animation: glowPulse 3s 1.5s infinite;
+  width: 100%;
+  text-align: center;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
   pointer-events: none;
-  z-index: -1;
+  animation: fadeInUp 1s 2s forwards;
+  opacity: 0;
 }
 
-.welcome-card:active {
-  cursor: grabbing;
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .welcome-card-inner {
@@ -65,6 +78,8 @@
   height: 100%;
   transform-style: preserve-3d;
   transition: transform 0.6s ease;
+  /* Allow flipping but prevent 3D rotations */
+  transform-style: preserve-3d;
 }
 
 .welcome-card-front,
@@ -87,6 +102,7 @@
   -ms-user-select: none;
   user-select: none;
   pointer-events: auto;
+  -webkit-backface-visibility: hidden; /* Safari support */
 }
 
 .welcome-card-back {
@@ -516,244 +532,25 @@ body.welcome-active {
   pointer-events: auto;
 }
 
-/* Rotation controls container - outside the card */
-.rotation-controls-container {
-  position: absolute;
-  bottom: 30px;
-  left: 0;
-  width: 100%;
-  z-index: 10001;
-  padding: 0;
-  pointer-events: none;
+/* Remove rotation instruction styles */
+.axis-indicator,
+.axis,
+.axis-x,
+.axis-y,
+.axis-z,
+.reset-view,
+.rotation-btn,
+.rotation-indicator {
+  display: none !important;
 }
 
-/* Improved Rotation controls */
-.rotation-controls {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 15px;
-  margin: 0 auto;
-  padding: 12px 20px;
-  background-color: rgba(15, 23, 42, 0.85);
-  backdrop-filter: blur(8px);
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-  width: fit-content;
-  pointer-events: auto;
-  border: 1px solid rgba(255, 106, 70, 0.3);
-  z-index: 10010;
-}
-
-/* 3D axis visualization */
-.axis-indicator {
-  display: flex;
-  gap: 10px;
-  margin-left: 15px;
-  padding-left: 15px;
-  border-left: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.axis {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-.axis-x {
-  background-color: rgba(255, 0, 0, 0.3);
-  color: #ff8080;
-  border: 1px solid rgba(255, 0, 0, 0.5);
-}
-
-.axis-y {
-  background-color: rgba(0, 255, 0, 0.3);
-  color: #80ff80;
-  border: 1px solid rgba(0, 255, 0, 0.5);
-}
-
-.axis-z {
-  background-color: rgba(0, 0, 255, 0.3);
-  color: #8080ff;
-  border: 1px solid rgba(0, 0, 255, 0.5);
-}
-
-.axis:hover {
-  transform: scale(1.1);
-}
-
-/* Reset button */
-.reset-view {
-  background-color: rgba(255, 255, 255, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  color: white;
-  padding: 6px 12px;
-  border-radius: 4px;
-  font-size: 12px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.reset-view:hover {
-  background-color: rgba(255, 255, 255, 0.25);
-}
-
-/* Remove the previous rotation controls inside the card */
-.welcome-card-front .rotation-controls,
-.welcome-card-back .rotation-controls {
-  display: none;
-}
-
-/* Ensure controls and card content don't interfere with each other */
-.welcome-card-front > *:not(.rotation-controls),
-.welcome-card-back > *:not(.rotation-controls) {
-  pointer-events: none;
-}
-
-.rotation-controls * {
-  pointer-events: auto !important;
-}
-
-/* Add lens flare effect container */
-.lens-flare {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(
-    circle at center,
-    rgba(255, 255, 255, 0),
-    rgba(255, 255, 255, 0)
-  );
-  pointer-events: none;
-  opacity: 0;
-  z-index: 10005;
-  mix-blend-mode: screen;
-  transition: all 0.5s ease;
-}
-
-.lens-flare.active {
-  opacity: 1;
-  background: radial-gradient(
-    circle at center,
-    rgba(255, 255, 255, 0.95),
-    rgba(255, 255, 255, 0)
-  );
-  animation: lensFlareEffect 1.5s ease-out forwards;
-}
-
-/* Particles for anime magic effect */
-.card-particles {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 1;
-}
-
-.particle {
-  display: none;
-}
-
-@keyframes particleFloat {
-  0% {
-    transform: translateY(0) translateX(0);
-    opacity: 0;
-  }
-  20% {
-    opacity: 0.8;
-  }
-  80% {
-    opacity: 0.6;
-  }
-  100% {
-    transform: translateY(-20px) translateX(10px);
-    opacity: 0;
-  }
-}
-
-/* Lens flare animation */
-@keyframes lensFlareEffect {
-  0% {
-    opacity: 0;
-    transform: scale(0.5);
-  }
-  40% {
-    opacity: 0.9; /* Increased from 0.8 for better visibility */
-    transform: scale(1.3); /* Slightly larger for better effect */
-  }
-  100% {
-    opacity: 0;
-    transform: scale(2.5); /* Increased scale for more dramatic effect */
-  }
-}
-
-/* Staggered element animations for main content */
-.staggered-item {
-  opacity: 0;
-  transform: translateY(20px);
-}
-
-.staggered-item.active {
-  animation: staggeredEntrance 0.8s cubic-bezier(0.17, 0.84, 0.44, 1) forwards;
-}
-
-@keyframes staggeredEntrance {
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Enhance the parallax effect on hover */
-.welcome-card:hover .welcome-card-inner {
-  transition: transform 0.1s ease;
-}
-
-#continue-btn:hover {
-  transform: translateY(-3px) scale(1.05);
-  box-shadow: 0 10px 25px rgba(255, 106, 70, 0.5);
-  animation: buttonPulse 1.5s infinite alternate;
-}
-
-@keyframes buttonPulse {
-  0% {
-    box-shadow: 0 5px 15px rgba(255, 106, 70, 0.4);
-  }
-  100% {
-    box-shadow: 0 10px 30px rgba(255, 106, 70, 0.7);
-  }
-}
-
-/* For motion blur effect during animations */
-.motion-blur {
-  transition: filter 0.5s ease;
-}
-
-.motion-blur.active {
-  filter: blur(8px);
-}
-
-/* Rotate instruction styles */
+/* Enhance and make rotate instruction visible */
 .rotate-instruction {
   position: absolute;
-  top: calc(50% - 240px); /* Position above the card */
+  top: 15%; /* Position clearly above the card */
   left: 50%;
   transform: translateX(-50%);
-  display: flex;
+  display: flex !important; /* Force display */
   flex-direction: column;
   align-items: center;
   z-index: 10002;
@@ -762,15 +559,19 @@ body.welcome-active {
   animation: floatInstruction 3s ease-in-out infinite,
     fadeInInstruction 1s 1.5s forwards;
   opacity: 0;
+  width: 100%;
+  max-width: 200px;
 }
 
+/* Enhanced rotate instruction with pulsing outline/stroke effect */
 .rotate-text {
-  font-size: 18px;
+  font-size: 28px;
   color: var(--primary-color);
   font-weight: 600;
   letter-spacing: 1px;
-  text-shadow: 0 0 10px rgba(255, 106, 70, 0.7);
-  margin-bottom: 10px;
+  text-shadow: 0 0 20px rgba(255, 106, 70, 0.9), 0 0 5px rgba(255, 106, 70, 0.8),
+    0 0 1px rgba(255, 255, 255, 0.8); /* Add multi-layered text shadow for stroke effect */
+  margin-bottom: 15px;
   background: linear-gradient(
     to right,
     var(--primary-color),
@@ -780,13 +581,88 @@ body.welcome-active {
   -webkit-text-fill-color: transparent;
   background-clip: text;
   text-transform: uppercase;
+  animation: textPulse 3s infinite alternate; /* Add pulsing animation */
+  position: relative;
+}
+
+/* Add pseudo-element for stroke effect */
+.rotate-text::before {
+  content: "ROTATE ME!";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  text-shadow: 0 0 8px var(--primary-color), 0 0 10px var(--primary-color),
+    0 0 15px var(--primary-color);
+  -webkit-text-fill-color: transparent;
+  opacity: 0.7;
+  animation: textStrokePulse 4s infinite; /* Animate the stroke */
+  z-index: -1;
 }
 
 .rotate-arrow {
-  font-size: 22px;
+  font-size: 36px;
   color: var(--primary-color);
-  animation: rotateArrow 2s ease-in-out infinite;
-  text-shadow: 0 0 10px rgba(255, 106, 70, 0.7);
+  animation: rotateArrow 2s ease-in-out infinite,
+    arrowPulse 3s infinite alternate;
+  text-shadow: 0 0 20px rgba(255, 106, 70, 0.9), 0 0 5px rgba(255, 106, 70, 0.8),
+    0 0 1px rgba(255, 255, 255, 0.8); /* Match text shadow */
+  position: relative;
+}
+
+/* Arrow stroke effect */
+.rotate-arrow::before {
+  content: "↻";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  text-shadow: 0 0 8px var(--primary-color), 0 0 10px var(--primary-color),
+    0 0 15px var(--primary-color);
+  -webkit-text-fill-color: transparent;
+  opacity: 0.7;
+  animation: textStrokePulse 4s infinite; /* Animate the stroke */
+  z-index: -1;
+}
+
+/* Animation for text pulsing */
+@keyframes textPulse {
+  0% {
+    text-shadow: 0 0 5px rgba(255, 106, 70, 0.5),
+      0 0 10px rgba(255, 106, 70, 0.3), 0 0 15px rgba(255, 106, 70, 0.1);
+  }
+  100% {
+    text-shadow: 0 0 10px rgba(255, 106, 70, 0.9),
+      0 0 20px rgba(255, 106, 70, 0.7), 0 0 30px rgba(255, 106, 70, 0.5);
+  }
+}
+
+/* Animation for stroke pulsing */
+@keyframes textStrokePulse {
+  0%,
+  100% {
+    opacity: 0.2;
+    text-shadow: 0 0 4px var(--primary-color), 0 0 8px var(--primary-color);
+  }
+  50% {
+    opacity: 0.9;
+    text-shadow: 0 0 8px var(--primary-color), 0 0 15px var(--primary-color),
+      0 0 20px var(--primary-color);
+  }
+}
+
+/* Animation for arrow pulsing */
+@keyframes arrowPulse {
+  0% {
+    text-shadow: 0 0 5px rgba(255, 106, 70, 0.5),
+      0 0 10px rgba(255, 106, 70, 0.3), 0 0 15px rgba(255, 106, 70, 0.1);
+  }
+  100% {
+    text-shadow: 0 0 10px rgba(255, 106, 70, 0.9),
+      0 0 20px rgba(255, 106, 70, 0.7), 0 0 30px rgba(255, 106, 70, 0.5);
+  }
 }
 
 @keyframes rotateArrow {
@@ -795,7 +671,7 @@ body.welcome-active {
     transform: rotate(0deg) scale(1);
   }
   50% {
-    transform: rotate(180deg) scale(1.2);
+    transform: rotate(180deg) scale(1.5); /* More dramatic animation */
   }
 }
 
@@ -853,112 +729,164 @@ body.welcome-active {
   .welcome-card {
     cursor: move; /* Change cursor to indicate it's movable */
   }
+
+  /* Ensure rotate instruction is visible on mobile */
+  .rotate-instruction {
+    top: 10%; /* Position higher on mobile screens */
+    max-width: 180px;
+    display: flex !important; /* Double ensure it's displayed */
+  }
+
+  .rotate-text {
+    font-size: 22px;
+  }
+
+  .rotate-arrow {
+    font-size: 28px;
+  }
 }
 
 /* Improve mobile welcome card */
 @media (max-width: 480px) {
   .welcome-card {
-    max-width: 85%; /* Slightly narrower to provide more margin */
-    min-height: 400px;
+    max-width: 95%; /* Increase width to take up more space on mobile */
+    min-height: 450px; /* Ensure enough height for content */
     height: auto;
+    margin: 0 auto; /* Center the card */
+  }
+
+  .welcome-card-inner {
+    width: 100%; /* Ensure inner card takes full width */
   }
 
   .welcome-card-front,
   .welcome-card-back {
-    padding: 25px 15px 40px; /* More bottom padding for the button */
+    padding: 25px 20px 45px; /* Increase padding for better content spacing */
+    width: 100%;
+    box-sizing: border-box;
   }
 
   /* Make text more legible */
   .welcome-card h2 {
-    font-size: 20px;
-    margin-bottom: 12px;
+    font-size: 22px;
+    margin-bottom: 15px;
+    width: 100%;
+    text-align: center;
   }
 
   .welcome-card p {
-    font-size: 14px;
-    margin-bottom: 15px;
+    font-size: 15px;
+    margin-bottom: 20px;
     line-height: 1.5;
+    width: 100%;
+    text-align: center;
   }
 
   /* Optimize badge display */
   .card-badges {
     gap: 8px;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
+    width: 100%;
+    justify-content: center;
   }
 
   .card-badge {
-    padding: 6px 10px;
-    font-size: 12px;
+    padding: 6px 12px;
+    font-size: 13px;
   }
 
-  /* Make buttons more tappable */
+  /* Make profile image more prominent */
+  .welcome-profile-img {
+    width: 90px;
+    height: 90px;
+    margin-bottom: 18px;
+  }
+
+  /* Make buttons more tappable and prominent */
   #continue-btn {
-    padding: 14px 30px;
-    margin-top: 20px;
+    padding: 14px 35px;
+    margin-top: 25px;
     font-size: 16px;
     width: 80%;
+    max-width: 220px;
   }
 
-  /* Make rotation controls more visible and tappable */
+  /* Fix flip card hint position */
+  .flip-card-hint {
+    font-size: 13px;
+    bottom: 15px;
+  }
+
+  /* Fix experience items on back of card */
+  .experience-item {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+
+  .experience-item .year {
+    width: 45px; /* Fixed width for year column */
+    margin-right: 15px;
+  }
+
+  .experience-item .role {
+    font-size: 14px;
+    flex: 1;
+  }
+
+  /* Fix rotation controls position */
   .rotation-controls-container {
     bottom: 15px;
   }
 
-  .rotation-controls {
-    padding: 10px;
-    gap: 12px;
-  }
-
-  .axis {
-    width: 30px;
-    height: 30px;
-    font-size: 14px;
-  }
-
-  .reset-view {
-    padding: 8px 12px;
-    font-size: 14px;
-  }
-
-  /* Position rotate instructions better */
+  /* Fix rotate instruction */
   .rotate-instruction {
-    top: 80px;
+    top: 60px;
   }
 
   .rotate-text {
     font-size: 20px;
-  }
-
-  .rotate-arrow {
-    font-size: 24px;
-  }
-
-  /* Make flip card hint more visible */
-  .flip-card-hint {
-    font-size: 13px;
-    bottom: 12px;
   }
 }
 
 /* Extra small devices */
 @media (max-width: 360px) {
   .welcome-card {
-    min-height: 380px;
+    max-width: 98%;
+    min-height: 420px;
   }
 
   .welcome-card-front,
   .welcome-card-back {
-    padding: 20px 12px 35px;
+    padding: 20px 15px 40px;
+  }
+
+  .welcome-card h2 {
+    font-size: 20px;
+  }
+
+  .welcome-card p {
+    font-size: 14px;
+    margin-bottom: 15px;
+  }
+
+  .card-badges {
+    margin-bottom: 20px;
+  }
+
+  .card-badge {
+    padding: 5px 10px;
+    font-size: 12px;
   }
 
   .welcome-profile-img {
-    width: 70px;
-    height: 70px;
-    margin-bottom: 12px;
+    width: 80px;
+    height: 80px;
+    margin-bottom: 15px;
   }
 
   #continue-btn {
     width: 90%;
+    padding: 12px 25px;
   }
 }
 
@@ -977,4 +905,117 @@ body.welcome-active {
     padding: 10px 25px;
     font-size: 14px;
   }
+}
+
+.continue-btn {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  margin-top: 15px;
+  z-index: 5;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  pointer-events: auto;
+  opacity: 0;
+  animation: contentFadeIn 0.8s 1.4s ease forwards;
+  position: relative;
+  overflow: hidden;
+}
+
+.continue-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: 0.5s;
+}
+
+.continue-btn:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 7px 20px rgba(255, 106, 70, 0.4);
+  letter-spacing: 0.5px;
+}
+
+.continue-btn:hover::before {
+  left: 100%;
+}
+
+.continue-btn:active {
+  transform: translateY(0) scale(0.98);
+  box-shadow: 0 3px 10px rgba(255, 106, 70, 0.4);
+}
+
+/* Style the new flip button */
+.flip-btn {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  margin-top: 15px;
+  z-index: 5;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  pointer-events: auto;
+  opacity: 0;
+  animation: contentFadeIn 0.8s 1.4s ease forwards;
+  position: relative;
+  overflow: hidden;
+}
+
+.flip-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: 0.5s;
+}
+
+.flip-btn:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 7px 20px rgba(255, 106, 70, 0.4);
+  letter-spacing: 0.5px;
+}
+
+.flip-btn:hover::before {
+  left: 100%;
+}
+
+.flip-btn:active {
+  transform: translateY(0) scale(0.98);
+  box-shadow: 0 3px 10px rgba(255, 106, 70, 0.4);
 }

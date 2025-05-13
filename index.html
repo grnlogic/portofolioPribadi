@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta
       name="viewport"
-      content="width=device-width, initial-scale=1.0, minimum-scale=1.0"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
     />
     <title>Fajar Geran's Portfolio</title>
 
@@ -49,6 +49,9 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/anime-projects.css" />
+
+    <!-- Add mobile fixes last to override other styles -->
+    <link rel="stylesheet" href="css/mobile-fixes.css" />
   </head>
   <body>
     <!-- Welcome Card Overlay -->
@@ -63,12 +66,6 @@
       </div>
 
       <!-- Remove performance toggle button -->
-
-      <!-- Add rotate instruction above the card -->
-      <div class="rotate-instruction">
-        <div class="rotate-text">Rotate Me!</div>
-        <div class="rotate-arrow">↻</div>
-      </div>
 
       <div class="welcome-card">
         <div class="welcome-card-inner">
@@ -92,13 +89,13 @@
               <span class="card-badge">Cybersecurity</span>
             </div>
 
-            <button id="continue-btn" aria-label="Continue to portfolio">
-              Continue
+            <button class="flip-btn" aria-label="Flip to see experience">
+              See Experience
             </button>
-            <div class="flip-card-hint">Click card to flip</div>
+            <div class="flip-card-hint">Click to see my experience</div>
           </div>
 
-          <!-- Back of the card -->
+          <!-- Back of the card with Experience -->
           <div class="welcome-card-back">
             <button class="back-btn">↩</button>
             <h2>Experience</h2>
@@ -123,33 +120,10 @@
               <div class="role">Student at Siliwangi University</div>
             </div>
 
-            <button id="continue-btn" aria-label="Continue to portfolio">
+            <button class="continue-btn" aria-label="Continue to portfolio">
               Continue
             </button>
           </div>
-        </div>
-      </div>
-
-      <!-- Rotation controls moved outside the card -->
-      <div class="rotation-controls-container">
-        <div class="rotation-controls">
-          <button class="rotation-btn rotate-left">⟲</button>
-          <div class="rotation-sphere" id="rotation-sphere"></div>
-          <button class="rotation-btn rotate-right">⟳</button>
-          <div class="rotation-indicator">0°</div>
-        </div>
-      </div>
-
-      <!-- Rotation controls moved outside the card -->
-      <div class="rotation-controls-container">
-        <div class="rotation-controls">
-          <div class="rotation-indicator">X: 0° Y: 0° Z: 0°</div>
-          <div class="axis-indicator">
-            <div class="axis axis-x">X</div>
-            <div class="axis axis-y">Y</div>
-            <div class="axis axis-z">Z</div>
-          </div>
-          <button class="reset-view">Reset View</button>
         </div>
       </div>
     </div>
