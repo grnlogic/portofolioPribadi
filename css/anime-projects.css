@@ -591,6 +591,38 @@
 @media (max-width: 768px) {
   .projects-grid {
     grid-template-columns: 1fr;
+    gap: 25px;
+    padding: 0;
+  }
+
+  .project-card {
+    max-width: 100%;
+    margin: 0;
+  }
+
+  .project-actions {
+    flex-direction: row;
+    width: 100%;
+  }
+
+  .project-button {
+    flex: 1;
+    text-align: center;
+    padding: 12px 10px; /* Larger touch target */
+  }
+
+  .modal-container {
+    width: 95%;
+    max-height: 80vh;
+  }
+
+  .project-detail-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr;
     gap: 30px;
   }
 
@@ -613,6 +645,22 @@
 }
 
 @media (max-width: 480px) {
+  .project-thumbnail {
+    height: 160px;
+  }
+
+  .project-info {
+    padding: 15px;
+  }
+
+  .modal-content {
+    padding: 15px;
+  }
+
+  .modal-header {
+    padding: 15px;
+  }
+
   .project-thumbnail {
     height: 180px;
   }

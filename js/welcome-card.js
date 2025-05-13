@@ -114,6 +114,56 @@ document.addEventListener("DOMContentLoaded", function () {
       welcomeCard.style.cursor = "grab";
     });
 
+    // ADD TOUCH EVENT HANDLERS FOR MOBILE DEVICES
+    welcomeCard.addEventListener(
+      "touchstart",
+      function (e) {
+        // Don't start drag on buttons
+        if (e.target.tagName === "BUTTON" || e.target.closest("button")) {
+          return;
+        }
+
+        // Prevent scrolling while rotating
+        e.preventDefault();
+
+        isDragging = true;
+        previousMousePosition = {
+          x: e.touches[0].clientX,
+          y: e.touches[0].clientY,
+        };
+      },
+      { passive: false }
+    );
+
+    document.addEventListener(
+      "touchmove",
+      function (e) {
+        if (!isDragging) return;
+
+        // Calculate touch movement deltas
+        const deltaX = e.touches[0].clientX - previousMousePosition.x;
+        const deltaY = e.touches[0].clientY - previousMousePosition.y;
+
+        // Update rotation based on touch movement (inverted Y for natural feeling)
+        rotation.y += deltaX * sensitivity;
+        rotation.x -= deltaY * sensitivity; // Invert for natural tilt
+
+        // Apply new rotation
+        applyRotation();
+
+        // Update previous position
+        previousMousePosition = {
+          x: e.touches[0].clientX,
+          y: e.touches[0].clientY,
+        };
+      },
+      { passive: true }
+    );
+
+    document.addEventListener("touchend", function () {
+      isDragging = false;
+    });
+
     // Handle rotation axis buttons
     const xAxisBtn = document.querySelector(".axis-x");
     const yAxisBtn = document.querySelector(".axis-y");
@@ -326,11 +376,15 @@ document.addEventListener("DOMContentLoaded", function () {
           fill: "forwards",
         });
 
-        // When exit animation is 60% complete, activate lens flare (skip on low-end devices)
-        if (!isLowPerfDevice) {
-          setTimeout(() => {
-            lensFlare.classList.add("active");
-          }, 800);
+        // When exit animation is 60% complete, activate lens flare
+        // MODIFY THIS SECTION TO IMPROVE LENS FLARE ON MOBILE
+        if (!isLowPerfDevice || window.forceLensFlare) {
+          setTimeout(
+            () => {
+              lensFlare.classList.add("active");
+            },
+            isLowPerfDevice ? 400 : 800
+          );
         }
 
         // After animation finishes, move to main content

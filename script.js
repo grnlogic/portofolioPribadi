@@ -263,3 +263,23 @@ function applyTranslations(language) {
     thanks: translationObj.maintenance_thanks,
   };
 }
+
+// In the existing script tag at the bottom of the file
+function togglePerformance() {
+  const btn = document.querySelector(".performance-toggle");
+  const newMode = window.togglePerformanceMode
+    ? window.togglePerformanceMode()
+    : "low";
+
+  if (newMode === "low") {
+    btn.textContent = "✨ Quality Mode";
+    btn.style.backgroundColor = "rgba(15, 23, 42, 0.7)";
+    // Disable lens flare
+    window.forceLensFlare = false;
+  } else {
+    btn.textContent = "🚀 Performance Mode";
+    btn.style.backgroundColor = "rgba(15, 23, 42, 0.85)";
+    // Force enable lens flare effect even on mobile
+    window.forceLensFlare = true;
+  }
+}

@@ -643,7 +643,7 @@ body.welcome-active {
   opacity: 1;
   background: radial-gradient(
     circle at center,
-    rgba(255, 255, 255, 0.9),
+    rgba(255, 255, 255, 0.95),
     rgba(255, 255, 255, 0)
   );
   animation: lensFlareEffect 1.5s ease-out forwards;
@@ -688,12 +688,12 @@ body.welcome-active {
     transform: scale(0.5);
   }
   40% {
-    opacity: 0.8;
-    transform: scale(1.2);
+    opacity: 0.9; /* Increased from 0.8 for better visibility */
+    transform: scale(1.3); /* Slightly larger for better effect */
   }
   100% {
     opacity: 0;
-    transform: scale(2);
+    transform: scale(2.5); /* Increased scale for more dramatic effect */
   }
 }
 
@@ -845,5 +845,93 @@ body.welcome-active {
   100% {
     opacity: 0;
     visibility: hidden;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Adjust rotation sensitivity for touch devices */
+  .welcome-card {
+    cursor: move; /* Change cursor to indicate it's movable */
+  }
+}
+
+/* Improve mobile welcome card */
+@media (max-width: 480px) {
+  .welcome-card {
+    max-width: 95%;
+    height: auto;
+    min-height: 380px;
+  }
+
+  .welcome-card-front,
+  .welcome-card-back {
+    padding: 25px 15px;
+  }
+
+  /* Adjust content for better spacing */
+  .welcome-card h2 {
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+
+  .welcome-card p {
+    font-size: 13px;
+    margin-bottom: 15px;
+  }
+
+  /* Improve badge display */
+  .card-badges {
+    gap: 6px;
+    margin-bottom: 15px;
+  }
+
+  .card-badge {
+    padding: 4px 8px;
+    font-size: 11px;
+  }
+
+  /* Rotation controls for touch devices */
+  .rotation-controls {
+    padding: 8px 15px;
+    gap: 10px;
+  }
+
+  .axis {
+    width: 20px;
+    height: 20px;
+    font-size: 12px;
+  }
+
+  /* Better position for controls */
+  .rotation-controls-container {
+    bottom: 15px;
+  }
+
+  /* Adjust flip hint text */
+  .flip-card-hint {
+    font-size: 11px;
+    bottom: 10px;
+  }
+
+  /* Adjust rotate instruction position */
+  .rotate-instruction {
+    top: calc(50% - 200px);
+  }
+}
+
+/* Smallest screen optimization */
+@media (max-width: 360px) {
+  .welcome-card {
+    min-height: 360px;
+  }
+
+  .welcome-profile-img {
+    width: 70px;
+    height: 70px;
+  }
+
+  #continue-btn {
+    padding: 10px 25px;
+    font-size: 14px;
   }
 }

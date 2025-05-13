@@ -1415,6 +1415,66 @@ footer {
   .btn {
     padding: 12px 15px; /* Larger touch targets */
   }
+
+  .container {
+    width: 100%;
+    padding: 0 15px;
+    max-width: 100%;
+  }
+
+  /* Fix project card alignment */
+  .project-card {
+    max-width: 100%;
+  }
+
+  /* Adjust section padding for better spacing */
+  section {
+    padding: 60px 0;
+  }
+
+  /* Fix overflow issues in grid layouts */
+  .skills-grid,
+  .services-grid,
+  .projects-grid,
+  .testimonials-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    width: 100%;
+    padding: 0;
+  }
+
+  /* Fix about section layout */
+  .about-card {
+    padding: 20px;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .about-content {
+    padding: 20px 0 0;
+    width: 100%;
+  }
+
+  /* Make images responsive */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Improve header spacing */
+  header .container {
+    padding: 0 10px;
+  }
+
+  .logo h1 {
+    font-size: 18px; /* Smaller logo text */
+  }
+
+  /* Fix footer content */
+  .footer-content {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
 }
 
 @media (max-width: 480px) {
@@ -1500,6 +1560,51 @@ footer {
     padding: 8px 15px;
     font-size: 14px;
   }
+
+  /* Improve form elements on mobile */
+  .form-group input,
+  .form-group textarea,
+  .newsletter-form input,
+  .btn {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Fix testimonial cards */
+  .testimonial-card {
+    padding: 15px;
+  }
+
+  /* Adjust font sizes for readability */
+  .section-title {
+    font-size: 24px;
+  }
+
+  .about-heading {
+    font-size: 22px;
+  }
+
+  /* Make about info more readable */
+  .about-info {
+    grid-template-columns: 1fr;
+  }
+
+  /* Fix button alignment */
+  .about-btns {
+    flex-direction: column;
+  }
+
+  .about-btns .btn {
+    width: 100%;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  /* Fix overflow in project sections */
+  .project-tech,
+  .project-actions {
+    flex-wrap: wrap;
+  }
 }
 
 /* Extra small devices */
@@ -1526,6 +1631,37 @@ footer {
 
   .header-cta .btn {
     padding: 6px 12px;
+  }
+}
+
+/* Fix for smaller screens like iPhone SE */
+@media (max-width: 375px) {
+  .logo {
+    max-width: 150px;
+  }
+
+  .header-cta .btn {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+
+  /* Fix container padding */
+  .container {
+    padding: 0 10px;
+  }
+
+  /* Fix skill items */
+  .skill-item {
+    padding: 15px 10px;
+  }
+
+  /* Adjust heading for small screens */
+  .about-header {
+    padding: 100px 0 30px;
+  }
+
+  .about-header h1 {
+    font-size: 22px;
   }
 }
 
