@@ -1475,6 +1475,80 @@ footer {
     grid-template-columns: 1fr;
     text-align: center;
   }
+
+  /* Fix header layout to contain hamburger button properly */
+  header .container {
+    width: 100%;
+    max-width: 100%;
+    padding: 0 15px;
+    box-sizing: border-box;
+    justify-content: space-between;
+  }
+  
+  /* Ensure mobile menu button stays in place */
+  .mobile-menu-btn {
+    position: relative;
+    z-index: 210;
+    margin-left: auto; /* Push button to right side */
+  }
+  
+  /* Fix mobile navigation positioning */
+  nav {
+    position: fixed;
+    top: 0;
+    right: -100%; /* Start off-screen */
+    width: 80%; /* Limit width to prevent overflow */
+    max-width: 300px; /* Prevent overly wide menu */
+    height: 100vh;
+    background-color: var(--card-bg);
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+    transition: right 0.3s ease;
+    z-index: 200;
+    padding: 80px 0 30px;
+    overflow-y: auto; /* Allow scrolling if menu is tall */
+    overflow-x: hidden; /* Prevent horizontal scroll */
+  }
+  
+  /* Active state positioning */
+  nav.active {
+    right: 0;
+  }
+  
+  /* Ensure overlay covers entire screen */
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw; /* Use viewport width */
+    height: 100vh; /* Use viewport height */
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 100; /* Below nav but above content */
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+  }
+  
+  /* Better body control when menu is open */
+  body.no-scroll {
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    position: fixed; /* Prevent background scroll on iOS */
+  }
+  
+  /* Fix right padding issue on mobile */
+  html, body {
+    overflow-x: hidden; /* Prevent horizontal scroll at all times */
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  /* Fix main content to stay within viewport */
+  #main-content {
+    width: 100%;
+    overflow-x: hidden;
+    box-sizing: border-box;
+  }
 }
 
 @media (max-width: 480px) {

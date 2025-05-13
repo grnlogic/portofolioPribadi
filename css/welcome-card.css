@@ -858,14 +858,14 @@ body.welcome-active {
 /* Improve mobile welcome card */
 @media (max-width: 480px) {
   .welcome-card {
-    max-width: 85%;  /* Slightly narrower to provide more margin */
+    max-width: 85%; /* Slightly narrower to provide more margin */
     min-height: 400px;
     height: auto;
   }
 
   .welcome-card-front,
   .welcome-card-back {
-    padding: 25px 15px 40px;  /* More bottom padding for the button */
+    padding: 25px 15px 40px; /* More bottom padding for the button */
   }
 
   /* Make text more legible */
@@ -885,12 +885,12 @@ body.welcome-active {
     gap: 8px;
     margin-bottom: 20px;
   }
-  
+
   .card-badge {
     padding: 6px 10px;
     font-size: 12px;
   }
-  
+
   /* Make buttons more tappable */
   #continue-btn {
     padding: 14px 30px;
@@ -903,36 +903,36 @@ body.welcome-active {
   .rotation-controls-container {
     bottom: 15px;
   }
-  
+
   .rotation-controls {
     padding: 10px;
     gap: 12px;
   }
-  
+
   .axis {
     width: 30px;
     height: 30px;
     font-size: 14px;
   }
-  
+
   .reset-view {
     padding: 8px 12px;
     font-size: 14px;
   }
-  
+
   /* Position rotate instructions better */
   .rotate-instruction {
     top: 80px;
   }
-  
+
   .rotate-text {
     font-size: 20px;
   }
-  
+
   .rotate-arrow {
     font-size: 24px;
   }
-  
+
   /* Make flip card hint more visible */
   .flip-card-hint {
     font-size: 13px;
@@ -945,7 +945,7 @@ body.welcome-active {
   .welcome-card {
     min-height: 380px;
   }
-  
+
   .welcome-card-front,
   .welcome-card-back {
     padding: 20px 12px 35px;
@@ -956,7 +956,7 @@ body.welcome-active {
     height: 70px;
     margin-bottom: 12px;
   }
-  
+
   #continue-btn {
     width: 90%;
   }

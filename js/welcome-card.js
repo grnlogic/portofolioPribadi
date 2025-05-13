@@ -120,8 +120,8 @@ document.addEventListener("DOMContentLoaded", function () {
       function (e) {
         // Don't start drag on buttons or badge elements
         if (
-          e.target.tagName === "BUTTON" || 
-          e.target.closest("button") || 
+          e.target.tagName === "BUTTON" ||
+          e.target.closest("button") ||
           e.target.classList.contains("card-badge")
         ) {
           return;
@@ -386,9 +386,12 @@ document.addEventListener("DOMContentLoaded", function () {
         // When exit animation is 60% complete, activate lens flare
         // Remove the forceLensFlare check and simplify
         if (!isLowPerfDevice) {
-          setTimeout(() => {
-            lensFlare.classList.add("active");
-          }, isLowPerfDevice ? 400 : 800);
+          setTimeout(
+            () => {
+              lensFlare.classList.add("active");
+            },
+            isLowPerfDevice ? 400 : 800
+          );
         }
 
         // After animation finishes, move to main content

@@ -56,15 +56,34 @@ document.addEventListener("DOMContentLoaded", function () {
     mobileMenuBtn.classList.toggle("active");
     nav.classList.toggle("active");
     overlay.classList.toggle("active");
-    document.body.classList.toggle("no-scroll"); // Prevent background scroll
+    
+    // Better body scroll locking
+    if (nav.classList.contains("active")) {
+      // Save current scroll position
+      const scrollY = window.scrollY;
+      document.body.classList.add("no-scroll");
+      // Maintain scroll position to prevent content jump
+      document.body.style.top = `-${scrollY}px`;
+    } else {
+      // Restore scroll position
+      const scrollY = parseInt(document.body.style.top || '0', 10) * -1;
+      document.body.classList.remove("no-scroll");
+      document.body.style.top = '';
+      window.scrollTo(0, scrollY);
+    }
   });
 
-  // Close menu when overlay is clicked
+  // Ensure when clicking overlay, we properly restore scroll
   overlay.addEventListener("click", function () {
-    mobileMenuBtn.classList.remove("active");
-    nav.classList.remove("active");
-    overlay.classList.remove("active");
-    document.body.classList.remove("no-scroll");
+    if (nav.classList.contains("active")) {
+      const scrollY = parseInt(document.body.style.top || '0', 10) * -1;
+      mobileMenuBtn.classList.remove("active");
+      nav.classList.remove("active");
+      overlay.classList.remove("active");
+      document.body.classList.remove("no-scroll");
+      document.body.style.top = '';
+      window.scrollTo(0, scrollY);
+    }
   });
 
   // Close menu when a nav link is clicked
