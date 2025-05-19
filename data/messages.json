@@ -1,0 +1,11 @@
+[
+    {
+        "id": 1,
+        "name": "quantm",
+        "email": "237006079@student.unsil.ac.id",
+        "subject": "Failed to retrieve factors",
+        "message": "test",
+        "created_at": "2025-05-19 17:26:24",
+        "is_read": false
+    }
+]

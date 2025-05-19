@@ -1,0 +1,22 @@
+server {
+    listen 80;
+    server_name localhost;  # Ganti dengan domain Anda jika ada
+
+    root /var/www/html/portfolio;  # Lokasi folder portfolio Anda
+    index index.php index.html index.htm;
+
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    # Konfigurasi untuk menangani file PHP
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/var/run/php/php8.1-fpm.sock;  # Sesuaikan dengan versi PHP Anda
+    }
+
+    # Deny access to .htaccess files
+    location ~ /\.ht {
+        deny all;
+    }
+}
